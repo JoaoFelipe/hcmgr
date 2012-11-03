@@ -32,5 +32,6 @@ string SymbolEntry::unification(SubstitutionList & substitution_list) const {
 	} else {
 		string result = ts->text() + "/";
 		result += text();
+		return result;
 	}
 }
