@@ -12,7 +12,6 @@
 using namespace std;
 
 void process(string& filename){
-	vector<HornClause> horn_clauses;
 	SymbolTable table;
 	Parser parser;
 	parser.open(filename);
@@ -24,7 +23,6 @@ void process(string& filename){
 				parser.next_line();
 			} else {
 				hc->fill_symbol_table(table);
-				horn_clauses.push_back(*hc);
 			}
 
 			delete hc;
