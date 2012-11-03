@@ -13,11 +13,13 @@ class Body
 private:
 	vector<Predicate> _predicates; 
 public:
-    Body(vector<Predicate>& p);
-	Body(Body& b);
+    Body(const vector<Predicate>& p);
+	Body(const Body& b);
  
 	void predicates(vector<Predicate>& p);
- 	vector<Predicate>& predicates();
+ 	vector<Predicate> predicates() const;
+
+	void fill_symbol_table(SymbolTable & table) const;
 
 	int size() const;
 

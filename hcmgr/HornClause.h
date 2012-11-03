@@ -4,6 +4,7 @@
 #include <vector>
 #include "body.h"
 #include "head.h"
+#include "SymbolTable.h"
 #include <ostream>
 #include <iostream>
 
@@ -15,17 +16,19 @@ private:
 	Head _head;
 	Body * _body;  
 public:
-	HornClause(Head & h);
-	HornClause(Head & h, Body & b);
+	HornClause(const Head & h);
+	HornClause(const Head & h, const Body & b);
 	HornClause(const HornClause & hc);
 	~HornClause();
-	HornClause & operator= (HornClause & other);
+	HornClause & operator=(const HornClause & other);
 
-	void head(Head & h);
- 	Head & head();
+	void fill_symbol_table(SymbolTable & table) const;
 
-	void body(Body & b);
- 	Body & body();
+	void head(const Head & h);
+ 	Head head() const;
+
+	void body(const Body & b);
+ 	Body body() const;
 
 	void print(ostream & = cout) const; 
 

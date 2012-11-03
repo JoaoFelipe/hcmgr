@@ -1,14 +1,14 @@
 #include "stdafx.h"
 #include "Name.h"
 
-Name::Name(string& v): _value(v) {}
+Name::Name(const string& v): _value(v) {}
 Name::Name(const Name& n) : _value(n._value) {}
 
-void Name::value(string& v) {
+void Name::value(const string& v) {
 	_value = v;
 }
 
-string& Name::value() {
+string Name::value() const {
 	return _value;
 }
 

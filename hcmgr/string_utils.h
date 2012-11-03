@@ -6,9 +6,9 @@
 
 using namespace std; 
 
-int is_lower (char c);
-int is_upper (char c);
-int is_number (char c);
-bool check_string(string & str, int (*checker)(char));
+int is_lower (const char c);
+int is_upper (const char c);
+int is_number (const char c);
+bool check_string(const string & str, int (*checker)(const char));
 
 #endif

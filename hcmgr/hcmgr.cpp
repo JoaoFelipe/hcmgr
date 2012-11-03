@@ -29,10 +29,6 @@ int main(int argc, char * argv[])
 	try{
 		check_arguments(argc, argv, filename);
 		process(filename);
-
-
-
-
 	} catch (int exception){
 		switch (exception)
 		{

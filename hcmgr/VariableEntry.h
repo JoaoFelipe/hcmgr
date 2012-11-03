@@ -10,9 +10,14 @@ using namespace std;
 
 class VariableEntry : public SymbolEntry {
 public:
-	VariableEntry(string & l);
+	VariableEntry(const string & l);
+	VariableEntry(const VariableEntry & other);
 	virtual SymbolTableEntry * clone() const;
 	bool operator==(const VariableEntry & other) const;
+	virtual string type() const;
+	virtual string text() const;
+	virtual bool is_variable() const;
+	virtual bool is_constant() const;
 private:
 	string _label;
 };

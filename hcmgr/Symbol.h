@@ -4,6 +4,7 @@
 #include <string>
 #include <ostream>
 #include <iostream>
+#include "SymbolTableEntry.h"
 
 using namespace std;
 
@@ -12,13 +13,17 @@ class Symbol
 private:
     string _value;
 public:
-    Symbol(string& v);
+    Symbol(const string& v);
 	Symbol(const Symbol& s);
  
-    void value(string& v);
-    string& value();
+    void value(const string& v);
+    string value() const;
+
+	string text() const;
 
 	void print(ostream & = cout) const; 
+
+	SymbolTableEntry * convertToSymbolTableEntry() const;
 };
  
 

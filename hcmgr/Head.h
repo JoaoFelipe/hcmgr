@@ -12,11 +12,13 @@ class Head
 private:
 	Predicate _predicate; 
 public:
-    Head(Predicate& p);
+    Head(const Predicate& p);
 	Head(const Head& h);
  
-	void predicate(Predicate& p);
- 	Predicate& predicate();
+	void predicate(const Predicate& p);
+ 	Predicate predicate() const;
+
+	void fill_symbol_table(SymbolTable & table) const;
 
 	void print(ostream & = cout) const; 
 };

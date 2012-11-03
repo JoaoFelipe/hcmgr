@@ -12,11 +12,11 @@ class Name
 private:
     string _value;
 public:
-    Name(string& v);
+    Name(const string& v);
 	Name(const Name& n);
  
-    void value(string& v);
-    string& value();
+    void value(const string& v);
+    string value() const;
 
 	void print(ostream & = cout) const; 
 };

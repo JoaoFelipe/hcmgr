@@ -86,9 +86,11 @@
     <ClInclude Include="Name.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="Predicate.h" />
+    <ClInclude Include="PredicateEntry.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="string_utils.h" />
+    <ClInclude Include="SubstitutionList.h" />
     <ClInclude Include="Symbol.h" />
     <ClInclude Include="SymbolEntry.h" />
     <ClInclude Include="SymbolTable.h" />
@@ -106,12 +108,15 @@
     <ClCompile Include="Name.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Predicate.cpp" />
+    <ClCompile Include="PredicateEntry.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="string_utils.cpp" />
+    <ClCompile Include="SubstitutionList.cpp" />
     <ClCompile Include="Symbol.cpp" />
+    <ClCompile Include="SymbolEntry.cpp" />
     <ClCompile Include="SymbolTable.cpp" />
     <ClCompile Include="SymbolTableEntry.cpp" />
     <ClCompile Include="VariableEntry.cpp" />
