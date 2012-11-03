@@ -63,7 +63,7 @@ void SymbolTable::unifications(ostream & output) const {
 							substs.print();
 							output << "  Unification (" << (*i)->unification(substs) << ") matches (" << (*j)->unification(substs) << ")" << endl << endl;
 						} else {
-							output << "(" << (*i)->text() << ") doens't match (" << (*j)->text() << ")" << endl << endl;
+							output << "(" << (*i)->text() << ") doesn't match (" << (*j)->text() << ")" << endl << endl;
 						}
 					}
 				}

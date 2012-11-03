@@ -1,40 +1,51 @@
-========================================================================
-    CONSOLE APPLICATION : hcmgr Project Overview
-========================================================================
 
-AppWizard has created this hcmgr application for you.
+:Structure of Symbol Table
+We have a class SymbolTable that has a vector of SymbolTableEntry
+The SymbolTableEntry can be a SymbolEntry or a PredicateEntry
+The SymbolEntry can be a VariableEntry that has a string field _label or a ConstantEntry that has an unsigned int field _value
+The PredicateEntry has a string field _name and a vector of pointers of SymbolTableEntry to indicate the symbols
 
-This file contains a summary of what you will find in each of the files that
-make up your hcmgr application.
+This structure allows us to easily identify the type os the entry in the table by virtual methods is_constant, is_variable, is_predicate and allows us to store different types of fields:
+-string for variables
+-unsigned int for constants
+-string and list of pointers to SymbolTableEntry for predicate
+
+:Unification
+To check if two predicates matches, we have the method matches in the predicates that receives another predicate and receives a class SubstitutionList that stores the substitutions of symbols 
+and finds recursively the substitution of a symbol (eg.: if we have the symbol X, and the substitutions Y/X 2/Y, the find method will return a pointer to the SymbolTableEntry 2)
+
+For checking in the matches method, we first check if both predicates have the same name and the same amount of symbols.
+Then, we iterates through the symbols:
+  first we try to find any substitutions for the current symbols in both predicates
+  if no substitutions are found, the original symbol are used.
+  Then we check if both substituted (or original) symbols are equals.
+  If they are, it iterates to the next symbol.
+  If not, we check:
+	Are both constants? If yes, the matching fails.
+	Are both variables? If yes, adds a substitution in the SubstitutionList for first variable (from current predicate) to the second variable (from predicate that is being matched)
+	Otherwise: adds a substitution in the SubstitutionList for the variable to the constant
+If nothing fails, the predicates match
+
+:Trials
 
 
-hcmgr.vcxproj
-    This is the main project file for VC++ projects generated using an Application Wizard.
-    It contains information about the version of Visual C++ that generated the file, and
-    information about the platforms, configurations, and project features selected with the
-    Application Wizard.
+:Extra Credit
+To check if there is no repetition of Predicates, we used the same idea of checking if there is no repetition of Variables and Constants
+Before adding any SymbolTableEntry to the SymbolTable, it iterates through all the SymbolTableEntry, trying to find one that has the same values returned by the virtual methods type() and text()
+The type() returns "Predicate", "Constant" or "Variable" depending on the type of the SymbolTableEntry. And the text() returns the _label, the _value or the _name followed by the text() of the SymbolTableEntry pointed by the Predicate
+If there is already one finded element, the adding fails and for the case of the Predicate, it shows a message:
 
-hcmgr.vcxproj.filters
-    This is the filters file for VC++ projects generated using an Application Wizard. 
-    It contains information about the association between the files in your project 
-    and the filters. This association is used in the IDE to show grouping of files with
-    similar extensions under a specific node (for e.g. ".cpp" files are associated with the
-    "Source Files" filter).
+$ hcmgr.exe process extra.txt
+The predicate (copy) was found in the symbol table. Skipping...
 
-hcmgr.cpp
-    This is the main application source file.
+The predicate (new 1 2) was found in the symbol table. Skipping...
 
-/////////////////////////////////////////////////////////////////////////////
-Other standard files:
+The predicate (new 1 2) was found in the symbol table. Skipping...
 
-StdAfx.h, StdAfx.cpp
-    These files are used to build a precompiled header (PCH) file
-    named hcmgr.pch and a precompiled types file named StdAfx.obj.
+copy
+new 1 2
+new 1 2 3
 
-/////////////////////////////////////////////////////////////////////////////
-Other notes:
+(new 1 2) doesn't match (new 1 2 3)
 
-AppWizard uses "TODO:" comments to indicate parts of the source code you
-should add to or customize.
-
-/////////////////////////////////////////////////////////////////////////////
+(new 1 2 3) doesn't match (new 1 2)
