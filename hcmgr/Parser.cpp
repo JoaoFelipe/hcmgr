@@ -1,3 +1,12 @@
+/**
+	Parser.cpp
+	Class name: Parser 
+	Written by: Amanda Silva and João Pimentel
+	For:		CSE 425 Lab 2 - Question 4 - Part 1
+	Purpose:    Implementation of the class Parser
+*/
+
+
 #include "stdafx.h"
 #include "Parser.h"
 #include "const.h"
@@ -5,8 +14,12 @@
 
 using namespace std; 
 
+//  @brief Parser() - Default Constructor of the Parser class - Initializes the variables with default values
 Parser::Parser(): _file_name(""), _current_line(""), _file(), _position(0) {}
 
+//  @brief Parser::open(const string & filename) - initializes the filename with a received parameter, opens it and initializes other variables with default values
+//  @param filename for the file with the tokens to be read
+//  @return void
 void Parser::open(const string & filename) {
 	_file_name = filename;
 	_file.open(filename.c_str());
@@ -14,18 +27,26 @@ void Parser::open(const string & filename) {
 	_position = 0;
 }
 
+//  @brief Parser::is_open() - verifies if the file is open
+//  @return bool
 bool Parser::is_open() const {
 	return _file.is_open();
 }
 
+//  @brief Parser::eof() - verifies if the parser reached the end of the file
+//  @return bool
 bool Parser::eof() const {
 	return _file.eof() && _position == _current_line.size();
 }
 
+//  @brief Parser::close() - closes the file
+//  @return void
 void Parser::close() {
 	_file.close();
 }
 
+//  @brief Parser::next_line() - if it is not the end of the file, it starts parsing the first position of the next possible line
+//  @return void
 void Parser::next_line() {
 	if (!_file.eof()) {
 		getline(_file, _current_line);
@@ -35,6 +56,9 @@ void Parser::next_line() {
 	}
 }
 
+//  @brief Parser::read_current(string & result) - reads current token ignoring line breaks. It stops when it finds something that is not alphanumeric, such as parenthesis  
+//  @param result is a reference to an empty string variable that will receive the value of the valid read token 
+//  @return void
 void Parser::read_current(string & result) {
 	unsigned int i = _position;
 	while (!eof() && result.size() == 0) {
@@ -56,6 +80,9 @@ void Parser::read_current(string & result) {
 	}
 }
 
+//  @brief Parser::next() - similar to read_current method logic, but it just moves the position to start reading the next token 
+//  @see Parser::read_current(string & result)
+//  @return void
 void Parser::next() {
 	string temp_result = "";
 	while (!eof() && temp_result.size() == 0) {
@@ -80,19 +107,24 @@ void Parser::next() {
 	}
 }
 	
-
+//  @brief Parser::check_left_parenthesis() - checks if the current token is a left parenthesis 
+//  @return bool
 bool Parser::check_left_parenthesis() {
 	string left_parenthesis;
 	read_current(left_parenthesis);
 	return (left_parenthesis == LEFTPAREN);
 }
 
+//  @brief Parser::check_right_parenthesis() - checks if the current token is a right parenthesis 
+//  @return bool
 bool Parser::check_right_parenthesis() {
 	string right_parenthesis;
 	read_current(right_parenthesis);
 	return (right_parenthesis == RIGHTPAREN); 
 }
 
+//  @brief Parser::check_label() - checks if the current token is a label (it is all uppercase or all lowercase)
+//  @return bool
 bool Parser::check_label() {
 	string label;
 	read_current(label);
@@ -107,16 +139,22 @@ bool Parser::check_label() {
 	return false;
 }
 
+//  @brief Parser::check_number() - checks if the current token is a number 
+//  @return bool
 bool Parser::check_number() {
 	string number;
 	read_current(number);
 	return check_string(number, is_number);
 }
 
+//  @brief Parser::check_symbol() - checks if the current token is a symbol (label or number)
+//  @return bool
 bool Parser::check_symbol() {
 	return check_label() || check_number();
 }
 
+//  @brief Parser::parse_horn_clause() - checks the Horn Clause syntax. If it is valid, it returns the Horn Clause, if not it returns 0. 
+//  @return HornClause *
 HornClause * Parser::parse_horn_clause() {
 	if (!check_left_parenthesis()) {
 		return 0;
@@ -153,6 +191,8 @@ HornClause * Parser::parse_horn_clause() {
 	return result;	
 }
 
+//  @brief Parser::parse_head() - checks the Head syntax. If it is valid, it returns the Head, if not it returns 0. 
+//  @return Head *
 Head * Parser::parse_head() {
 	Predicate * predicate = parse_predicate();
 	if (predicate == 0) {
@@ -164,6 +204,8 @@ Head * Parser::parse_head() {
 	return result;
 }
 
+//  @brief Parser::parse_predicate() - checks the Predicate syntax. If it is valid, it returns the Predicate, if not it returns 0. 
+//  @return Predicate *
 Predicate * Parser::parse_predicate() {
 	if (!check_left_parenthesis()) {
 		return 0;
@@ -195,6 +237,8 @@ Predicate * Parser::parse_predicate() {
 	return result;
 }
 
+//  @brief Parser::parse_name() - checks the Name syntax. If it is valid, it returns the Name, if not it returns 0. 
+//  @return Name *
 Name * Parser::parse_name() {
 	if (!check_label()) {
 		return 0;
@@ -205,6 +249,8 @@ Name * Parser::parse_name() {
 	return new Name(name);
 }
 
+//  @brief Parser::parse_symbols() - checks the Symbol syntax list. If it is valid, it returns the list if Symbols, if not it returns 0. 
+//  @return vector<Symbol> *
 vector<Symbol> * Parser::parse_symbols() {
 	vector<Symbol> * result = new vector<Symbol>();
 
@@ -225,6 +271,9 @@ vector<Symbol> * Parser::parse_symbols() {
 	return result;
 }
 
+
+//  @brief Parser::parse_body() - checks the Body syntax. If it is valid, it returns the Body, if not it returns 0. 
+//  @return Body *
 Body * Parser::parse_body() {
 	if (!check_left_parenthesis()) {
 		return 0;
