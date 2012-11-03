@@ -4,6 +4,7 @@
 #include <vector>
 #include "Name.h"
 #include "Symbol.h"
+#include "SymbolTable.h"
 #include <ostream>
 #include <iostream>
 
@@ -13,13 +14,15 @@ private:
 	Name _name;
 	vector<Symbol> _symbols; 
 public:
-    Predicate(Name& n, vector<Symbol>& s);
+    Predicate(const Name& n, const vector<Symbol>& s);
 	Predicate(const Predicate& p);
 
-    void name(Name& n);
-	void symbols(vector<Symbol>& s);
-    Name& name();
-	vector<Symbol>& symbols();
+    void name(const Name& n);
+	void symbols(const vector<Symbol>& s);
+    Name name() const;
+	vector<Symbol> symbols() const;
+
+	void fill_symbol_table(SymbolTable & table) const;
 
 	void print(ostream & = cout) const; 
 };

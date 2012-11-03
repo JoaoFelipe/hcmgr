@@ -1,12 +1,13 @@
-﻿Build started 11/2/2012 7:24:01 PM.
+﻿Build started 11/3/2012 3:00:29 PM.
      1>Project "C:\Users\Joao\projects\hcmgr\hcmgr\hcmgr.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\hcmgr.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt SymbolTable.cpp SymbolTableEntry.cpp
-         SymbolTableEntry.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\hcmgr.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Predicate.cpp PredicateEntry.cpp SymbolTable.cpp SymbolTableEntry.cpp
          SymbolTable.cpp
+         PredicateEntry.cpp
          Generating Code...
-       ResourceCompile:
-         C:\Program Files (x86)\Windows Kits\8.0\bin\x86\rc.exe /D _UNICODE /D UNICODE /l"0x0409" /nologo /fo"Debug\hcmgr.res" hcmgr.rc 
+         Skipping... (no relevant changes detected)
+         SymbolTableEntry.cpp
+         Predicate.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Joao\projects\hcmgr\Debug\hcmgr.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Joao\projects\hcmgr\Debug\hcmgr.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Joao\projects\hcmgr\Debug\hcmgr.lib" /MACHINE:X86 Debug\hcmgr.res
          Debug\Body.obj
@@ -18,9 +19,12 @@
          Debug\Name.obj
          Debug\Parser.obj
          Debug\Predicate.obj
+         Debug\PredicateEntry.obj
          Debug\stdafx.obj
          Debug\string_utils.obj
+         Debug\SubstitutionList.obj
          Debug\Symbol.obj
+         Debug\SymbolEntry.obj
          Debug\SymbolTable.obj
          Debug\SymbolTableEntry.obj
          Debug\VariableEntry.obj
@@ -29,4 +33,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:06.51
+Time Elapsed 00:00:06.38
