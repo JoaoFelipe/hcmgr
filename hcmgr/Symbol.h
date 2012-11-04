@@ -24,32 +24,32 @@ private:
 	string _value;
 public:
 
-//  @brief Symbol(const string& v) - Symbol class Constructor using a value reference as parameter 
-//  @param v - reference to string value	
+// @brief Symbol class Constructor using a value reference as parameter 
+// @param v - reference to string value	
     Symbol(const string& v);
 	
-//  @brief Symbol(const Symbol& s) - Symbol class Copy Constructor 
-//  @param s - reference to another Symbol		
+// @brief Symbol class Copy Constructor 
+// @param s - reference to another Symbol		
 	Symbol(const Symbol& s);
 
-//  @brief value(const string& v) - Setter to the Symbol value 
-//  @param v - reference to string value	
+// @brief Setter to the Symbol value 
+// @param v - reference to string value	
     void value(const string& v);
 
-//  @brief value() - Getter to the Symbol value 
-//  @return string 	
+// @brief Getter to the Symbol value 
+// @return string 	
     string value() const;
 
-//  @brief text() - Returns a text with the type and value of the Symbol 
-//  @return string 
+// @brief Returns a text with the type and value of the Symbol 
+// @return string 
 	string text() const;
 
-//  @brief print(ostream & output)  - Prints the Symbol according to the grammar syntax
-//  @param output - ostream
+// @brief Prints the Symbol according to the grammar syntax
+// @param output - ostream
 	void print(ostream & = cout) const; 
 
-//  @brief Symbol::convertToSymbolTableEntry()  - Converts the Symbol to a SymbolTableEntry
-//  @return SymbolTableEntry
+// @brief Converts the Symbol to a SymbolTableEntry
+// @return SymbolTableEntry
 	SymbolTableEntry * convertToSymbolTableEntry() const;
 };
  

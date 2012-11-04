@@ -13,20 +13,20 @@
 
 using namespace std; 
 
-//  @brief is_lower (const char c)  - Checks if the char is lowercase and alphanumeric
-//  @return int - returns zero if it is false
+// @brief Checks if the char is lowercase and alphanumeric
+// @return int - returns zero if it is false
 int is_lower (const char c);
 
-//  @brief is_upper (const char c)  - Checks if the char is uppercase and alphanumeric
-//  @return int - returns zero if it is false
+// @brief Checks if the char is uppercase and alphanumeric
+// @return int - returns zero if it is false
 int is_upper (const char c);
 
-//  @brief is_number (const char c)  - Checks if the char is numeric
-//  @return int - returns zero if it is false
+// @brief Checks if the char is numeric
+// @return int - returns zero if it is false
 int is_number (const char c);
 
-//  @brief check_string(const string & str, int (*checker)(const char)) - Applies a checker function to each character of the string
-//  @return bool 
+// @brief Applies a checker function to each character of the string
+// @return bool 
 bool check_string(const string & str, int (*checker)(const char));
 
 #endif

@@ -10,28 +10,28 @@
 #include "stdafx.h"
 #include "Name.h"
 
-//  @brief Name(const string& v) - Name class Constructor using a value string parameter
-//  @param v - reference to a string value
+// @brief Name class Constructor using a value string parameter
+// @param v - reference to a string value
 Name::Name(const string& v): _value(v) {}
 
-//  @brief Name(const Name& n) - Name class Copy Constructor
-//  @param n - reference to a name
+// @brief Name class Copy Constructor
+// @param n - reference to a name
 Name::Name(const Name& n) : _value(n._value) {}
 
-//  @brief value(const string& v) - Setter method to the Name value
-//  @param v - reference to a string value
+// @brief Setter method to the Name value
+// @param v - reference to a string value
 void Name::value(const string& v) {
 	_value = v;
 }
 
-//  @brief value() - Getter method to the Name value
-//  @return string
+// @brief Getter method to the Name value
+// @return string
 string Name::value() const {
 	return _value;
 }
 
-//  @brief print(ostream & output)  - Prints the Name value according to the grammar syntax
-//  @param output - ostream
+// @brief Prints the Name value according to the grammar syntax
+// @param output - ostream
 void Name::print(ostream & output) const {
 	output << _value;
 }

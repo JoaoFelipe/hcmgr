@@ -13,9 +13,9 @@
 #include <string>
 using namespace std; 
 
-//  @brief process(string& filename) - Manipulates the file to parse the Horn Clauses line by line
-//  @param filename
-//  @return int - 0 = SUCCESS
+// @brief Manipulates the file to parse the Horn Clauses line by line
+// @param filename
+// @return int - 0 = SUCCESS
 int process(string& filename);
 
 #endif

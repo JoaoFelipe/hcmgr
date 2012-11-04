@@ -23,24 +23,24 @@ private:
     string _value;
 public:
 
-//  @brief Name(const string& v) - Name class Constructor using a value string parameter
-//  @param v - reference to a string value
+// @brief Name class Constructor using a value string parameter
+// @param v - reference to a string value
     Name(const string& v);
 
-//  @brief Name(const Name& n) - Name class Copy Constructor
-//  @param n - reference to a name
+// @brief Name class Copy Constructor
+// @param n - reference to a name
 	Name(const Name& n);
  
-//  @brief value(const string& v) - Setter method to the Name value
-//  @param v - reference to a string value
+// @brief Setter method to the Name value
+// @param v - reference to a string value
     void value(const string& v);
 
-//  @brief value() - Getter method to the Name value
-//  @return string
+// @brief Getter method to the Name value
+// @return string
     string value() const;
 	
-//  @brief print(ostream & output)  - Prints the Name value according to the grammar syntax
-//  @param output - ostream
+// @brief Prints the Name value according to the grammar syntax
+// @param output - ostream
 	void print(ostream & = cout) const; 
 };
 
