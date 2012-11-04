@@ -2,26 +2,27 @@
 #include "stdafx.h"
 #include "SubstitutionList.h"
 #include "SymbolTableEntry.h"
+#include "const.h"
 
 SubstitutionList::SubstitutionList(): _substitutions() {}
 
 SymbolTableEntry * SubstitutionList::find(const SymbolTableEntry * entry) const {
-	SymbolTableEntry * current = 0;
+	SymbolTableEntry * current = NONE;
 	for (vector<pair<SymbolTableEntry *, SymbolTableEntry *>>::const_iterator i = _substitutions.begin(); i != _substitutions.end(); ++i) {
 		if (i->first == entry) {
 			current = i->second;
 			break;
 		}
 	}
-	if (current != 0) {
+	if (current != NONE) {
 		SymbolTableEntry * again = find(current);
-		if (again == 0) {
+		if (again == NONE) {
 			return current;
 		} else {
 			return again;
 		}
 	}
-	return 0;
+	return NONE;
 }
 
 void SubstitutionList::add(SymbolTableEntry * first, SymbolTableEntry * second) {

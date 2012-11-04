@@ -2,7 +2,7 @@
 #include "SymbolTable.h"
 #include "SymbolEntry.h"
 #include "PredicateEntry.h"
-//#include "SubstitutionList.h"
+#include "const.h"
 
 using namespace std;
 
@@ -32,7 +32,7 @@ SymbolTableEntry * SymbolTable::find(const string & value) const {
 			return *i;
 		}
 	}
-	return 0;
+	return NONE;
 }
 
 void SymbolTable::print(ostream & output) const {
