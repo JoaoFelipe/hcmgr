@@ -1,29 +1,44 @@
-// hcmgr.cpp : Defines the entry point for the console application.
-//
+/**
+  const.h 
+	Written by: Amanda Silva and João Pimentel
+	For:	    CSE 425 Lab 2
+	Purpose:    Entry point for the application (main) and checking if the arguments are correct
+*/
+
 #include "stdafx.h"
 #include "const.h"
 #include "hcprocess.h"
 #include <string>
 #include <iostream>
+
 using namespace std;
 
-
+//  @brief help_message(int argc, char * argv[]) - prints out a help message, passing the parameters received by main
+//  @param argc - number of arguments
+//  @param argv - array of arguments
 void help_message(int argc, char * argv[]) {
 	cout << "Usage information:" << endl;
-	cout << argv[0] << " process <filename>" << endl;
+	cout << argv[PROGRAM_NAME] << " process <filename>" << endl;
 	cout << "    <filename> is the file with input horn clauses" << endl;
 }
 
-// Function verifies if the paramters are valid
-int check_arguments(int argc, char * argv[], string& filename){	
-	if(argc != 3 || string(argv[1]) != "process"){
+//  @brief check_arguments(int argc, char * argv[], string& filename) - verifies if the program arguments are valid
+//  @param argc - number of arguments
+//  @param argv - array of arguments
+//  @param filename - empty string that will be assigned to the second argument.
+//  @return int indicating SUCCESS or ARGUMENT_ERROR
+int check_arguments(int argc, char * argv[], string & filename) {	
+	if(argc != TWO_PARAM || string(argv[OPERATION]) != "process"){
 		return ARGUMENT_ERROR;
 	}
-	filename += argv[2];
+	filename += argv[FILE_NAME];
 	return SUCCESS;
 }
 
-
+//  @brief int main(int argc, char * argv[]) - entry point for the application
+//  @param argc - number of arguments
+//  @param argv - array of arguments
+//  @return int indicating SUCCESS
 int main(int argc, char * argv[])
 {
 	string filename;

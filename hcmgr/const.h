@@ -38,4 +38,17 @@ const string LEFTPAREN = string("(");
 const string RIGHTPAREN = string(")");
 
 
+// Constant for program name argument position
+const int PROGRAM_NAME = 0;
+
+// Constant for program receiving two arguments (not considering the program name)
+const int TWO_PARAM = 3;
+
+// Constant for program operation argument (process)
+const int OPERATION = 1;
+
+// Constant for filename argument
+const int FILE_NAME = 2;
+
+
 #endif
