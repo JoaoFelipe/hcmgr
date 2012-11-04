@@ -15,39 +15,35 @@ void help_message(int argc, char * argv[]) {
 }
 
 // Function verifies if the paramters are valid
-void check_arguments(int argc, char * argv[], string& filename){	
+int check_arguments(int argc, char * argv[], string& filename){	
 	if(argc != 3 || string(argv[1]) != "process"){
-		throw ARGUMENT_ERROR;
+		return ARGUMENT_ERROR;
 	}
 	filename += argv[2];
+	return SUCCESS;
 }
 
 
 int main(int argc, char * argv[])
 {
 	string filename;
-	try{
-		check_arguments(argc, argv, filename);
-		process(filename);
-	} catch (int exception){
-		switch (exception)
-		{
-		case ARGUMENT_ERROR:
-			cout << "Invalid Argument format" << endl;
-			help_message(argc, argv);
-			break;
-		case OPEN_FILE_ERROR:
-			cout << "Unable to open file "<< filename << endl;
-			break;
 
-
-		default:
-			break;
-		}
-		
+	int check = check_arguments(argc, argv, filename);
+	if (check == ARGUMENT_ERROR) {
+		cout << "Invalid Argument format" << endl;
+		help_message(argc, argv);
+		return ARGUMENT_ERROR;
 	}
 
+	check = process(filename);
+	if (check == OPEN_FILE_ERROR) {
+		cout << "Unable to open file "<< filename << endl;
+		return OPEN_FILE_ERROR;
+	} else if (check == INVALID_FILE_ERROR) {
+		cout << "No valid horn clauses were found in the file." << endl;
+		return INVALID_FILE_ERROR;
+	}
 
-	return 0;
+	return SUCCESS;
 }
 

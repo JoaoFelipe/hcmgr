@@ -13,11 +13,17 @@
 
 using namespace std; 
 
-// Constant of Exception when the command-line parameters are bad-formed
+// Constant of success
+const int SUCCESS = 0;
+
+// Constant of error when the command-line parameters are bad-formed
 const int ARGUMENT_ERROR = 1;
 
-// Constant of Exception when the file cannot be open correctly
+// Constant of error when the file cannot be open correctly
 const int OPEN_FILE_ERROR = 2;
+
+// Constant of error when the file doesn't have any valid horn clauses
+const int INVALID_FILE_ERROR = 3;
 
 // Constant of the char to represent the left parenthesis syntax token
 const char C_LEFTPAREN = '(';

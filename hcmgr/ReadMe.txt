@@ -83,7 +83,14 @@ If nothing fails, the predicates match
 
 :Trials
 $ hcmgr.exe process empty.txt
-->Nothing occurred. This is the expected behavior, since the file doesn't have any horn clauses
+No valid horn clauses were found in the file.
+-> It was the correct behavior. The file is empty
+
+$ hcmgr.exe process invalid.txt
+No valid horn clauses were found in the file.
+-> It was the correct behavior. The file doesn't have any valid horn clauses
+
+
 
 :Extra Credit
 To check if there is no repetition of Predicates, we used the same idea of checking if there is no repetition of Variables and Constants

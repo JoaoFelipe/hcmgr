@@ -22,17 +22,22 @@ using namespace std;
 
 //  @brief process(string& filename) - Manipulates the file to parse the Horn Clauses line by line
 //  @param filename
-void process(string& filename){
+//  @return int - 0 = SUCCESS
+int process(string & filename) {
 	SymbolTable table;
 	Parser parser;
 	parser.open(filename);
 	if (parser.is_open()) {
 		int i = 0;
 		while (!parser.eof()) {
+			// Read each horn clause from file
 			HornClause * hc = parser.parse_horn_clause();
+			// If invalid syntax, skip line
 			if (hc == 0) {
 				parser.next_line();
 			} else {
+				// Fill the symbol table by the Horn Clause
+				++i;
 				hc->fill_symbol_table(table);
 			}
 
@@ -40,13 +45,18 @@ void process(string& filename){
 			
 		}
 		parser.close();
-		table.print_predicates();
-		cout << endl;
-		table.unifications();
+		// If found some horn clauses
+		if (i != 0) { 
+			table.print_predicates();
+			cout << endl;
+			table.unifications();
+		} else {
+			return INVALID_FILE_ERROR;
+		}
 
 	} else{
-		throw OPEN_FILE_ERROR;
+		return OPEN_FILE_ERROR;
 	}
-
+	return SUCCESS;
 }
 
