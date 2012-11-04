@@ -1,3 +1,12 @@
+/**
+	Symbol.cpp
+	Class name: Symbol 
+	Written by: Amanda Silva and João Pimentel
+	For:	    CSE 425 Lab 2
+	Purpose:    Implementation of the Symbol  for the grammar
+				symbol -> LABEL | NUMBER
+*/
+
 #include "stdafx.h"
 #include "Symbol.h"
 #include "string_utils.h"
@@ -6,17 +15,28 @@
 #include <iostream>
 #include <sstream>
 
+//  @brief Symbol(const string& v) - Symbol class Constructor using a value reference as parameter 
+//  @param v - reference to string value	
 Symbol::Symbol(const string& v): _value(v) {}
+
+//  @brief Symbol(const Symbol& s) - Symbol class Copy Constructor 
+//  @param s - reference to another Symbol	
 Symbol::Symbol(const Symbol& s): _value(s._value) {}
 
+//  @brief value(const string& v) - Setter to the Symbol value 
+//  @param v - reference to string value	
 void Symbol::value(const string& v) {
 	_value = v;
 }
 
+//  @brief value() - Getter to the Symbol value 
+//  @return string 	
 string Symbol::value() const {
 	return _value;
 }
 
+//  @brief text() - Returns a text with the type and value of the Symbol 
+//  @return string 
 string Symbol::text() const {
 	if (check_string(_value, is_number)) {
 		string temp = "Constant:" + _value;
@@ -27,11 +47,14 @@ string Symbol::text() const {
 	}
 }
 
-
+//  @brief print(ostream & output)  - Prints the Symbol according to the grammar syntax
+//  @param output - ostream
 void Symbol::print(ostream & output) const {
 	output << _value;
 }
 
+//  @brief Symbol::convertToSymbolTableEntry()  - Converts the Symbol to a SymbolTableEntry
+//  @return SymbolTableEntry
 SymbolTableEntry * Symbol::convertToSymbolTableEntry() const {
 	if (check_string(_value, is_number)) {
 		unsigned int value;
