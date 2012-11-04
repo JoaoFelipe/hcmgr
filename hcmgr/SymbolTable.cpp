@@ -1,6 +1,6 @@
 /**
 	SymbolTable.cpp
-	Class name: PredicateEntry 
+	Class name: SymbolTable 
 	Written by: Amanda Silva and João Pimentel
 	For:	    CSE 425 Lab 2
 	Purpose:    Implementation of the SymbolTable to manage the entries
