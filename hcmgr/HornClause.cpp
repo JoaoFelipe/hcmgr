@@ -70,7 +70,7 @@ Body HornClause::body() const {
 void HornClause::print(ostream & output) const {
 	output << LEFTPAREN;
 	_head.print(output);
-	if (_body != 0) {
+	if (_body != NONE) {
 		output << " ";
 		_body->print(output);
 	}
@@ -82,7 +82,7 @@ void HornClause::print(ostream & output) const {
 //  @param table - SymbolTable 
 void HornClause::fill_symbol_table(SymbolTable & table) const{
 	_head.fill_symbol_table(table);
-	if (_body != 0) {
+	if (_body != NONE) {
 		_body->fill_symbol_table(table);
 	}
 }

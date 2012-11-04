@@ -50,5 +50,8 @@ const int OPERATION = 1;
 // Constant for filename argument
 const int FILE_NAME = 2;
 
+// Constant for Null Pointers
+const int NONE = 0;
+
 
 #endif

@@ -33,7 +33,7 @@ int process(string & filename) {
 			// Read each horn clause from file
 			HornClause * hc = parser.parse_horn_clause();
 			// If invalid syntax, skip line
-			if (hc == 0) {
+			if (hc == NONE) {
 				parser.next_line();
 			} else {
 				// Fill the symbol table by the Horn Clause

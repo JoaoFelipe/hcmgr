@@ -154,16 +154,16 @@ bool Parser::check_symbol() {
 }
 
 //  @brief Parser::parse_horn_clause() - checks the Horn Clause syntax. If it is valid, it returns the Horn Clause, if not it returns 0. 
-//  @return HornClause *
+//  @return HornClause * or NONE if there is a syntax error
 HornClause * Parser::parse_horn_clause() {
 	if (!check_left_parenthesis()) {
-		return 0;
+		return NONE;
 	}
 	next();
 
 	Head * head = parse_head();
-	if (head == 0) {
-		return 0;
+	if (head == NONE) {
+		return NONE;
 	}
 	
 	Body * body = parse_body();
@@ -171,18 +171,18 @@ HornClause * Parser::parse_horn_clause() {
 	if (!check_right_parenthesis()) {
 		delete head;
 		delete body;
-		return 0;
+		return NONE;
 	}
 	next();
 
-	HornClause * result = 0;
-	if (body == 0) {
+	HornClause * result = NONE;
+	if (body == NONE) {
 		result = new HornClause(*head);
 	} else if (body->size() >= 1) {
 		result = new HornClause(*head, *body);
 	} else {
 		delete body;
-		result = 0;
+		result = NONE;
 	}
 
 	delete head;
@@ -192,11 +192,11 @@ HornClause * Parser::parse_horn_clause() {
 }
 
 //  @brief Parser::parse_head() - checks the Head syntax. If it is valid, it returns the Head, if not it returns 0. 
-//  @return Head *
+//  @return Head * or NONE if there is a syntax error
 Head * Parser::parse_head() {
 	Predicate * predicate = parse_predicate();
-	if (predicate == 0) {
-		return 0;
+	if (predicate == NONE) {
+		return NONE;
 	}
 
 	Head * result = new Head(*predicate);
@@ -205,28 +205,28 @@ Head * Parser::parse_head() {
 }
 
 //  @brief Parser::parse_predicate() - checks the Predicate syntax. If it is valid, it returns the Predicate, if not it returns 0. 
-//  @return Predicate *
+//  @return Predicate * or NONE if there is a syntax error
 Predicate * Parser::parse_predicate() {
 	if (!check_left_parenthesis()) {
-		return 0;
+		return NONE;
 	}
 	next();
 
 	Name * name = parse_name();
-	if (name == 0) {
-		return 0;
+	if (name == NONE) {
+		return NONE;
 	}
 
 	vector<Symbol> * symbols = parse_symbols();
-	if (symbols == 0) {
+	if (symbols == NONE) {
 		delete name;
-		return 0;
+		return NONE;
 	}
 
 	if (!check_right_parenthesis()) {
 		delete name;
 		delete symbols;
-		return 0;
+		return NONE;
 	}
 	next();
 
@@ -238,10 +238,10 @@ Predicate * Parser::parse_predicate() {
 }
 
 //  @brief Parser::parse_name() - checks the Name syntax. If it is valid, it returns the Name, if not it returns 0. 
-//  @return Name *
+//  @return Name * or NONE if there is a syntax error
 Name * Parser::parse_name() {
 	if (!check_label()) {
-		return 0;
+		return NONE;
 	}
 	string name;
 	read_current(name);
@@ -250,14 +250,14 @@ Name * Parser::parse_name() {
 }
 
 //  @brief Parser::parse_symbols() - checks the Symbol syntax list. If it is valid, it returns the list if Symbols, if not it returns 0. 
-//  @return vector<Symbol> *
+//  @return vector<Symbol> * or NONE if there is a syntax error
 vector<Symbol> * Parser::parse_symbols() {
 	vector<Symbol> * result = new vector<Symbol>();
 
 	while (!eof() && !check_right_parenthesis()) {
 		if (!check_symbol()) {
 			delete result;
-			return 0;
+			return NONE;
 		}
 		string symbol;
 		read_current(symbol);
@@ -266,17 +266,17 @@ vector<Symbol> * Parser::parse_symbols() {
 	}
 	if (eof()) {
 		delete result;
-		return 0;
+		return NONE;
 	}
 	return result;
 }
 
 
 //  @brief Parser::parse_body() - checks the Body syntax. If it is valid, it returns the Body, if not it returns 0. 
-//  @return Body *
+//  @return Body * or NONE if there is a syntax error
 Body * Parser::parse_body() {
 	if (!check_left_parenthesis()) {
-		return 0;
+		return NONE;
 	}
 	next();
 
@@ -284,7 +284,7 @@ Body * Parser::parse_body() {
 
 	while (!eof() && !check_right_parenthesis()) {
 		Predicate * predicate = parse_predicate();
-		if (predicate == 0) {			
+		if (predicate == NONE) {			
 			Body * body = new Body(vector<Predicate>());
 			return body;
 		}

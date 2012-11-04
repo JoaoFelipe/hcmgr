@@ -1,12 +1,13 @@
 #include "stdafx.h"
 #include "PredicateEntry.h"
+#include "const.h"
 
 
 PredicateEntry::PredicateEntry(const Predicate & p, const SymbolTable & table): _name(p.name().value()), _symbols()  {
 	vector<Symbol> symbols = p.symbols();
 	for (vector<Symbol>::iterator i = symbols.begin(); i != symbols.end(); ++i) {
 		SymbolTableEntry * sym = table.find(i->text());
-		if (sym != 0) {
+		if (sym != NONE) {
 			_symbols.push_back(sym);
 		}
 	}
@@ -74,11 +75,11 @@ bool PredicateEntry::matches(SymbolTableEntry * other, SubstitutionList & substi
 
 	for (unsigned int i = 0; i < _symbols.size(); ++i) {
 		SymbolTableEntry * ci = substitution_list.find(_symbols[i]);
-		if (ci == 0) {
+		if (ci == NONE) {
 			ci = _symbols[i];
 		}
 		SymbolTableEntry * oi = substitution_list.find(otherp->_symbols[i]);
-		if (oi == 0) {
+		if (oi == NONE) {
 			oi = otherp->_symbols[i];
 		}
 		if (ci != oi) {
@@ -100,7 +101,7 @@ string PredicateEntry::unification(SubstitutionList & substitution_list) const {
 	for (unsigned int i = 0; i < _symbols.size(); ++i) {
 		result += " ";
 		SymbolTableEntry * ci = substitution_list.find(_symbols[i]);
-		if (ci == 0) {
+		if (ci == NONE) {
 			ci = _symbols[i];
 			result += ci->text();
 		} else {
