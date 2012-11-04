@@ -1,4 +1,2 @@
 ((greater x y) ((greater x z) (greater z y)))
 ((greater z 3))
-((greater z 2))
-((equals x z) ((equals x y) (equals y z)))

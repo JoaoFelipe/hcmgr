@@ -82,6 +82,17 @@ Then, we iterates through the symbols:
 If nothing fails, the predicates match
 
 :Trials
+$ hcmgr.exe bla
+Invalid Argument format
+Usage information:
+hcmgr.exe process <filename>
+    <filename> is the file with input horn clauses
+-> It was the correct behavior. This is the invalid format for the argument line
+
+$ hcmgr.exe process non_existent.txt
+Unable to open file non_existent.txt
+-> It was the correct behavior. The file doesn't exist
+
 $ hcmgr.exe process empty.txt
 No valid horn clauses were found in the file.
 -> It was the correct behavior. The file is empty
@@ -90,6 +101,134 @@ $ hcmgr.exe process invalid.txt
 No valid horn clauses were found in the file.
 -> It was the correct behavior. The file doesn't have any valid horn clauses
 
+$ hcmgr.exe process mix.txt
+mix
+horn clause
+-> It was the correct behavior. The invalid horn clases were ignored. And there is no predicates with the same name for unification
+
+$ hcmgr.exe process greater.txt
+greater x y
+greater x z
+greater z y
+greater z 3
+
+(greater x y) matches (greater x z)
+  z/y
+  Unification (greater x z/y) matches (greater x z)
+
+(greater x y) matches (greater z y)
+  z/x
+  Unification (greater z/x y) matches (greater z y)
+
+(greater x y) matches (greater z 3)
+  z/x
+  3/y
+  Unification (greater z/x 3/y) matches (greater z 3)
+
+(greater x z) matches (greater x y)
+  y/z
+  Unification (greater x y/z) matches (greater x y)
+
+(greater x z) matches (greater z y)
+  z/x
+  y/z
+  Unification (greater y/x y/z) matches (greater y/z y)
+
+(greater x z) matches (greater z 3)
+  z/x
+  3/z
+  Unification (greater 3/x 3/z) matches (greater 3/z 3)
+
+(greater z y) matches (greater x y)
+  x/z
+  Unification (greater x/z y) matches (greater x y)
+
+(greater z y) matches (greater x z)
+  x/z
+  x/y
+  Unification (greater x/z x/y) matches (greater x x/z)
+
+(greater z y) matches (greater z 3)
+  3/y
+  Unification (greater z 3/y) matches (greater z 3)
+
+(greater z 3) matches (greater x y)
+  x/z
+  3/y
+  Unification (greater x/z 3) matches (greater x 3/y)
+
+(greater z 3) matches (greater x z)
+  x/z
+  3/x
+  Unification (greater 3/z 3) matches (greater 3/x 3/z)
+
+(greater z 3) matches (greater z y)
+  3/y
+  Unification (greater z 3) matches (greater z 3/y)
+-> It was the correct behavior. All the predicates matches with each other after the unification.
+
+$ hcmgr.exe process equals.txt
+equals 2 2
+equals x 3
+
+(equals 2 2) doesn't match (equals x 3)
+
+(equals x 3) doesn't match (equals 2 2)
+-> It was the correct behavior. The predicates doesn't match.
+
+$ hcmgr.exe process 2hc.txt
+equals x 2
+equals 2 x
+less x y z w
+less y z w x
+
+(equals x 2) matches (equals 2 x)
+  2/x
+  Unification (equals 2/x 2) matches (equals 2 2/x)
+
+(equals 2 x) matches (equals x 2)
+  2/x
+  Unification (equals 2 2/x) matches (equals 2/x 2)
+
+(less x y z w) matches (less y z w x)
+  y/x
+  z/y
+  w/z
+  Unification (less w/x w/y w/z w) matches (less w/y w/z w w/x)
+
+(less y z w x) matches (less x y z w)
+  x/y
+  x/z
+  x/w
+  Unification (less x/y x/z x/w x) matches (less x x/y x/z x/w)
+-> It was the correct behavior. All the predicates matches with the other that have the same name
+
+$ hcmgr.exe process less.txt
+less x 2
+less 2 x
+less y 3
+
+(less x 2) matches (less 2 x)
+  2/x
+  Unification (less 2/x 2) matches (less 2 2/x)
+
+(less x 2) doesn't match (less y 3)
+
+(less 2 x) matches (less x 2)
+  2/x
+  Unification (less 2 2/x) matches (less 2/x 2)
+
+(less 2 x) matches (less y 3)
+  2/y
+  3/x
+  Unification (less 2 3/x) matches (less 2/y 3)
+
+(less y 3) doesn't match (less x 2)
+
+(less y 3) matches (less 2 x)
+  2/y
+  3/x
+-> It was the correct behavior. There are matches and mismatches
 
 
 :Extra Credit

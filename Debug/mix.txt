@@ -1,0 +1,6 @@
+()
+(
+	(
+		mix
+	)
+) ((horn clause)) b ((fails))
