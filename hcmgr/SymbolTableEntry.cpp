@@ -1,4 +1,12 @@
 
+/**
+	SymbolTableEntry.cpp
+	Class name: SymbolTableEntry
+	Written by: Amanda Silva and João Pimentel
+	For:	    CSE 425 Lab 2
+	Purpose:    Implementation of the SymbolTableEntry as superclass of the tokens representations in the SymbolTable
+*/
+
 
 #include "stdafx.h"
 #include "SymbolTableEntry.h"
@@ -10,11 +18,14 @@
 
 using namespace std;
 
+//  @brief operator==(const SymbolTableEntry & other)- Compares the current SymbolTableEntry to another SymbolTableEntry 
+//  @param other - references to another SymbolTableEntry
 bool SymbolTableEntry::operator==(const SymbolTableEntry & other) const {
 	return text() == other.text() && type() == other.type();
 }
 
-
+//  @brief equals(const string& t)- Compares the current SymbolTableEntry text to a text given as parameter 
+//  @param t - references to a text string ('type:text' format)
 bool SymbolTableEntry::equals(const string& t) const {
 	string temp = type() + ":";
 	temp += text();
