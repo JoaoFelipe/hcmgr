@@ -1,3 +1,12 @@
+/**
+	hcprocess.cpp
+	Written by: Amanda Silva and João Pimentel
+	For:	    CSE 425 Lab 2
+	Purpose:    Implementation of the method to process the Horn Clauses line by line from the file
+
+*/
+
+
 #include "stdafx.h"
 #include "const.h"
 #include "hcprocess.h"
@@ -11,6 +20,8 @@
 
 using namespace std;
 
+//  @brief process(string& filename) - Manipulates the file to parse the Horn Clauses line by line
+//  @param filename
 void process(string& filename){
 	SymbolTable table;
 	Parser parser;
