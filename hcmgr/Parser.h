@@ -13,8 +13,9 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include "HornClause.h"
-
+#include <memory>
 using namespace std; 
 
 
@@ -25,23 +26,24 @@ public:
 // @brief Initializes the variables with default values
 	Parser();
 
+	
+// @brief Initializes the variables with default values and a string to be parsed
+// @param string with the content to be parsed
+	Parser(const string & str);
+
 
 // @brief initializes the filename with a received parameter, opens it and initializes other variables with default values
 // @param filename for the file with the tokens to be read
-// @return void
-	void open(const string & filename);
-
-// @brief verifies if the file is open
 // @return bool
-	bool is_open() const;
+	bool open(const string & filename);
+
+// @brief initialize the parser to be able to parse
+// @param string with the content to be parsed
+	void Parser::start(const string & str);
 
 // @brief verifies if the parser reached the end of the file
 // @return bool
 	bool eof() const;
-
-// @brief closes the file
-// @return void
-	void close();
 
 // @brief if it is not the end of the file, it starts parsing the first position of the next possible line
 // @return void
@@ -65,6 +67,14 @@ public:
 // @brief checks if the current token is a right parenthesis 
 // @return bool
 	bool check_right_parenthesis();
+	
+// @brief checks if the current token is a left bracket 
+// @return bool
+	bool check_left_bracket();
+
+// @brief checks if the current token is a right bracket 
+// @return bool
+	bool check_right_bracket();
 
 // @brief checks if the current token is a label (it is all uppercase or all lowercase)
 // @return bool
@@ -74,38 +84,59 @@ public:
 // @return bool
 	bool check_number();
 
-// @brief checks if the current token is a symbol (label or number)
+// @brief checks if the current token is a unbound 
 // @return bool
-	bool check_symbol();
+	bool check_unbound(); 
+
+// @brief checks if the current token is a bound 
+// @return bool
+	bool check_bound();
+
+
+// @brief checks if the current token is a operator
+// @return bool
+	bool check_operator();
+
+// @brief checks if the current token is a term (number or bound) 
+// @return bool
+	bool check_term();
 
 // @brief checks the Horn Clause syntax. If it is valid, it returns the Horn Clause, if not it returns 0. 
-// @return HornClause *
-	HornClause * parse_horn_clause();
+// @return shared_ptr<HornClause>
+	shared_ptr<HornClause> parse_horn_clause();
 
 // @brief checks the Head syntax. If it is valid, it returns the Head, if not it returns 0. 
-// @return Head *
-	Head * parse_head();
+// @return shared_ptr<Head>
+	shared_ptr<Head> parse_head();
 
 // @brief checks the Predicate syntax. If it is valid, it returns the Predicate, if not it returns 0. 
-// @return Predicate *
-	Predicate * parse_predicate();
+// @return shared_ptr<Predicate>
+	shared_ptr<Predicate> parse_predicate();
 
 // @brief checks the Name syntax. If it is valid, it returns the Name, if not it returns 0. 
-// @return Name *
-	Name * parse_name();
+// @return shared_ptr<Name>
+	shared_ptr<Name> parse_name();
 
 // @brief checks the Symbol syntax list. If it is valid, it returns the list if Symbols, if not it returns 0. 
-// @return vector<Symbol> *
-	vector<Symbol> * parse_symbols();
+// @return shared_ptr<vector<shared_ptr<Symbol>>>
+	shared_ptr<vector<shared_ptr<Symbol>>> Parser::parse_symbols();
+
+// @brief checks the Symbol syntax. If it is valid, it returns the Symbol, if not it returns 0. 
+// @return shared_ptr<Symbol>
+	shared_ptr<Symbol> parse_symbol();
+
+// @brief checks the Function syntax. If it is valid, it returns the Symbol, if not it returns 0. 
+// @return shared_ptr<Symbol>
+	shared_ptr<Symbol> parse_function(); 
 
 // @brief checks the Body syntax. If it is valid, it returns the Body, if not it returns 0. 
-// @return Body *
-	Body * parse_body();
+// @return shared_ptr<Body>
+	shared_ptr<Body> parse_body();
 
 private:
 	string _file_name;
 	string _current_line;
-	ifstream _file;
+	stringstream _file;
 	unsigned int _position;
 };
 

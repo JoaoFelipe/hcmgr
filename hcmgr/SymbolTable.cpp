@@ -19,22 +19,15 @@ using namespace std;
 // @brief SymbolTable class default Constructor 	
 SymbolTable::SymbolTable(): _entries() {}
 
-// @brief SymbolTable class Destructor 
-SymbolTable::~SymbolTable() {
-	for (vector<SymbolTableEntry *>::iterator i = _entries.begin(); i != _entries.end(); ++i) {
-		delete *i;
-	}
-}
-
 // @brief Add an entry to the SymbolTable 
-// @param entry - references to a SymbolTableEntry
+// @param entry - shared_ptr<SymbolTableEntry>
 // @return bool - returns true if it is possible to add (no duplicate entry) 
-bool SymbolTable::add(SymbolTableEntry * entry) {
+bool SymbolTable::add(shared_ptr<SymbolTableEntry> entry) {
 	string temp = entry->type() + ":";
 	temp += entry->text();
 
 	if (find(temp) == 0) {
-		SymbolTableEntry * copy = entry->clone();
+		shared_ptr<SymbolTableEntry> copy = entry->clone();
 		_entries.push_back(copy);
 		return true;
 	} 
@@ -44,19 +37,19 @@ bool SymbolTable::add(SymbolTableEntry * entry) {
 // @brief Seaches if a value exists in the entries 
 // @param value - string value for the entry
 // @return SymbolTableEntry - returns the SymbolTableEntry for the value, or NONE if not found
-SymbolTableEntry * SymbolTable::find(const string & value) const {
-	for (vector<SymbolTableEntry *>::const_iterator i = _entries.begin(); i != _entries.end(); ++i) {
+shared_ptr<SymbolTableEntry> SymbolTable::find(const string & value) const {
+	for (vector<shared_ptr<SymbolTableEntry>>::const_iterator i = _entries.begin(); i != _entries.end(); ++i) {
 		if ((*i)->equals(value)) {
 			return *i;
 		}
 	}
-	return NONE;
+	return shared_ptr<SymbolTableEntry>();
 }
 
 // @brief Prints the SymbolTable entries
 // @param output - ostream
 void SymbolTable::print(ostream & output) const {
-	for (vector<SymbolTableEntry *>::const_iterator i = _entries.begin(); i != _entries.end(); ++i) {
+	for (vector<shared_ptr<SymbolTableEntry>>::const_iterator i = _entries.begin(); i != _entries.end(); ++i) {
 		output << (*i)->type() << ": " << (*i)->text() << endl;
 	}
 }
@@ -64,7 +57,7 @@ void SymbolTable::print(ostream & output) const {
 // @brief Prints entries predicates
 // @param output - ostream
 void SymbolTable::print_predicates(ostream & output) const {
-	for (vector<SymbolTableEntry *>::const_iterator i = _entries.begin(); i != _entries.end(); ++i) {
+	for (vector<shared_ptr<SymbolTableEntry>>::const_iterator i = _entries.begin(); i != _entries.end(); ++i) {
 		if ((*i)->is_predicate()) {
 			output << (*i)->text() << endl;
 		}
@@ -74,12 +67,12 @@ void SymbolTable::print_predicates(ostream & output) const {
 // @brief Prints the SymbolTable status after unifications (substitutions)
 // @param output - ostream
 void SymbolTable::unifications(ostream & output) const {
-	for (vector<SymbolTableEntry *>::const_iterator i = _entries.begin(); i != _entries.end(); ++i) {
+	for (vector<shared_ptr<SymbolTableEntry>>::const_iterator i = _entries.begin(); i != _entries.end(); ++i) {
 		if ((*i)->is_predicate()) {
-			for (vector<SymbolTableEntry *>::const_iterator j = _entries.begin(); j != _entries.end(); ++j) {
+			for (vector<shared_ptr<SymbolTableEntry>>::const_iterator j = _entries.begin(); j != _entries.end(); ++j) {
 				if ((*j)->is_predicate() && i != j) {
-					PredicateEntry * pi = dynamic_cast<PredicateEntry *>(*i);
-					PredicateEntry * pj = dynamic_cast<PredicateEntry *>(*j);
+					shared_ptr<PredicateEntry> pi = dynamic_pointer_cast<PredicateEntry>(*i);
+					shared_ptr<PredicateEntry> pj = dynamic_pointer_cast<PredicateEntry>(*j);
 					if (pi->name() == pj->name()) {
 						SubstitutionList substs;
 						if ((*i)->matches(*j, substs)) {

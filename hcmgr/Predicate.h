@@ -16,19 +16,21 @@
 #include "SymbolTable.h"
 #include <ostream>
 #include <iostream>
-
+#include <memory>
 class Predicate
 {
 private:
 // Name of the Predicate
 	Name _name;
 // Vector of Symbols of the Predicate
-	vector<Symbol> _symbols; 
+	vector<shared_ptr<Symbol>> _symbols; 
+// Predicate in the table
+	shared_ptr<SymbolTableEntry> _predicateEntry;
 public:
 
 // @brief Predicate class Constructor using a Name and a vector of Symbols as parameters 
 // @param n, s - references to a Name and a vector of Symbols	
-	Predicate(const Name& n, const vector<Symbol>& s);
+	Predicate(const Name& n, const vector<shared_ptr<Symbol>>& s);
 
 // @brief Predicate class Copy Constructor
 // @param p - reference to another Predicate
@@ -44,21 +46,27 @@ public:
 
 // @brief Setter method for the vector of Symbols
 // @param s - reference to a vector of Symbols	
-	void symbols(const vector<Symbol>& s);
+	void symbols(const vector<shared_ptr<Symbol>>& s);
 
 // @brief Getter method for the Predicate vector of Symbols
 // @return vector<Symbol> - Predicate vector of Symbols	
 
-	vector<Symbol> symbols() const;
+	vector<shared_ptr<Symbol>> symbols() const;
 
 // @brief Prints the Predicate according to the grammar syntax
 // @param output - ostream
 	void print(ostream & = cout) const; 
 
+
+// @brief Checks if the Predicate has the same name and the same number of parameters than other predicate
+// @param reference to Predicate
+	bool Predicate::can_unify(const Predicate & other) const;
+
 // @brief Fills out a Symbol Table with tokens from the Predicate 
 // @param table - SymbolTable 
-	void fill_symbol_table(SymbolTable & table) const;
+	void fill_symbol_table(SymbolTable & table);
 
+	shared_ptr<SymbolTableEntry> predicate_entry();
 };
 
 

@@ -25,6 +25,9 @@ const int OPEN_FILE_ERROR = 2;
 // Constant of error when the file doesn't have any valid horn clauses
 const int INVALID_FILE_ERROR = 3;
 
+// Constant of error when there is a try to divide by 0
+const int DIVIDE_BY_ZERO_ERROR = 4;
+
 // Constant of the char to represent the left parenthesis syntax token
 const char C_LEFTPAREN = '(';
 
@@ -36,6 +39,18 @@ const string LEFTPAREN = string("(");
 
 // Constant of the string to represent the right parenthesis syntax token
 const string RIGHTPAREN = string(")");
+
+// Constant of the char to represent the left bracket syntax token
+const char C_LEFTBRACKET = '[';
+
+// Constant of the char to represent the right bracket syntax token
+const char C_RIGHTBRACKET = ']';
+
+// Constant of the string to represent the left bracket syntax token
+const string LEFTBRACKET= string("[");
+
+// Constant of the string to represent the right bracket syntax token
+const string RIGHTBRACKET = string("]");
 
 
 // Constant for program name argument position
@@ -53,5 +68,11 @@ const int FILE_NAME = 2;
 // Constant for Null Pointers
 const int NONE = 0;
 
+struct null_deleter
+{
+    void operator()(void const *) const
+    {
+    }
+};
 
 #endif

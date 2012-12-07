@@ -3,6 +3,19 @@ Amanda Priscilla Araujo da Silva
 Joao Felipe Nicolaci Pimentel
 
 
+hcmgr
+hcprocess
+
+
+
+string_utils
+operation_utils
+
+
+SubstitutionList
+
+Parser
+
 :File Structure
 hcmgr.cpp: contains the definition of function main
 hcprocess.h: contains the declaration of the function that process the input file 
@@ -32,8 +45,8 @@ SymbolEntry.h: contains the declaration of the SymbolEntry class
 SymbolEntry.cpp: contains the definitions of the SymbolEntry methods
 ConstantEntry.h: contains the declaration of the ConstantEntry class
 ConstantEntry.cpp: contains the definitions of the ConstantEntry methods
-VariableEntry.h: contains the declaration of the VariableEntry class
-VariableEntry.cpp: contains the definitions of the VariableEntry methods
+BoundEntry.h: contains the declaration of the BoundEntry class
+BoundEntry.cpp: contains the definitions of the BoundEntry methods
 PredicateEntry.h: contains the declaration of the PredicateEntry class
 PredicateEntry.cpp: contains the definitions of the PredicateEntry methods
 SubstitutionList.h: contains the declaration of the SubstitutionList class
@@ -56,7 +69,7 @@ In the Predicate, this method adds the symbols to the SymbolTable and then, adds
 :Structure of Symbol Table
 We have a class SymbolTable that has a vector of SymbolTableEntry
 The SymbolTableEntry can be a SymbolEntry or a PredicateEntry
-The SymbolEntry can be a VariableEntry that has a string field _label or a ConstantEntry that has an unsigned int field _value
+The SymbolEntry can be a BoundEntry that has a string field _label or a ConstantEntry that has an unsigned int field _value
 The PredicateEntry has a string field _name and a vector of pointers of SymbolTableEntry to indicate the symbols
 
 This structure allows us to easily identify the type os the entry in the table by virtual methods is_constant, is_variable, is_predicate and allows us to store different types of fields:

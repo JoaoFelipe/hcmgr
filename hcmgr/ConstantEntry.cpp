@@ -24,9 +24,16 @@ ConstantEntry::ConstantEntry(const unsigned int v): _value(v) {}
 ConstantEntry::ConstantEntry(const ConstantEntry & other): _value(other._value) {}
 
 // @brief Create a copy of the current ConstantEntry 
-// @return SymbolTableEntry - clone 
-SymbolTableEntry * ConstantEntry::clone() const {
-	return new ConstantEntry(*this);
+// @return shared_ptr<SymbolTableEntry>
+shared_ptr<SymbolTableEntry> ConstantEntry::clone() const {
+	return shared_ptr<SymbolTableEntry>(new ConstantEntry(*this));
+}
+
+
+// @brief Converts the current value to a constant
+// @return shared_ptr<SymbolTableEntry> 
+shared_ptr<SymbolTableEntry> ConstantEntry::get_constant_value() const {
+	return this->clone();
 }
 
 // @brief Compares current ConstantEntry value with a ConstantEntry parameter value
@@ -49,14 +56,15 @@ string ConstantEntry::text() const {
 	return convert.str();
 }
 
+// @brief Get the value of the Symbol
+// @return int
+int ConstantEntry::value() const {
+	return _value;
+}
+
 // @brief Returns true if the ConstantEntry value is constant
 // @param bool  
 bool ConstantEntry::is_constant() const {
 	return true;
 }
 
-// @brief Returns true if the ConstantEntry value is variable
-// @param bool
-bool ConstantEntry::is_variable() const {
-	return false;
-}

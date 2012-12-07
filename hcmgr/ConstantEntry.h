@@ -14,11 +14,13 @@
 #include "stdafx.h"
 #include "SymbolTableEntry.h"
 #include "SymbolEntry.h"
+#include "SymbolValueEntry.h"
 #include <string>
+#include <memory>
 
 using namespace std;
 
-class ConstantEntry : public SymbolEntry {
+class ConstantEntry : public SymbolValueEntry {
 public:
 
 // @brief ConstantEntry class Constructor passing a value parameter
@@ -30,8 +32,12 @@ public:
 	ConstantEntry(const ConstantEntry & other);
 
 // @brief Create a copy of the current ConstantEntry 
-// @return SymbolTableEntry - clone 
-	virtual SymbolTableEntry * clone() const;
+// @return shared_ptr<SymbolTableEntry>  - clone 
+	virtual shared_ptr<SymbolTableEntry> clone() const;
+
+// @brief Converts the current value to a constant
+// @return shared_ptr<SymbolTableEntry> 
+	virtual shared_ptr<SymbolTableEntry> get_constant_value() const;
 
 // @brief Compares current ConstantEntry value with a ConstantEntry parameter value
 // @param bool - returns true if they have same value  
@@ -45,13 +51,14 @@ public:
 // @param string - value in string  
 	virtual string text() const;
 
+
+// @brief Get the value of the Symbol
+// @return int
+	virtual int value() const;
+
 // @brief Returns true if the ConstantEntry value is constant
 // @param bool  
 	virtual bool is_constant() const;
-
-// @brief Returns true if the ConstantEntry value is variable
-// @param bool
-	virtual bool is_variable() const;
 
 private:
 // Value of the ConstantEntry

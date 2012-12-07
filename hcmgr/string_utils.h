@@ -29,4 +29,8 @@ int is_number (const char c);
 // @return bool 
 bool check_string(const string & str, int (*checker)(const char));
 
+// @brief Returns a text with the type and value of the Symbol 
+// @return string 
+string term_with_type(const string & _value);
+
 #endif

@@ -13,7 +13,7 @@
 
 #include "stdafx.h"
 #include <string>
-
+#include <memory>
 using namespace std;
 
 class SubstitutionList;
@@ -22,7 +22,7 @@ class SymbolTableEntry {
 public:
 // @brief Returns the clone of the SymbolTableEntry
 // @return SymbolTableEntry
-	virtual SymbolTableEntry * clone() const = 0;
+	virtual shared_ptr<SymbolTableEntry> clone() const = 0;
 	
 // @brief Compares the current SymbolTableEntry to another SymbolTableEntry 
 // @param other - references to another SymbolTableEntry	
@@ -42,19 +42,31 @@ public:
 
 // @brief Returns true if a SymbolTableEntry is a Predicate
 // @return bool 
-	virtual bool is_predicate() const = 0;
+	virtual bool is_predicate() const;
 
 // @brief Returns true if a SymbolTableEntry is a constant
 // @return bool 
-	virtual bool is_constant() const = 0;
+	virtual bool is_constant() const;
 
-// @brief Returns true if a SymbolTableEntry is a variable
+// @brief Returns true if a SymbolTableEntry is a bound
 // @return bool 
-	virtual bool is_variable() const = 0;
+	virtual bool is_bound() const;
+
+// @brief Returns true if a SymbolTableEntry is a function
+// @return bool 
+	virtual bool is_function() const;
+
+// @brief Returns true if a SymbolTableEntry is an unbound
+// @return bool 
+	virtual bool is_unbound() const;
+
+// @brief Checks if the Symbol can be evaluated
+// @return bool
+	virtual bool is_evaluable() const;
 
 // @brief Returns true if the current SymbolTableEntry matches with other SymbolTableEntry
 // @return bool
-	virtual bool matches(SymbolTableEntry * other, SubstitutionList & substitution_list) const = 0;
+	virtual bool matches(shared_ptr<SymbolTableEntry> other, SubstitutionList & substitution_list) const = 0;
 
 // @brief Returns the modified entries with the substitutions after the unification 
 // @return string - entries after substitutions 		

@@ -10,7 +10,7 @@
 
 #include "stdafx.h"
 #include "SymbolTableEntry.h"
-#include "VariableEntry.h"
+#include "BoundEntry.h"
 #include "ConstantEntry.h"
 #include "PredicateEntry.h"
 #include "string_utils.h"
@@ -32,5 +32,38 @@ bool SymbolTableEntry::equals(const string& t) const {
 	return (t == temp);
 }
 
+// @brief Returns true if a SymbolTableEntry is a Predicate
+// @return bool 
+bool SymbolTableEntry::is_predicate() const {
+	return false;
+}
 
+// @brief Returns true if a SymbolTableEntry is a constant
+// @return bool 
+bool SymbolTableEntry::is_constant() const {
+	return false;
+}
 
+// @brief Returns true if a SymbolTableEntry is a bound
+// @return bool 
+bool SymbolTableEntry::is_bound() const {
+	return false;
+}
+
+// @brief Returns true if a SymbolTableEntry is a function
+// @return bool 
+bool SymbolTableEntry::is_function() const {
+	return false;
+}
+
+// @brief Returns true if a SymbolTableEntry is a unbound
+// @return bool 
+bool SymbolTableEntry::is_unbound() const {
+	return false;
+}
+
+// @brief Checks if the Symbol can be evaluated
+// @return bool
+bool SymbolTableEntry::is_evaluable() const {
+	return false;
+}

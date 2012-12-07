@@ -40,3 +40,16 @@ bool check_string(const string & str, int (*checker)(const char)) {
 	}
 	return true;
 }
+
+
+// @brief Returns a text with the type and value of the Symbol 
+// @return string 
+string term_with_type(const string & _value){
+	if (check_string(_value, is_number)) {
+		string temp = "Constant:" + _value;
+		return temp;
+	} else {
+		string temp = "Bound:" + _value;
+		return temp;
+	}
+}

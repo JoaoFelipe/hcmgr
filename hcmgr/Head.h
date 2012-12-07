@@ -11,16 +11,14 @@
 #define HEAD_H
 
 #include "Predicate.h"
+#include "PredicatesContainer.h"
 #include <ostream>
 #include <iostream>
-
+#include <memory>
 using namespace std;
 
-class Head
+class Head: public PredicatesContainer
 {
-private:
-// Predicate of the Head token  
-	Predicate _predicate; 
 public:
 
 // @brief Head class Constructor using a predicate parameter
@@ -38,14 +36,6 @@ public:
 // @brief Getter to the Head predicate
 // @return Predicate
 	Predicate predicate() const;
-	
-// @brief Prints the predicate according to the grammar syntax
-// @param output - ostream
-	void print(ostream & = cout) const;
-
-// @brief Fills out a Symbol Table with tokens from the predicate and its symbols (variables and constants)
-// @param table - SymbolTable
-	void fill_symbol_table(SymbolTable & table) const;
 
 };
 

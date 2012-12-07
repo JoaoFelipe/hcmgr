@@ -13,7 +13,7 @@
 #include <string>
 #include <ostream>
 #include <iostream>
-
+#include <memory>
 using namespace std;
 
 class Name

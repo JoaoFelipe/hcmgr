@@ -15,7 +15,7 @@
 #include <vector>
 #include <ostream>
 #include <iostream>
-
+#include <memory>
 using namespace std;
 
 class SubstitutionList {
@@ -27,11 +27,23 @@ public:
 // @brief Searches a SynbolTableEntry in the SubstitutionList
 // @param entry - reference to a SymbolTableEntry
 // @return SymbolTableEntry - Returns the substitution entry or NONE if it doesn't find a substitution
-	SymbolTableEntry * find(const SymbolTableEntry * entry) const;
+	shared_ptr<SymbolTableEntry> find(shared_ptr<const SymbolTableEntry> entry) const;
+
+// @brief Searches a SynbolTableEntry in the SubstitutionList and returns itself if not found.
+// @param entry - reference to a SymbolTableEntry
+// @return shared_ptr<SymbolTableEntry>
+	shared_ptr<SymbolTableEntry> find_non_null(shared_ptr<SymbolTableEntry> entry) const;
+
+	
+// @brief Searches a SynbolTableEntry in the SubstitutionList and returns itself if not found. For functions and bound, returns the evalueted value in ConstantEntry
+// @param entry - reference to a SymbolTableEntry
+// @return shared_ptr<SymbolTableEntry>
+	shared_ptr<SymbolTableEntry> find_value(shared_ptr<SymbolTableEntry> entry) const;
+
 
 // @brief Add a valid pair of entries to the substitution list
 // @param first, second - references to the first and second values of the pair - the second is a substitute for the first
-	void add(SymbolTableEntry * first, SymbolTableEntry * second);
+	void add(shared_ptr<SymbolTableEntry> first, shared_ptr<SymbolTableEntry> second);
 
 // @brief Prints the pairs of the Substitution List
 // @param output - ostream
@@ -39,7 +51,7 @@ public:
 
 private:
 // Pairs of the substitution list <original symbol, substitute>
-	vector<pair<SymbolTableEntry *, SymbolTableEntry *>> _substitutions;
+	vector<pair<shared_ptr<SymbolTableEntry>, shared_ptr<SymbolTableEntry>>> _substitutions;
 
 };
 

@@ -1,0 +1,4 @@
+((equals x 2) ((equals 2 x)))
+((less x y z w))
+()
+((less y z w x))

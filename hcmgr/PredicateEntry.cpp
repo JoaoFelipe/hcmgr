@@ -9,19 +9,12 @@
 #include "stdafx.h"
 #include "PredicateEntry.h"
 #include "const.h"
+#include "UnboundEntry.h"
 
-// @brief PredicateEntry class Constructor using a Predicate and SymbolTable references as parameters 
-// @param p, table - references to a Predicate and SymbolTable	
-PredicateEntry::PredicateEntry(const Predicate & p, const SymbolTable & table): _name(p.name().value()), _symbols()  {
-	vector<Symbol> symbols = p.symbols();
-	for (vector<Symbol>::iterator i = symbols.begin(); i != symbols.end(); ++i) {
-		SymbolTableEntry * sym = table.find(i->text());
-		if (sym != NONE) {
-			_symbols.push_back(sym);
-		}
-	}
 
-}
+// @brief PredicateEntry class Constructor
+// @param symbols - reference to a vector<SymbolTableEntry *>	
+PredicateEntry::PredicateEntry(string & name, vector<shared_ptr<SymbolTableEntry>>& symbols) : _name(name), _symbols(symbols){}
 
 // @brief PredicateEntry class Copy Constructor 
 // @param other - references to another PredicateEntry
@@ -29,8 +22,8 @@ PredicateEntry::PredicateEntry(const PredicateEntry & other): _name(other._name)
 
 // @brief Returns a clone of the current PredicateEntry as a SymbolTableEntry 
 // @return SymbolTableEntry 
-SymbolTableEntry * PredicateEntry::clone() const {
-	return new PredicateEntry(*this);
+shared_ptr<SymbolTableEntry> PredicateEntry::clone() const {
+	return shared_ptr<SymbolTableEntry>(new PredicateEntry(*this));
 }
 
 // @brief Compares the current PredicateEntry to another PredicateEntry 
@@ -77,50 +70,40 @@ bool PredicateEntry::is_predicate() const {
 	return true;
 }
 
-// @brief Returns true if a SymbolTableEntry is a constant
-// @return bool 		
-bool PredicateEntry::is_constant() const {
-	return false;
-}
-
-// @brief Returns true if a SymbolTableEntry is a variable
-// @return bool 		
-bool PredicateEntry::is_variable() const {
-	return false;
-}
-
 
 // @brief Returns true if the PredicateEnry matches with other PredicateEntry
 // @return bool 		
-bool PredicateEntry::matches(SymbolTableEntry * other, SubstitutionList & substitution_list) const {
+bool PredicateEntry::matches(shared_ptr<SymbolTableEntry> other, SubstitutionList & substitution_list) const {
 	if (!other->is_predicate()) {
 		return false;
 	}
-	PredicateEntry * otherp = dynamic_cast<PredicateEntry *>(other);
+	shared_ptr<PredicateEntry> otherp = dynamic_pointer_cast<PredicateEntry>(other);
 
 	if (_name != otherp->_name || _symbols.size() != otherp->_symbols.size()) {
 		return false;
 	}
 
 	for (unsigned int i = 0; i < _symbols.size(); ++i) {
-		SymbolTableEntry * ci = substitution_list.find(_symbols[i]);
-		if (ci == NONE) {
-			ci = _symbols[i];
+		shared_ptr<SymbolTableEntry> ci_value = substitution_list.find_value(_symbols[i]);
+		shared_ptr<SymbolTableEntry> oi_value = substitution_list.find_value(otherp->_symbols[i]);
+		shared_ptr<SymbolTableEntry> ci = substitution_list.find_non_null(_symbols[i]);
+		shared_ptr<SymbolTableEntry> oi = substitution_list.find_non_null(otherp->_symbols[i]);
+		if (!ci_value || !oi_value) {
+			//semantic error
+			return false;
 		}
-		SymbolTableEntry * oi = substitution_list.find(otherp->_symbols[i]);
-		if (oi == NONE) {
-			oi = otherp->_symbols[i];
-		}
-		if (ci != oi) {
-			if (ci->is_constant() && oi->is_constant()) {
+
+		if (!(*ci_value == *oi_value)) {
+			if (ci_value->is_constant() && oi_value->is_constant()) {
 				return false;
-			}
-			if (ci->is_variable() && oi->is_variable() || ci->is_variable() && oi->is_constant()) {
+			} 
+
+			if (!ci_value->is_constant()) {
 				substitution_list.add(ci, oi);
-			} else { // (ci->is_constant() && oi->is_variable())
+			} else { //!oi->is_constant()
 				substitution_list.add(oi, ci);
 			}
-		}
+		} 
 	}
 	return true;
 }
@@ -131,14 +114,7 @@ string PredicateEntry::unification(SubstitutionList & substitution_list) const {
 	string result = _name;
 	for (unsigned int i = 0; i < _symbols.size(); ++i) {
 		result += " ";
-		SymbolTableEntry * ci = substitution_list.find(_symbols[i]);
-		if (ci == NONE) {
-			ci = _symbols[i];
-			result += ci->text();
-		} else {
-			result += ci->text() + "/";
-			result += _symbols[i]->text();
-		}
+		result += _symbols[i]->unification(substitution_list);
 	}
 	return result;
 }

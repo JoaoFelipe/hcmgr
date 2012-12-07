@@ -15,16 +15,16 @@
 #include "SymbolTable.h"
 #include <ostream>
 #include <iostream>
-
+#include <memory>
 using namespace std;
 
 class HornClause
 {
 private:
 // Head of the Horn Clause
-	Head _head;
+	shared_ptr<Head> _head;
 // Body of the Horn Clause
-	Body * _body;  
+	shared_ptr<Body> _body;  
 public:
 
 // @brief HornClause class Constructor using a Head parameter and default body
@@ -35,6 +35,10 @@ public:
 // @param h, b - references to a Head and Body 
 	HornClause(const Head & h, const Body & b);
 
+// @brief HornClause class Constructor using Head and Body shared_ptr parameters
+// @param h, b - shared_ptr to a Head and Body 
+	HornClause(const shared_ptr<Head> h, const shared_ptr<Body> b);
+
 // @brief HornClause class copy Constructor
 // @param hc - reference to another HornClause
 	HornClause(const HornClause & hc);
@@ -43,16 +47,13 @@ public:
 // @param hc - reference to another HornClause
 	HornClause & operator=(const HornClause & other);
 
-// @brief HornClause class Destructor
-	~HornClause();
-
 // @brief Setter method for the HornClause Head
 // @param h - reference to a Head	
 	void head(const Head & h);
  
 // @brief Getter method for the HornClause Head
 // @return Head - the HornClause Head
-	Head head() const;
+	shared_ptr<Head> head() const;
 
 // @brief Setter method for the HornClause Body
 // @param b - reference to a Body
@@ -60,7 +61,7 @@ public:
 
 // @brief Getter method for the HornClause Head
 // @return Body - the HornClause Body
-	Body body() const;
+	shared_ptr<Body> body() const;
 
 // @brief Prints the Horn Clause according to the grammar syntax
 // @param output - ostream
@@ -68,8 +69,10 @@ public:
 
 // @brief Fills out a Symbol Table with tokens from the Horn Clause Head and Body
 // @param table - SymbolTable 
-	void fill_symbol_table(SymbolTable & table) const;
+	void fill_symbol_table(SymbolTable & table);
 
+	
+	shared_ptr<HornClause> unify(HornClause & other);
 };
 
 #endif

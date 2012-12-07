@@ -26,34 +26,34 @@ using namespace std;
 int process(string & filename) {
 	SymbolTable table;
 	Parser parser;
-	parser.open(filename);
-	if (parser.is_open()) {
+	vector<shared_ptr<HornClause>> horn_clauses;
+	if (parser.open(filename)) {
 		int i = 0;
 		while (!parser.eof()) {
 			// Read each horn clause from file
-			HornClause * hc = parser.parse_horn_clause();
+			shared_ptr<HornClause> hc = parser.parse_horn_clause();
 			// If invalid syntax, skip line
-			if (hc == NONE) {
+			if (!hc) {
 				parser.next_line();
 			} else {
 				// Fill the symbol table by the Horn Clause
 				++i;
 				hc->fill_symbol_table(table);
+				horn_clauses.push_back(hc);
+				hc->print();
+				cout << endl;
 			}
-
-			delete hc;
-			
 		}
-		parser.close();
 		// If found some horn clauses
 		if (i != 0) { 
-			table.print_predicates();
+
+			//table.print_predicates();
+			table.print();
 			cout << endl;
-			table.unifications();
+		//	table.unifications();
 		} else {
 			return INVALID_FILE_ERROR;
 		}
-
 	} else{
 		return OPEN_FILE_ERROR;
 	}

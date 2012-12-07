@@ -14,7 +14,7 @@
 #include <string>
 #include <ostream>
 #include <iostream>
-
+#include <memory>
 using namespace std;
 
 class SymbolTable {
@@ -22,18 +22,15 @@ public:
 // @brief SymbolTable class default Constructor 
 	SymbolTable();
 
-// @brief SymbolTable class Destructor 
-	~SymbolTable();
-
 // @brief Add an entry to the SymbolTable 
 // @param entry - references to a SymbolTableEntry
 // @return bool - returns true if it is possible to add (no duplicate entry) 
-	bool add(SymbolTableEntry * entry);
+	bool add(shared_ptr<SymbolTableEntry> entry);
 
 // @brief Seaches if a value exists in the entries 
 // @param value - string value for the entry
 // @return SymbolTableEntry - returns the SymbolTableEntry for the value, or NONE if not found
-	SymbolTableEntry * find(const string & value) const;
+	shared_ptr<SymbolTableEntry> find(const string & value) const;
 
 // @brief Prints the SymbolTable entries
 // @param output - ostream
@@ -48,7 +45,7 @@ public:
 	void SymbolTable::unifications(ostream & output=cout) const;
 private:
 // Vector of the SymbolTable entries
-	vector<SymbolTableEntry *> _entries;
+	vector<shared_ptr<SymbolTableEntry>> _entries;
 };
 
 #endif

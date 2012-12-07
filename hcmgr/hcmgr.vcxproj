@@ -17,7 +17,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v110</PlatformToolset>
@@ -80,13 +80,17 @@
     <ClInclude Include="Body.h" />
     <ClInclude Include="const.h" />
     <ClInclude Include="ConstantEntry.h" />
+    <ClInclude Include="FunctionEntry.h" />
+    <ClInclude Include="FunctionSymbol.h" />
     <ClInclude Include="hcprocess.h" />
     <ClInclude Include="Head.h" />
     <ClInclude Include="HornClause.h" />
     <ClInclude Include="Name.h" />
+    <ClInclude Include="operations_utils.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="Predicate.h" />
     <ClInclude Include="PredicateEntry.h" />
+    <ClInclude Include="PredicatesContainer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="string_utils.h" />
@@ -95,12 +99,18 @@
     <ClInclude Include="SymbolEntry.h" />
     <ClInclude Include="SymbolTable.h" />
     <ClInclude Include="SymbolTableEntry.h" />
+    <ClInclude Include="SymbolValueEntry.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="VariableEntry.h" />
+    <ClInclude Include="TermSymbol.h" />
+    <ClInclude Include="UnboundEntry.h" />
+    <ClInclude Include="UnboundSymbol.h" />
+    <ClInclude Include="BoundEntry.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="ConstantEntry.cpp" />
+    <ClCompile Include="FunctionEntry.cpp" />
+    <ClCompile Include="FunctionSymbol.cpp" />
     <ClCompile Include="hcmgr.cpp" />
     <ClCompile Include="hcprocess.cpp" />
     <ClCompile Include="Head.cpp" />
@@ -109,17 +119,21 @@
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Predicate.cpp" />
     <ClCompile Include="PredicateEntry.cpp" />
+    <ClCompile Include="PredicatesContainer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="string_utils.cpp" />
     <ClCompile Include="SubstitutionList.cpp" />
-    <ClCompile Include="Symbol.cpp" />
     <ClCompile Include="SymbolEntry.cpp" />
     <ClCompile Include="SymbolTable.cpp" />
     <ClCompile Include="SymbolTableEntry.cpp" />
-    <ClCompile Include="VariableEntry.cpp" />
+    <ClCompile Include="SymbolValueEntry.cpp" />
+    <ClCompile Include="TermSymbol.cpp" />
+    <ClCompile Include="UnboundEntry.cpp" />
+    <ClCompile Include="UnboundSymbol.cpp" />
+    <ClCompile Include="BoundEntry.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="hcmgr.rc" />

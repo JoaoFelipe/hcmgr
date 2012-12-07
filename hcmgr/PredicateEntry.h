@@ -18,15 +18,15 @@
 #include "Predicate.h"
 #include <string>
 #include <vector>
-
+#include <memory>
 using namespace std;
 
 class PredicateEntry : public SymbolTableEntry {
 public:
 
-// @brief PredicateEntry class Constructor using a Predicate and SymbolTable references as parameters 
-// @param p, table - references to a Predicate and SymbolTable	
-	PredicateEntry(const Predicate & p, const SymbolTable & table);
+// @brief PredicateEntry class Constructor
+// @param symbols - reference to a vector<SymbolTableEntry *>	
+	PredicateEntry(string & name, vector<shared_ptr<SymbolTableEntry>>& symbols);
 
 // @brief PredicateEntry class Copy Constructor 
 // @param other - references to another PredicateEntry
@@ -34,7 +34,7 @@ public:
 
 // @brief Returns a clone of the current PredicateEntry as a SymbolTableEntry 
 // @return SymbolTableEntry 
-	virtual SymbolTableEntry * clone() const;
+	virtual shared_ptr<SymbolTableEntry> clone() const;
 
 // @brief Compares the current PredicateEntry to another PredicateEntry 
 // @param other - references to another PredicateEntry
@@ -56,17 +56,9 @@ public:
 // @return bool 		
 	virtual bool is_predicate() const;
 
-// @brief Returns true if a SymbolTableEntry is a constant
-// @return bool 		
-	virtual bool is_constant() const;
-
-// @brief Returns true if a SymbolTableEntry is a variable
-// @return bool 		
-	virtual bool is_variable() const;
-
 // @brief Returns true if the PredicateEnry matches with other PredicateEntry
 // @return bool 		
-	virtual bool matches(SymbolTableEntry * other, SubstitutionList & substitution_list) const;
+	virtual bool matches(shared_ptr<SymbolTableEntry> other, SubstitutionList & substitution_list) const;
 	
 // @brief Returns the modified predicate with the substitutions after the unification 
 // @return string - predicate after substitutions 		
@@ -76,7 +68,7 @@ private:
 // Name of the PredicateEntry
 	string _name;
 // Vector of Symbols of the PredicateEntry
-	vector<SymbolTableEntry *> _symbols;
+	vector<shared_ptr<SymbolTableEntry>> _symbols;
 };
 
 #endif

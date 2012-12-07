@@ -11,6 +11,7 @@
 
 #include "stdafx.h"
 #include <string>
+#include <memory>
 using namespace std; 
 
 // @brief Manipulates the file to parse the Horn Clauses line by line
