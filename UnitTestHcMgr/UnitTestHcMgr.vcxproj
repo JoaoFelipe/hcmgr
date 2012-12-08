@@ -94,6 +94,7 @@
     <ClCompile Include="FunctionSymbolTest.cpp" />
     <ClCompile Include="HeadTest.cpp" />
     <ClCompile Include="HornClauseTest.cpp" />
+    <ClCompile Include="ParserTest.cpp" />
     <ClCompile Include="PredicateEntryTest.cpp" />
     <ClCompile Include="PredicatesContainerTest.cpp" />
     <ClCompile Include="PredicateTest.cpp" />

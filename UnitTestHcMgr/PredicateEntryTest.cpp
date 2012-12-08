@@ -9,6 +9,8 @@
 #include "..\hcmgr\PredicateEntry.h"
 #include "..\hcmgr\SymbolTable.h"
 #include "..\hcmgr\SubstitutionList.h"
+
+#include "..\hcmgr\Parser.h"
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -283,7 +285,27 @@ namespace UnitTestHcMgr
 			Assert::AreEqual(false, entry.is_evaluable());
 		}
 
+		TEST_METHOD(SubstitutePredicateEntry)
+		{
+			SymbolTable table;
+			SubstitutionList subst;
+			Parser parser(string("(bin X)"));
+			shared_ptr<Predicate> predicate = parser.parse_predicate();
+			predicate->fill_symbol_table(table);
 
+			shared_ptr<PredicateEntry> entry = dynamic_pointer_cast<PredicateEntry>(predicate->predicate_entry());
+			
+			subst.add(
+				shared_ptr<SymbolTableEntry>(new UnboundEntry(string("X"))),
+				shared_ptr<SymbolTableEntry>(new ConstantEntry(1))
+				);
+			shared_ptr<Predicate> resultp = entry->substitute(subst);
+
+			ostringstream s;
+			resultp->print(s);
+			ostringstream result; result << "(bin 1)";
+			Assert::AreEqual(result.str(), s.str());
+		}
 
 	};
 }

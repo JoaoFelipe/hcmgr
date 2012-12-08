@@ -55,3 +55,12 @@ void PredicatesContainer::fill_symbol_table(SymbolTable & table) {
 		i->fill_symbol_table(table);
 	}
 }
+
+bool PredicatesContainer::is_valid() {
+	for (vector<Predicate>::iterator i = _predicates.begin(); i != _predicates.end(); ++i) {
+		if (!i->is_valid()) {
+			return false;
+		}
+	}
+	return true;
+}

@@ -51,6 +51,8 @@ public:
 // @param table - SymbolTable 
 	void fill_symbol_table(SymbolTable & table);
 
+
+	bool is_valid();
 };
 
 #endif

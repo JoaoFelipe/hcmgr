@@ -107,3 +107,11 @@ void Predicate::fill_symbol_table(SymbolTable & table) {
 shared_ptr<SymbolTableEntry> Predicate::predicate_entry() {
 	return _predicateEntry;
 }
+
+bool Predicate::is_valid() {
+	if (!_predicateEntry) {
+		SymbolTable table;
+		fill_symbol_table(table);
+	}
+	return _predicateEntry->is_valid();	
+}

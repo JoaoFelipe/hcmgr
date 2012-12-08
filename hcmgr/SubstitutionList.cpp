@@ -78,3 +78,11 @@ void SubstitutionList::print(ostream & output) const {
 		output << "  " << i->second->text() << "/" << i->first->text() << endl;
 	}
 }
+
+void SubstitutionList::add_all(SubstitutionList & other) {
+	for (vector<pair<shared_ptr<SymbolTableEntry>, shared_ptr<SymbolTableEntry>>>::const_iterator i = other._substitutions.begin(); i != other._substitutions.end(); ++i) {
+		if (!find(i->first)) {
+			add(i->first, i->second);
+		}
+	}
+}

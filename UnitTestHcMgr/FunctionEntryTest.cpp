@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include <string>
+#include "..\hcmgr\FunctionSymbol.h"
 #include "..\hcmgr\UnboundEntry.h"
 #include "..\hcmgr\BoundEntry.h"
 #include "..\hcmgr\ConstantEntry.h"
@@ -9,6 +10,8 @@
 #include "..\hcmgr\PredicateEntry.h"
 #include "..\hcmgr\SymbolTable.h"
 #include "..\hcmgr\SubstitutionList.h"
+#include "..\hcmgr\SymbolTable.h"
+#include "..\hcmgr\Parser.h"
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -235,6 +238,26 @@ namespace UnitTestHcMgr
 			shared_ptr<ConstantEntry> t2(new ConstantEntry(2));
 			FunctionEntry entry(string("+"), t1, t2);
 			Assert::AreEqual(false, entry.is_bound());
+		}
+
+		TEST_METHOD(IsValidFunctionEntry_fail)
+		{
+			Parser parser("[/ 1 0]");
+			SymbolTable table;
+			shared_ptr<Symbol> func = parser.parse_function();
+			shared_ptr<SymbolTableEntry> entry = func->convertToSymbolTableEntry(table);
+
+			Assert::IsFalse(entry->is_valid());
+		}
+
+		TEST_METHOD(IsValidFunctionEntry_pass)
+		{
+			Parser parser("[/ 1 1]");
+			SymbolTable table;
+			shared_ptr<Symbol> func = parser.parse_function();
+			shared_ptr<SymbolTableEntry> entry = func->convertToSymbolTableEntry(table);
+
+			Assert::IsTrue(entry->is_valid());
 		}
 		
 

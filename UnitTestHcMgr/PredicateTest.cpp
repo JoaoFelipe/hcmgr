@@ -9,9 +9,13 @@
 
 #include "..\hcmgr\ConstantEntry.h"
 #include "..\hcmgr\SymbolTable.h"
+#include "..\hcmgr\SubstitutionList.h"
 #include "..\hcmgr\Predicate.h"
+#include "..\hcmgr\Parser.h"
 #include "..\hcmgr\Name.h"
 
+#include "..\hcmgr\UnboundEntry.h"
+#include "..\hcmgr\ConstantEntry.h"
 
 #include <iostream>
 #include <sstream>
@@ -157,6 +161,8 @@ namespace UnitTestHcMgr
 			Assert::IsNotNull(table.find("Bound:a").get());
 			Assert::IsNull(table.find("Unbound:A").get());
 		}
+
+		
 
 	};
 }

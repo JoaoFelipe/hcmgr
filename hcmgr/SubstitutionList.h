@@ -49,6 +49,7 @@ public:
 // @param output - ostream
 	void print(ostream & output=cout) const;
 
+	void add_all(SubstitutionList & other);
 private:
 // Pairs of the substitution list <original symbol, substitute>
 	vector<pair<shared_ptr<SymbolTableEntry>, shared_ptr<SymbolTableEntry>>> _substitutions;

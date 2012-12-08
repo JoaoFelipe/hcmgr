@@ -64,7 +64,7 @@ public:
 // @return string - symbols after substitutions 			
 	virtual string unification(SubstitutionList & substitution_list) const;
 
-
+	virtual bool is_valid() const;
 private:
 // Operation of the FunctionEntry
 	string _operation;

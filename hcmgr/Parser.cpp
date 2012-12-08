@@ -375,6 +375,7 @@ shared_ptr<Symbol> Parser::parse_function() {
 	if (!check_right_bracket()) {
 		return shared_ptr<Symbol>();
 	}
+	next();
 
 	return shared_ptr<Symbol>(new FunctionSymbol(text_operator, term1, term2));
 

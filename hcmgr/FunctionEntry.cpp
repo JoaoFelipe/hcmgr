@@ -91,3 +91,15 @@ string FunctionEntry::unification(SubstitutionList & substitution_list) const {
 		throw i;
 	}
 }
+
+bool FunctionEntry::is_valid() const {
+	try {
+		this->value();
+		return true;
+	} catch (int i) {
+		if (i == DIVIDE_BY_ZERO_ERROR) {
+			return false;
+		}
+		throw i;
+	}
+}

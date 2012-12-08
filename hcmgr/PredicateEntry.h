@@ -64,6 +64,9 @@ public:
 // @return string - predicate after substitutions 		
 	virtual string unification(SubstitutionList & substitution_list) const;
 
+	shared_ptr<Predicate> substitute(SubstitutionList & substitution_list) const;
+
+	virtual bool is_valid() const;
 private:
 // Name of the PredicateEntry
 	string _name;

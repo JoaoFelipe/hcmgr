@@ -12,7 +12,11 @@
 #include "stdafx.h"
 #include "HornClause.h"
 #include "SubstitutionList.h"
+#include "PredicateEntry.h"
 #include "const.h"
+#include <functional>
+#include <algorithm>
+
 
 // @brief HornClause class Constructor using a Head parameter and default body
 // @param h - reference to Head
@@ -91,50 +95,116 @@ void HornClause::print(ostream & output) const {
 // @brief Fills out a Symbol Table with tokens from the Horn Clause Head and Body
 // @param table - SymbolTable 
 void HornClause::fill_symbol_table(SymbolTable & table){
-	_head->fill_symbol_table(table);
+	if (_head) {
+		_head->fill_symbol_table(table);
+	}
 	if (_body) {
 		_body->fill_symbol_table(table);
 	}
 }
 
+vector<Predicate> HornClause::body_predicates() {
+	if (_body) {
+		return _body->predicates();
+	}
+	return vector<Predicate>();
+}
+
+vector<Predicate> HornClause::head_predicates() {
+	if (_head) {
+		return _head->predicates();
+	}
+	return vector<Predicate>();
+}
+
+
+bool HornClause::is_fact() {
+	return (_head && !_body);
+}
+
+bool HornClause::is_goal() {
+	return (!_head && _body);
+}
+
+bool HornClause::is_true() {
+	return (!_head && !_body);
+}
+
+bool HornClause::is_valid() {
+	bool result = true;
+	if (_head) {
+		result = result && _head->is_valid();
+	}
+	if (_body) {
+		result = result && _body->is_valid();
+	}
+	return result;
+}
 
 shared_ptr<HornClause> HornClause::unify(HornClause & other) {
+	if (!other.is_valid()) {
+		return shared_ptr<HornClause>();
+	}
+	if (is_goal() || !is_valid()) {
+		return shared_ptr<HornClause>(new HornClause(other.head(), other.body()));
+	}
 	Predicate predicate_head = head()->predicate();
-	vector<Predicate> other_predicates = other.body()->predicates();
-	vector<Predicate> predicates = body()->predicates();
+	vector<Predicate> other_body_predicates = other.body_predicates();
+	vector<Predicate> body_predicates = this->body_predicates();
 
 	SubstitutionList subst;
 
 	vector<Predicate> new_body;
-	for (auto i = other_predicates.begin(); i != other_predicates.end(); ++i) {
-		if (predicate_head.can_unify(*i)) {
-			if (predicate_head.predicate_entry()->matches(i->predicate_entry(), subst)) {
-				for (auto j = predicates.begin(); j != predicates.end(); ++j) {
-					new_body.push_back(*j);
-				}
-			} else {
-				return shared_ptr<HornClause>();
-			}
+	for (auto i = other_body_predicates.begin(); i != other_body_predicates.end(); ++i) {
+		SubstitutionList temp(subst);
+		if (predicate_head.predicate_entry()->matches(i->predicate_entry(), temp)) {
+			subst.add_all(temp);
+			back_insert_iterator<vector<Predicate>> inserter(new_body);
+			copy(body_predicates.begin(), body_predicates.end(), inserter);
 		} else {
 			new_body.push_back(*i);
 		}
 	}
 
 	//post proccess
-	shared_ptr<Head> head_result(other.head());
+	Substitute substitute(subst);
+
+	shared_ptr<Head> head_result;
 	shared_ptr<Body> body_result;
 
-	Predicate other_predicate_head = other.head()->predicate();
+	bool other_has_head = true;
+	vector<Predicate> other_head_predicates = other.head_predicates();
+	shared_ptr<Predicate> other_predicate_head;
+	if (other_head_predicates.size() == 0) {
+		other_has_head = false;
+	} else {
+		head_result = shared_ptr<Head>(new Head(substitute(other.head()->predicate())));
+		other_predicate_head = substitute.transform(other_head_predicates[0]);
+	}
+
+
+	vector<Predicate> body_substitutions_replace;
+	back_insert_iterator<vector<Predicate>> inserter(body_substitutions_replace);
+	transform(new_body.begin(), new_body.end(), inserter, substitute);
+
+	 
 	vector<Predicate> body_after_replace;
 	
-	for (auto i = new_body.begin(); i != new_body.end(); ++i) {
-		if (other_predicate_head.predicate_entry()->matches(i->predicate_entry(), subst)) {
+	for (auto i = body_substitutions_replace.begin(); i != body_substitutions_replace.end(); ++i) {
+		SubstitutionList subst_temp;
+
+		if (other_has_head && other_predicate_head->predicate_entry()->matches(i->predicate_entry(), subst_temp)) {
 			head_result = shared_ptr<Head>();
 		} else {
-			body_after_replace.push_back(*i);
+			SubstitutionList subst_temp2;
+			auto it = find_if(body_after_replace.begin(), body_after_replace.end(), Matches(*i, subst_temp2));
+			if (it == body_after_replace.end()) {
+				body_after_replace.push_back(*i);
+			}
 		}
 	}
 
+	
 	if (body_after_replace.size() != 0) {
 		body_result = shared_ptr<Body>(new Body(body_after_replace));
 	} 

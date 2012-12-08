@@ -10,6 +10,9 @@
 #include "PredicateEntry.h"
 #include "const.h"
 #include "UnboundEntry.h"
+#include "Parser.h"
+#include <sstream>
+#include <iostream>
 
 
 // @brief PredicateEntry class Constructor
@@ -117,4 +120,27 @@ string PredicateEntry::unification(SubstitutionList & substitution_list) const {
 		result += _symbols[i]->unification(substitution_list);
 	}
 	return result;
+}
+
+
+shared_ptr<Predicate> PredicateEntry::substitute(SubstitutionList & substitution_list) const {
+	vector<shared_ptr<SymbolTableEntry>> symbols;
+	for (auto i = _symbols.begin(); i != _symbols.end(); ++i) {
+		symbols.push_back(substitution_list.find_value(*i));
+	}
+	PredicateEntry p(string(_name), symbols);
+	ostringstream s;
+	s << "(" << p.text() << ")";
+	Parser parser(s.str());
+
+	return parser.parse_predicate();
+}
+
+bool PredicateEntry::is_valid() const {
+	for (auto i = _symbols.begin(); i != _symbols.end(); ++i) {
+		if (!(*i)->is_valid()) {
+			return false;
+		}
+	}
+	return true;
 }

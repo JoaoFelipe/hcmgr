@@ -71,6 +71,8 @@ public:
 // @brief Returns the modified entries with the substitutions after the unification 
 // @return string - entries after substitutions 		
 	virtual string unification(SubstitutionList & substitution_list) const = 0;
+
+	virtual bool is_valid() const;
 };
 
 

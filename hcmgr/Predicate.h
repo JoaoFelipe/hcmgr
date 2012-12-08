@@ -67,6 +67,8 @@ public:
 	void fill_symbol_table(SymbolTable & table);
 
 	shared_ptr<SymbolTableEntry> predicate_entry();
+
+	bool is_valid();
 };
 
 

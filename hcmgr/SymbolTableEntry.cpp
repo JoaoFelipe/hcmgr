@@ -67,3 +67,9 @@ bool SymbolTableEntry::is_unbound() const {
 bool SymbolTableEntry::is_evaluable() const {
 	return false;
 }
+
+
+bool SymbolTableEntry::is_valid() const {
+	return true;
+}
+

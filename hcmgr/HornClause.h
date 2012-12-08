@@ -12,7 +12,10 @@
 #include <vector>
 #include "body.h"
 #include "head.h"
+#include "SubstitutionList.h"
+#include "Predicate.h"
 #include "SymbolTable.h"
+#include "PredicateEntry.h"
 #include <ostream>
 #include <iostream>
 #include <memory>
@@ -71,8 +74,48 @@ public:
 // @param table - SymbolTable 
 	void fill_symbol_table(SymbolTable & table);
 
+	vector<Predicate> body_predicates();
+
+	vector<Predicate> head_predicates();
+
+	bool is_fact();
+
+	bool is_goal();
+
+	bool is_true();
+
+	bool is_valid();
 	
 	shared_ptr<HornClause> unify(HornClause & other);
+};
+
+
+struct Matches {
+	Predicate predicate_base;
+	SubstitutionList subst;
+
+	Matches(Predicate p, SubstitutionList s): predicate_base(p), subst(s) {}
+
+    bool operator()(Predicate predicate) {
+		return predicate_base.predicate_entry()->matches(predicate.predicate_entry(), subst);
+    }
+};
+
+struct Substitute {
+	SubstitutionList subst;
+
+	Substitute(SubstitutionList s): subst(s) {}
+
+	shared_ptr<Predicate> transform(Predicate predicate) {
+		shared_ptr<Predicate> result = dynamic_pointer_cast<PredicateEntry>(predicate.predicate_entry())->substitute(subst);
+		SymbolTable table;
+		result->fill_symbol_table(table);
+		return result;
+	}
+
+    Predicate operator()(Predicate predicate) {
+		return *transform(predicate);
+    }
 };
 
 #endif
