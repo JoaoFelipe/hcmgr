@@ -68,6 +68,10 @@ const int FILE_NAME = 2;
 // Constant for Null Pointers
 const int NONE = 0;
 
+// Constant for Max recursions
+static int MAX_LOOPS = 50;
+
+
 struct null_deleter
 {
     void operator()(void const *) const

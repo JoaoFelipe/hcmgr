@@ -82,6 +82,7 @@
     <ClInclude Include="ConstantEntry.h" />
     <ClInclude Include="FunctionEntry.h" />
     <ClInclude Include="FunctionSymbol.h" />
+    <ClInclude Include="hcevaluate.h" />
     <ClInclude Include="hcprocess.h" />
     <ClInclude Include="Head.h" />
     <ClInclude Include="HornClause.h" />
@@ -111,6 +112,7 @@
     <ClCompile Include="ConstantEntry.cpp" />
     <ClCompile Include="FunctionEntry.cpp" />
     <ClCompile Include="FunctionSymbol.cpp" />
+    <ClCompile Include="hcevaluate.cpp" />
     <ClCompile Include="hcmgr.cpp" />
     <ClCompile Include="hcprocess.cpp" />
     <ClCompile Include="Head.cpp" />

@@ -50,6 +50,10 @@ public:
 // @param hc - reference to another HornClause
 	HornClause & operator=(const HornClause & other);
 
+// @brief Comparisson operator
+// @param hc - reference to another HornClause
+	bool operator==(const HornClause & other);
+
 // @brief Setter method for the HornClause Head
 // @param h - reference to a Head	
 	void head(const Head & h);
@@ -78,11 +82,11 @@ public:
 
 	vector<Predicate> head_predicates();
 
-	bool is_fact();
+	bool is_fact() const;
 
-	bool is_goal();
+	bool is_goal() const;
 
-	bool is_true();
+	bool is_true() const;
 
 	bool is_valid();
 	

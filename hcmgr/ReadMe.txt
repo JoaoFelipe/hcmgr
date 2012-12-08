@@ -53,46 +53,21 @@ SubstitutionList.h: contains the declaration of the SubstitutionList class
 SubstitutionList.cpp: contains the definitions of the SubstitutionList methods
 
 
-:Abstract representation of HornClauses
-One well-formed horn clause is abstractly represented by the class HornClause.
-The class HornClause has a field of type Head and a field of type pointer to Body. When the pointer == 0, it means that the Horn Clause doesn't have a body.
-The class Head has a field of type Predicate
-The class Body has a vector of Predicates
-The class Predicate has a Name and a vector of Symbols
-Both the class Name and the class Symbol has a string _value
+:Predicate Evaluation
+All the resolutions are performed lazily (only when necessary to perform the evaluate command)
 
-This abstractaction is readed from the text file by the Parser in the hcprocess file and a fill_symbol_table method is called for each HornClause. 
-This method calls the method with same name of Head and Body that calls the method of same name of Predicate
-In the Predicate, this method adds the symbols to the SymbolTable and then, adds the Predicate itself.
+When the evaluate command is called, the predicate is parsed as a Goal (A HornClause with just the body)
+Then, there is a try to unify each HornClause of the Deductive Database with the Goal. 
+If a unification works, it can eliminate the body of the goal, evaluating the given predicate as True, or create a new HornClause of Subgoals.
+If it is true, the evaluation function ends and answer the unification steps in reverse way.
+If it is a subgoal, it is passed recursively to the evaluate function, trying to evaluate with all the HornClauses in the deductive database.
 
+If all the unifications fails, the evaluation ends. 
 
-:Structure of Symbol Table
-We have a class SymbolTable that has a vector of SymbolTableEntry
-The SymbolTableEntry can be a SymbolEntry or a PredicateEntry
-The SymbolEntry can be a BoundEntry that has a string field _label or a ConstantEntry that has an unsigned int field _value
-The PredicateEntry has a string field _name and a vector of pointers of SymbolTableEntry to indicate the symbols
-
-This structure allows us to easily identify the type os the entry in the table by virtual methods is_constant, is_variable, is_predicate and allows us to store different types of fields:
--string for variables
--unsigned int for constants
--string and list of pointers to SymbolTableEntry for predicate
-
-
-:Unification
-To check if two predicates matches, we have the method matches in the predicates that receives another predicate and receives a class SubstitutionList that stores the substitutions of symbols 
-and finds recursively the substitution of a symbol (eg.: if we have the symbol X, and the substitutions Y/X 2/Y, the find method will return a pointer to the SymbolTableEntry 2)
-
-For checking in the matches method, we first check if both predicates have the same name and the same amount of symbols.
-Then, we iterates through the symbols:
-  first we try to find any substitutions for the current symbols in both predicates
-  if no substitutions are found, the original symbol are used.
-  Then we check if both substituted (or original) symbols are equals.
-  If they are, it iterates to the next symbol.
-  If not, we check:
-	Are both constants? If yes, the matching fails.
-	Are both variables? If yes, adds a substitution in the SubstitutionList for first variable (from current predicate) to the second variable (from predicate that is being matched)
-	Otherwise: adds a substitution in the SubstitutionList for the variable to the constant
-If nothing fails, the predicates match
+This works similar to the depth-first strategy used by prolog, described in the book.
+So, there are possibilities to the horn clauses enter in a infinite loop. 
+To avoid that, we defined a max recursion count variable that stops the recursion. This doesn't garantee that the stopped execution was an infinite loop, 
+but we decided that it is better to stop the evaluation than get a stack overflow. 
 
 :Trials
 $ hcmgr.exe bla

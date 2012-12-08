@@ -90,6 +90,7 @@
     <ClCompile Include="BodyTest.cpp" />
     <ClCompile Include="BoundEntryTest.cpp" />
     <ClCompile Include="ConstantEntryTest.cpp" />
+    <ClCompile Include="EvaluateTest.cpp" />
     <ClCompile Include="FunctionEntryTest.cpp" />
     <ClCompile Include="FunctionSymbolTest.cpp" />
     <ClCompile Include="HeadTest.cpp" />

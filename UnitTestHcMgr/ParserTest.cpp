@@ -423,5 +423,17 @@ namespace UnitTestHcMgr
 			Parser parser("((a)))");
 			Assert::IsTrue(parser.parse_body());
 		}
+
+		TEST_METHOD(ParseGoal_FailPredicate)
+		{
+			Parser parser("abs 1");
+			Assert::IsFalse(parser.parse_goal());
+		}
+
+		TEST_METHOD(ParseGoal_Pass)
+		{
+			Parser parser("(abs 1)");
+			Assert::IsTrue(parser.parse_goal());
+		}
 	};
 }

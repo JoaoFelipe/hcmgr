@@ -282,7 +282,7 @@ namespace UnitTestHcMgr
 			
 			ostringstream s;
 			hc_result->print(s);
-			ostringstream result; result << "( ((c)))";
+			ostringstream result; result << "(Goal ((c)))";
 			Assert::AreEqual(result.str(), s.str());
 		}
 
@@ -368,7 +368,7 @@ namespace UnitTestHcMgr
 			
 			ostringstream s;
 			hc_result->print(s);
-			ostringstream result; result << "( ((c) (a) (b)))";
+			ostringstream result; result << "(Goal ((c) (a) (b)))";
 			Assert::AreEqual(result.str(), s.str());
 		}
 

@@ -16,6 +16,9 @@
 #include "const.h"
 #include <functional>
 #include <algorithm>
+#include <iostream>
+#include <sstream>
+
 
 
 // @brief HornClause class Constructor using a Head parameter and default body
@@ -53,6 +56,20 @@ HornClause & HornClause::operator=(const HornClause & other) {
 	return *this;
 }
 
+// @brief Comparisson operator
+// @param hc - reference to another HornClause
+bool HornClause::operator==(const HornClause & other) {
+	ostringstream ths;
+	print(ths);
+	ostringstream oth;
+	other.print(oth);
+	string this_str(ths.str());
+	string other_str(oth.str());
+	bool b = (this_str == other_str);
+	return b;
+}
+
+
 // @brief Setter method for the HornClause Head
 // @param h - reference to a Head	
 void HornClause::head(const Head & h) {
@@ -80,7 +97,17 @@ shared_ptr<Body> HornClause::body() const {
 // @brief Prints the Horn Clause according to the grammar syntax
 // @param output - ostream
 void HornClause::print(ostream & output) const {
+	if (is_true()) {
+		output << "True";
+		return;
+	}
+	
 	output << LEFTPAREN;
+	if (is_goal()) {
+		output << "Goal";
+	}
+
+
 	if (_head) {
 		_head->print(output);
 	}
@@ -118,15 +145,15 @@ vector<Predicate> HornClause::head_predicates() {
 }
 
 
-bool HornClause::is_fact() {
+bool HornClause::is_fact() const {
 	return (_head && !_body);
 }
 
-bool HornClause::is_goal() {
+bool HornClause::is_goal() const {
 	return (!_head && _body);
 }
 
-bool HornClause::is_true() {
+bool HornClause::is_true() const {
 	return (!_head && !_body);
 }
 
