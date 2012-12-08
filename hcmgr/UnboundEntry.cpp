@@ -3,7 +3,7 @@
 	UnboundEntry.cpp
 	Class name: UnboundEntry
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Implementation of the UnboundEntry to represent Variables in the SymbolTable
 */
 
