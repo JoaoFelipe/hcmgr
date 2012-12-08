@@ -133,6 +133,10 @@ public:
 // @return shared_ptr<Body>
 	shared_ptr<Body> parse_body();
 
+// @brief checks the Predicate syntax. If it is valid, it returns the goal hornclause, if not it returns 0. 
+// @return shared_ptr<HornClause>
+	shared_ptr<HornClause> parse_goal();
+
 private:
 	string _file_name;
 	string _current_line;

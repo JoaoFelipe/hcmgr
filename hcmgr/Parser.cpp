@@ -412,3 +412,17 @@ shared_ptr<Body> Parser::parse_body() {
 }
 
 
+// @brief checks the Predicate syntax. If it is valid, it returns the goal hornclause, if not it returns 0. 
+// @return shared_ptr<HornClause>
+shared_ptr<HornClause> Parser::parse_goal() {
+	shared_ptr<Predicate> predicate = parse_predicate();
+	if (!predicate) {
+		return shared_ptr<HornClause>();
+	}
+	vector<Predicate> predicates;
+	predicates.push_back(*predicate);
+
+	shared_ptr<Body> body = shared_ptr<Body>(new Body(predicates));
+	shared_ptr<HornClause> result = shared_ptr<HornClause>(new HornClause(shared_ptr<Head>(), body));
+	return result;
+}
