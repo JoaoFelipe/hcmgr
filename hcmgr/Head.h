@@ -2,7 +2,7 @@
 	Head.h
 	Class name: Head 
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Declaration of the class Head for the grammar
 			    head -> predicate
 */

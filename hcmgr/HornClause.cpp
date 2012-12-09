@@ -2,7 +2,7 @@
 	HornClause.cpp
 	Class name: HornClause 
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Implementation of the Horn Clause for the grammar
 			    hornclause -> LEFTPAREN head [body] RIGHTPAREN
 
@@ -32,8 +32,6 @@ HornClause::HornClause(const Head & h, const Body & b): _head(shared_ptr<Head>(n
 // @brief HornClause class Constructor using Head and Body shared_ptr parameters
 // @param h, b - shared_ptr to a Head and Body 
 HornClause::HornClause(const shared_ptr<Head> h, const shared_ptr<Body> b) : _head(h), _body(b) {}
-
-
 
 // @brief HornClause class copy Constructor
 // @param hc - reference to another HornClause
@@ -130,6 +128,8 @@ void HornClause::fill_symbol_table(){
 	}
 }
 
+// @brief Getter method for the predicates from the body of the HornClause
+// @return vector<Predicate> 
 vector<Predicate> HornClause::body_predicates() {
 	if (_body) {
 		return _body->predicates();
@@ -137,6 +137,8 @@ vector<Predicate> HornClause::body_predicates() {
 	return vector<Predicate>();
 }
 
+// @brief Getter method for the predicates from the head of the HornClause
+// @return vector<Predicate>
 vector<Predicate> HornClause::head_predicates() {
 	if (_head) {
 		return _head->predicates();
@@ -144,19 +146,26 @@ vector<Predicate> HornClause::head_predicates() {
 	return vector<Predicate>();
 }
 
-
+// @brief Verifies if HornClause is a fact - only head and no body
+// @return bool
 bool HornClause::is_fact() const {
 	return (_head && !_body);
 }
 
+// @brief Verifies if HornClause is goal - only body and no head
+// @return bool
 bool HornClause::is_goal() const {
 	return (!_head && _body);
 }
 
+// @brief Verifies if HornClause is true - no body or head
+// @return bool
 bool HornClause::is_true() const {
 	return (!_head && !_body);
 }
 
+// @brief Verifies if body and head of the HornClause are valid
+// @return bool
 bool HornClause::is_valid() {
 	bool result = true;
 	if (_head) {
@@ -168,7 +177,9 @@ bool HornClause::is_valid() {
 	return result;
 }
 
-shared_ptr<HornClause> HornClause::unify(HornClause & other) {
+// @brief Unifies two Horn Clauses
+// @param other - reference to a HornClause
+// @return shared_ptr<HornClause> - unification resultshared_ptr<HornClause> HornClause::unify(HornClause & other) {
 	shared_ptr<SymbolTable> table = SymbolTable::instance();
 	if (!other.is_valid()) {
 		return shared_ptr<HornClause>();

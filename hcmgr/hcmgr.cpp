@@ -1,8 +1,8 @@
 /**
-  const.h 
+  hcmgt.cpp 
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
-	Purpose:    Entry point for the application (main) and checking if the arguments are correct
+	For:	    CSE 425 Lab 3
+	Purpose:    Entry point for the application (main), also checks if the arguments are correct
 */
 
 #include "stdafx.h"

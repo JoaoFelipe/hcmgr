@@ -24,7 +24,8 @@ using namespace std;
 
 
 // @brief Parse a bound and a number from the text and set the value in the SymbolTable
-// @param text is the bound and value, output is ostream
+// @param text - the bound and value
+// @param output - ostream
 // @return int indicating success (0-SUCCESS)
 int set_variable(string& text, ostream & output) {
 	shared_ptr<SymbolTable> table = SymbolTable::instance();

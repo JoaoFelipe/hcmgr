@@ -8,7 +8,7 @@
 #include "stdafx.h"
 #include "hcrandomize.h"
 #include "Parser.h"
-#include <limits.h>
+#include <limits.h> // INT_MAX library
 #include <ctime>    // For time()
 #include <cstdlib>  // For srand() and rand()
 

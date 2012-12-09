@@ -2,7 +2,7 @@
 	HornClause.h
 	Class name: HornClause 
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Declaration of the Horn Clause for the grammar
 			    hornclause -> LEFTPAREN head [body] RIGHTPAREN
 */
@@ -78,22 +78,38 @@ public:
 // @param table - SymbolTable 
 	void fill_symbol_table();
 
+// @brief Getter method for the predicates from the body of the HornClause
+// @return vector<Predicate> 
 	vector<Predicate> body_predicates();
 
+// @brief Getter method for the predicates from the head of the HornClause
+// @return vector<Predicate>
 	vector<Predicate> head_predicates();
 
+// @brief Verifies if HornClause is a fact - only head and no body
+// @return bool	
 	bool is_fact() const;
 
+// @brief Verifies if HornClause is goal - only body and no head
+// @return bool
 	bool is_goal() const;
 
+// @brief Verifies if HornClause is true - no body or head
+// @return bool
 	bool is_true() const;
 
+// @brief Verifies if body and head of the HornClause are valid
+// @return bool
 	bool is_valid();
-	
+
+// @brief Unifies two Horn Clauses
+// @param other - reference to a HornClause
+// @return shared_ptr<HornClause> - unification result	
 	shared_ptr<HornClause> unify(HornClause & other);
 };
 
-
+// @brief Struct to matches predicate to substitution list
+// @return shared_ptr<HornClause> - unification result
 struct Matches {
 	Predicate predicate_base;
 	SubstitutionList subst;

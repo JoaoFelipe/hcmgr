@@ -1,7 +1,7 @@
 /**
 	hcprocess.cpp
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Implementation of the method to process the Horn Clauses line by line from the file
 
 */
@@ -24,6 +24,8 @@ using namespace std;
 
 // @brief Manipulates the file to parse the Horn Clauses line by line
 // @param filename
+// @param horn_clauses - vector of shared pointers
+// @param output - ostream
 // @return int - 0 = SUCCESS
 int process(string & filename, vector<shared_ptr<HornClause>> & horn_clauses, ostream & output) {
 

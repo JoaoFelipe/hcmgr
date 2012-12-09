@@ -2,7 +2,7 @@
 	FunctionEntry.h
 	Class name: FunctionEntry
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Declaration of the FunctionEntry to represent Variables in the SymbolTable
 */
 
