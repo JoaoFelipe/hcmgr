@@ -1,7 +1,7 @@
 /**
   const.h 
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    File to declare and assign the global system constants
 */
 
@@ -74,7 +74,7 @@ const int NONE = 0;
 // Constant for Max recursions
 static int MAX_LOOPS = 50;
 
-
+// Struct to make the shared pointer not delete the object
 struct null_deleter
 {
     void operator()(void const *) const

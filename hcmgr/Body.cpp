@@ -2,7 +2,7 @@
 	Body.cpp
 	Class name: Body 
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Implementation of the class Body for the grammar
 			    body -> LEFTPAREN predicate {predicate} RIGHTPAREN
 */

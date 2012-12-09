@@ -3,7 +3,7 @@
 	BoundEntry.cpp
 	Class name: BoundEntry
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Implementation of the BoundEntry to represent Variables in the SymbolTable
 */
 
