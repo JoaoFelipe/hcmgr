@@ -31,13 +31,16 @@ bool Parser::open(const string & filename) {
 	_file_name = filename;
 	_current_line =  "";
 	_position = 0;
+	bool result = true;
 	ifstream file(filename.c_str());
 	if (file) {
-        _file << file.rdbuf();
+		if (!(_file << file.rdbuf())) {
+			result = false;
+		}
 
         file.close();
 		
-		return true;
+		return result;
         // operations on the buffer...
     }
 	return false;

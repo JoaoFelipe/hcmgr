@@ -26,6 +26,7 @@ using namespace std;
 // @param filename
 // @return int - 0 = SUCCESS
 int process(string & filename, vector<shared_ptr<HornClause>> & horn_clauses, ostream & output) {
+
 	Parser parser;	
 	if (parser.open(filename)) {
 		int i = 0;
