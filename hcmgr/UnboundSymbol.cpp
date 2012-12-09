@@ -60,7 +60,7 @@ void UnboundSymbol::print(ostream & output) const {
 // @brief Converts the Symbol to a SymbolTableEntry
 // @param SymbolTable
 // @return SymbolTableEntry
-shared_ptr<SymbolTableEntry> UnboundSymbol::convertToSymbolTableEntry(SymbolTable & table) const {
+shared_ptr<SymbolTableEntry> UnboundSymbol::convertToSymbolTableEntry() const {
 	return shared_ptr<SymbolTableEntry>(new UnboundEntry(_value));
 }
 

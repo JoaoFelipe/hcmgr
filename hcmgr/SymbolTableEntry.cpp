@@ -32,6 +32,14 @@ bool SymbolTableEntry::equals(const string& t) const {
 	return (t == temp);
 }
 
+// @brief Returns printable text of the SymbolTableEntry name and values
+// @return string 		
+string SymbolTableEntry::printable_text() const {
+	string temp = type() + ": ";
+	temp += text();
+	return temp;
+}
+
 // @brief Returns true if a SymbolTableEntry is a Predicate
 // @return bool 
 bool SymbolTableEntry::is_predicate() const {

@@ -21,7 +21,11 @@ namespace UnitTestHcMgr
 	TEST_CLASS(FunctionSymbolTest)
 	{
 	public:
-		
+		TEST_METHOD_INITIALIZE(Setup) 
+		{
+			SymbolTable::instance()->erase();
+		}
+
 		TEST_METHOD(CreateFunctionSymbol)
 		{
 			FunctionSymbol symbol(string("+"), string("a"), string("2"));
@@ -78,12 +82,11 @@ namespace UnitTestHcMgr
 		TEST_METHOD(ConvertToSymbolTableEntryFunctionSymbol)
 		{
 			FunctionSymbol symbol(string("+"), string("a"), string("2"));
-			SymbolTable table;
 			shared_ptr<BoundEntry> t1(new BoundEntry(string("a")));
 			shared_ptr<ConstantEntry> t2(new ConstantEntry(2));
 			shared_ptr<FunctionEntry> expected(new FunctionEntry(string("+"), t1, t2));
 
-			shared_ptr<FunctionEntry> result = dynamic_pointer_cast<FunctionEntry>(symbol.convertToSymbolTableEntry(table));
+			shared_ptr<FunctionEntry> result = dynamic_pointer_cast<FunctionEntry>(symbol.convertToSymbolTableEntry());
 			Assert::AreEqual(expected->text(), result->text());
 		}
 

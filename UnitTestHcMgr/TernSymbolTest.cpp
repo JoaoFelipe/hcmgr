@@ -19,6 +19,10 @@ namespace UnitTestHcMgr
 	TEST_CLASS(TermSymbolTest)
 	{
 	public:
+		TEST_METHOD_INITIALIZE(Setup) 
+		{
+			SymbolTable::instance()->erase();
+		}
 		
 		TEST_METHOD(CreateBoundTermSymbol)
 		{
@@ -77,20 +81,18 @@ namespace UnitTestHcMgr
 		TEST_METHOD(convertToSymbolTableEntryTermSymbol_New)
 		{
 			TermSymbol symbol(string("a"));
-			SymbolTable table;
 			BoundEntry expected("a");
-			shared_ptr<BoundEntry> result = dynamic_pointer_cast<BoundEntry>(symbol.convertToSymbolTableEntry(table));
+			shared_ptr<BoundEntry> result = dynamic_pointer_cast<BoundEntry>(symbol.convertToSymbolTableEntry());
 			Assert::AreEqual(expected.text(), result->text());
 		}
 
 		TEST_METHOD(convertToSymbolTableEntryTermSymbol_Existent)
 		{
 			TermSymbol symbol(string("1"));
-			SymbolTable table;
 			shared_ptr<ConstantEntry> expected = shared_ptr<ConstantEntry>(new ConstantEntry(1));
-			table.add(expected);
-			shared_ptr<SymbolTableEntry> expected_address = table.find(symbol.text());
-			shared_ptr<SymbolTableEntry> result = symbol.convertToSymbolTableEntry(table);
+			SymbolTable::instance()->add(expected);
+			shared_ptr<SymbolTableEntry> expected_address = SymbolTable::instance()->find(symbol.text());
+			shared_ptr<SymbolTableEntry> result = symbol.convertToSymbolTableEntry();
 			Assert::AreEqual(expected_address->text(), result->text());
 			ostringstream e_address; e_address << dynamic_pointer_cast<void>(expected_address);
 			ostringstream r_address; r_address << dynamic_pointer_cast<void>(result);

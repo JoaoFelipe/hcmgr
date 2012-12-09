@@ -21,7 +21,6 @@ using namespace std;
 
 class BoundEntry : public SymbolValueEntry {
 public:
-
 // @brief BoundEntry class Constructor using a label string reference as parameter 
 // @param l - reference to string value as label	
 	BoundEntry(const string & l);
@@ -65,6 +64,9 @@ public:
 	virtual bool is_bound() const;
 
 private:
+	
+
+
 // Label of the BoundEntry
 	string _label;
 	int _value;

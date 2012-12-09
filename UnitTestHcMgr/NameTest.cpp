@@ -4,6 +4,7 @@
 #include "..\hcmgr\Name.h"
 #include <iostream>
 #include <sstream>
+#include "..\hcmgr\SymbolTable.h"
 
 using namespace std;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -14,6 +15,10 @@ namespace UnitTestHcMgr
 	TEST_CLASS(NameTest)
 	{
 	public:
+		TEST_METHOD_INITIALIZE(Setup) 
+		{
+			SymbolTable::instance()->erase();
+		}
 		
 		TEST_METHOD(CreateName)
 		{

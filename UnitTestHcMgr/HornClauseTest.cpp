@@ -31,6 +31,10 @@ namespace UnitTestHcMgr
 	TEST_CLASS(HornClauseTest)
 	{
 	public:
+		TEST_METHOD_INITIALIZE(Setup) 
+		{
+			SymbolTable::instance()->erase();
+		}
 
 		TEST_METHOD(CreateHornClause_WithoutBody)
 		{
@@ -218,31 +222,30 @@ namespace UnitTestHcMgr
 			Body body(predicates);
 			HornClause hc(head, body);
 
-			SymbolTable table;
+			shared_ptr<SymbolTable> table = SymbolTable::instance();
 
-			hc.fill_symbol_table(table);
+			hc.fill_symbol_table();
 
-			Assert::IsNotNull(table.find("Predicate:new 3 C").get());
-			Assert::IsNotNull(table.find("Constant:3").get());
-			Assert::IsNull(table.find("Unbound:C").get());
+			Assert::IsNotNull(table->find("Predicate:new 3 C").get());
+			Assert::IsNotNull(table->find("Constant:3").get());
+			Assert::IsNull(table->find("Unbound:C").get());
 
-			Assert::IsNotNull(table.find("Predicate:abs 1 A").get());
-			Assert::IsNotNull(table.find("Constant:1").get());
-			Assert::IsNull(table.find("Unbound:A").get());
+			Assert::IsNotNull(table->find("Predicate:abs 1 A").get());
+			Assert::IsNotNull(table->find("Constant:1").get());
+			Assert::IsNull(table->find("Unbound:A").get());
 
-			Assert::IsNotNull(table.find("Predicate:sum 2 B").get());
-			Assert::IsNotNull(table.find("Constant:2").get());
-			Assert::IsNull(table.find("Unbound:B").get());
+			Assert::IsNotNull(table->find("Predicate:sum 2 B").get());
+			Assert::IsNotNull(table->find("Constant:2").get());
+			Assert::IsNull(table->find("Unbound:B").get());
 		}
 
 		TEST_METHOD(UnifyHornClase_Simple) 
 		{
-			SymbolTable table;
 			Parser parser(string("((b) ((a))) ((c) ((b)))"));
 			shared_ptr<HornClause> hc1 = parser.parse_horn_clause();
 			shared_ptr<HornClause> hc2 = parser.parse_horn_clause();
-			hc1->fill_symbol_table(table);
-			hc2->fill_symbol_table(table);
+			hc1->fill_symbol_table();
+			hc2->fill_symbol_table();
 			
 			shared_ptr<HornClause> hc_result = hc1->unify(*hc2);
 			
@@ -254,12 +257,11 @@ namespace UnitTestHcMgr
 
 		TEST_METHOD(UnifyHornClase_Simple_Predicates_Complex_Clauses) 
 		{
-			SymbolTable table;
 			Parser parser(string("((b) ((a) (e))) ((c) ((b) (d)))"));
 			shared_ptr<HornClause> hc1 = parser.parse_horn_clause();
 			shared_ptr<HornClause> hc2 = parser.parse_horn_clause();
-			hc1->fill_symbol_table(table);
-			hc2->fill_symbol_table(table);
+			hc1->fill_symbol_table();
+			hc2->fill_symbol_table();
 
 			shared_ptr<HornClause> hc_result = hc1->unify(*hc2);
 			
@@ -271,12 +273,11 @@ namespace UnitTestHcMgr
 
 		TEST_METHOD(UnifyHornClase_Eliminate_Matches_Head) 
 		{
-			SymbolTable table;
 			Parser parser(string("((a) ((b))) ((b) ((a) (c)))"));
 			shared_ptr<HornClause> hc1 = parser.parse_horn_clause();
 			shared_ptr<HornClause> hc2 = parser.parse_horn_clause();
-			hc1->fill_symbol_table(table);
-			hc2->fill_symbol_table(table);
+			hc1->fill_symbol_table();
+			hc2->fill_symbol_table();
 
 			shared_ptr<HornClause> hc_result = hc1->unify(*hc2);
 			
@@ -288,12 +289,11 @@ namespace UnitTestHcMgr
 
 		TEST_METHOD(UnifyHornClase_Eliminate_Matches_Body) 
 		{
-			SymbolTable table;
 			Parser parser(string("((a) ((b) (c))) ((d) ((a) (b)))"));
 			shared_ptr<HornClause> hc1 = parser.parse_horn_clause();
 			shared_ptr<HornClause> hc2 = parser.parse_horn_clause();
-			hc1->fill_symbol_table(table);
-			hc2->fill_symbol_table(table);
+			hc1->fill_symbol_table();
+			hc2->fill_symbol_table();
 
 			shared_ptr<HornClause> hc_result = hc1->unify(*hc2);
 			
@@ -305,12 +305,11 @@ namespace UnitTestHcMgr
 
 		TEST_METHOD(UnifyHornClase_MatchThisFactWithClause) 
 		{
-			SymbolTable table;
 			Parser parser(string("((a)) ((d) ((a) (b)))"));
 			shared_ptr<HornClause> hc1 = parser.parse_horn_clause();
 			shared_ptr<HornClause> hc2 = parser.parse_horn_clause();
-			hc1->fill_symbol_table(table);
-			hc2->fill_symbol_table(table);
+			hc1->fill_symbol_table();
+			hc2->fill_symbol_table();
 
 			shared_ptr<HornClause> hc_result = hc1->unify(*hc2);
 			
@@ -322,12 +321,11 @@ namespace UnitTestHcMgr
 
 		TEST_METHOD(UnifyHornClase_MatchThisCloseWithFact) 
 		{
-			SymbolTable table;
 			Parser parser(string("((d) ((a) (b))) ((a))"));
 			shared_ptr<HornClause> hc1 = parser.parse_horn_clause();
 			shared_ptr<HornClause> hc2 = parser.parse_horn_clause();
-			hc1->fill_symbol_table(table);
-			hc2->fill_symbol_table(table);
+			hc1->fill_symbol_table();
+			hc2->fill_symbol_table();
 
 			shared_ptr<HornClause> hc_result = hc1->unify(*hc2);
 			
@@ -339,12 +337,11 @@ namespace UnitTestHcMgr
 
 		TEST_METHOD(UnifyHornClase_MatchThisGoalWithClause) 
 		{
-			SymbolTable table;
 			Parser parser(string("((c) (e)) ((d) ((a) (b)))"));
 			shared_ptr<HornClause> hc1 = shared_ptr<HornClause>(new HornClause(shared_ptr<Head>(), parser.parse_body()));
 			shared_ptr<HornClause> hc2 = parser.parse_horn_clause();
-			hc1->fill_symbol_table(table);
-			hc2->fill_symbol_table(table);
+			hc1->fill_symbol_table();
+			hc2->fill_symbol_table();
 
 			shared_ptr<HornClause> hc_result = hc1->unify(*hc2);
 			
@@ -356,13 +353,12 @@ namespace UnitTestHcMgr
 
 		TEST_METHOD(UnifyHornClase_MatchThisClauseWithGoal) 
 		{
-			SymbolTable table;
 			Parser parser(string("((d) ((a) (b))) ((c) (d))"));
 			shared_ptr<HornClause> hc1 = parser.parse_horn_clause();
 			shared_ptr<HornClause> hc2 = shared_ptr<HornClause>(new HornClause(shared_ptr<Head>(), parser.parse_body()));
 			
-			hc1->fill_symbol_table(table);
-			hc2->fill_symbol_table(table);
+			hc1->fill_symbol_table();
+			hc2->fill_symbol_table();
 
 			shared_ptr<HornClause> hc_result = hc1->unify(*hc2);
 			
@@ -374,13 +370,12 @@ namespace UnitTestHcMgr
 
 		TEST_METHOD(UnifyHornClase_unbound_head) 
 		{
-			SymbolTable table;
 			Parser parser(string("((bin 1)) ((resultmod X) ((bin X)))"));
 			shared_ptr<HornClause> hc1 = parser.parse_horn_clause();
 			shared_ptr<HornClause> hc2 = parser.parse_horn_clause();
 			
-			hc1->fill_symbol_table(table);
-			hc2->fill_symbol_table(table);
+			hc1->fill_symbol_table();
+			hc2->fill_symbol_table();
 
 			shared_ptr<HornClause> hc_result = hc1->unify(*hc2);
 			
@@ -392,13 +387,12 @@ namespace UnitTestHcMgr
 
 		TEST_METHOD(UnifyHornClase_unbound_body) 
 		{
-			SymbolTable table;
 			Parser parser(string("((bin 1)) ((resultmod X) ((bin X) (basetwo X)))"));
 			shared_ptr<HornClause> hc1 = parser.parse_horn_clause();
 			shared_ptr<HornClause> hc2 = parser.parse_horn_clause();
 			
-			hc1->fill_symbol_table(table);
-			hc2->fill_symbol_table(table);
+			hc1->fill_symbol_table();
+			hc2->fill_symbol_table();
 
 			shared_ptr<HornClause> hc_result = hc1->unify(*hc2);
 			
@@ -410,13 +404,12 @@ namespace UnitTestHcMgr
 
 		TEST_METHOD(UnifyHornClase_bound_head) 
 		{
-			SymbolTable table;
 			Parser parser(string("((bin a)) ((resultmod a) ((bin 0)))"));
 			shared_ptr<HornClause> hc1 = parser.parse_horn_clause();
 			shared_ptr<HornClause> hc2 = parser.parse_horn_clause();
 			
-			hc1->fill_symbol_table(table);
-			hc2->fill_symbol_table(table);
+			hc1->fill_symbol_table();
+			hc2->fill_symbol_table();
 
 			shared_ptr<HornClause> hc_result = hc1->unify(*hc2);
 			
@@ -428,13 +421,12 @@ namespace UnitTestHcMgr
 
 		TEST_METHOD(UnifyHornClase_bound_repetition) 
 		{
-			SymbolTable table;
 			Parser parser(string("((bin X)) ((resultmod a) ((bin 1) (bin Y) (a Y) (a 1)))"));
 			shared_ptr<HornClause> hc1 = parser.parse_horn_clause();
 			shared_ptr<HornClause> hc2 = parser.parse_horn_clause();
 			
-			hc1->fill_symbol_table(table);
-			hc2->fill_symbol_table(table);
+			hc1->fill_symbol_table();
+			hc2->fill_symbol_table();
 
 			shared_ptr<HornClause> hc_result = hc1->unify(*hc2);
 			
@@ -446,13 +438,12 @@ namespace UnitTestHcMgr
 
 		TEST_METHOD(UnifyHornClase_fail_first_match) 
 		{
-			SymbolTable table;
 			Parser parser(string("((a X X)) ((b a) ((a 1 2) (a 0 0)))"));
 			shared_ptr<HornClause> hc1 = parser.parse_horn_clause();
 			shared_ptr<HornClause> hc2 = parser.parse_horn_clause();
 			
-			hc1->fill_symbol_table(table);
-			hc2->fill_symbol_table(table);
+			hc1->fill_symbol_table();
+			hc2->fill_symbol_table();
 
 			shared_ptr<HornClause> hc_result = hc1->unify(*hc2);
 			
@@ -464,13 +455,12 @@ namespace UnitTestHcMgr
 
 		TEST_METHOD(UnifyHornClase_semantics_fail_other_body) 
 		{
-			SymbolTable table;
 			Parser parser(string("((bin 0)) ((b a) ((bin X) (t [ / 1 x ])))"));
 			shared_ptr<HornClause> hc1 = parser.parse_horn_clause();
 			shared_ptr<HornClause> hc2 = parser.parse_horn_clause();
 			
-			hc1->fill_symbol_table(table);
-			hc2->fill_symbol_table(table);
+			hc1->fill_symbol_table();
+			hc2->fill_symbol_table();
 
 			shared_ptr<HornClause> hc_result = hc1->unify(*hc2);
 			Assert::IsFalse(hc_result);
@@ -478,13 +468,12 @@ namespace UnitTestHcMgr
 
 		TEST_METHOD(UnifyHornClase_semantics_fail_other_head) 
 		{
-			SymbolTable table;
 			Parser parser(string("((bin 0)) ((t [ / 1 x ]) ((bin X)))"));
 			shared_ptr<HornClause> hc1 = parser.parse_horn_clause();
 			shared_ptr<HornClause> hc2 = parser.parse_horn_clause();
 			
-			hc1->fill_symbol_table(table);
-			hc2->fill_symbol_table(table);
+			hc1->fill_symbol_table();
+			hc2->fill_symbol_table();
 
 			shared_ptr<HornClause> hc_result = hc1->unify(*hc2);
 			Assert::IsFalse(hc_result);
@@ -492,13 +481,12 @@ namespace UnitTestHcMgr
 
 		TEST_METHOD(UnifyHornClase_semantics_fail_this_head) 
 		{
-			SymbolTable table;
 			Parser parser(string("((t [ / 1 x ])) ((b a) ((a 1 2) (a 0 0)))"));
 			shared_ptr<HornClause> hc1 = parser.parse_horn_clause();
 			shared_ptr<HornClause> hc2 = parser.parse_horn_clause();
 			
-			hc1->fill_symbol_table(table);
-			hc2->fill_symbol_table(table);
+			hc1->fill_symbol_table();
+			hc2->fill_symbol_table();
 
 			shared_ptr<HornClause> hc_result = hc1->unify(*hc2);
 			
@@ -510,19 +498,39 @@ namespace UnitTestHcMgr
 
 		TEST_METHOD(UnifyHornClase_semantics_fail_this_body) 
 		{
-			SymbolTable table;
 			Parser parser(string("((b a) ((t [ / 1 x ]))) ((b a) ((a 1 2) (a 0 0)))"));
 			shared_ptr<HornClause> hc1 = parser.parse_horn_clause();
 			shared_ptr<HornClause> hc2 = parser.parse_horn_clause();
 			
-			hc1->fill_symbol_table(table);
-			hc2->fill_symbol_table(table);
+			hc1->fill_symbol_table();
+			hc2->fill_symbol_table();
 
 			shared_ptr<HornClause> hc_result = hc1->unify(*hc2);
 			
 			ostringstream s;
 			hc_result->print(s);
 			ostringstream result; result << "((b a) ((a 1 2) (a 0 0)))";
+			Assert::AreEqual(result.str(), s.str());
+		}
+
+		TEST_METHOD(UnifyHornClase_semantics_pass_1) 
+		{
+			Parser parser(string("((parent a b)) (parent X 1)"));
+			shared_ptr<HornClause> hc1 = parser.parse_horn_clause();
+			shared_ptr<HornClause> hc2 = parser.parse_goal();
+			
+			
+			hc1->fill_symbol_table();
+			hc2->fill_symbol_table();
+
+			shared_ptr<BoundEntry> b = dynamic_pointer_cast<BoundEntry>(SymbolTable::instance()->find("Bound:b"));
+			b->value(1);
+
+			shared_ptr<HornClause> hc_result = hc1->unify(*hc2);
+			
+			ostringstream s;
+			hc_result->print(s);
+			ostringstream result; result << "True";
 			Assert::AreEqual(result.str(), s.str());
 		}
 

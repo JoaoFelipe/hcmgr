@@ -16,6 +16,7 @@
 #include <sstream>
 #include "HornClause.h"
 #include <memory>
+#include "BoundEntry.h"
 using namespace std; 
 
 
@@ -136,6 +137,14 @@ public:
 // @brief checks the Predicate syntax. If it is valid, it returns the goal hornclause, if not it returns 0. 
 // @return shared_ptr<HornClause>
 	shared_ptr<HornClause> parse_goal();
+
+// @brief checks the Bound syntax. If it is valid, it returns the BoundEntry, if not it returns 0. 
+// @return shared_ptr<BoundEntry>
+	shared_ptr<BoundEntry> parse_bound_entry();
+
+// @brief checks the Number syntax. If it is valid, it returns the number as int, if not it returns 0. 
+// @return shared_ptr<int>
+	shared_ptr<int> parse_number();
 
 private:
 	string _file_name;

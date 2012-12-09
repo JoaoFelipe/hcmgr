@@ -32,18 +32,15 @@ bool Parser::open(const string & filename) {
 	_current_line =  "";
 	_position = 0;
 	ifstream file(filename.c_str());
-    if (file) {
-        file.seekg(0, ios::end);
-        streampos length = file.tellg();
-        file.seekg(0, ios::beg);
+	if (file) {
+        _file << file.rdbuf();
 
-        vector<char> buffer((unsigned int)length);
-        file.read(&buffer[0],length);
-        _file.rdbuf()->pubsetbuf(&buffer[0],length);
+        file.close();
+		
 		return true;
-    } else {
-		return false;
-	}
+        // operations on the buffer...
+    }
+	return false;
 	//_file.open(filename.c_str());
 	
 }
@@ -425,4 +422,33 @@ shared_ptr<HornClause> Parser::parse_goal() {
 	shared_ptr<Body> body = shared_ptr<Body>(new Body(predicates));
 	shared_ptr<HornClause> result = shared_ptr<HornClause>(new HornClause(shared_ptr<Head>(), body));
 	return result;
+}
+
+
+// @brief checks the Bound syntax. If it is valid, it returns the BoundEntry, if not it returns 0. 
+// @return shared_ptr<BoundEntry>
+shared_ptr<BoundEntry> Parser::parse_bound_entry() {
+	if (check_bound()) {
+		string entry;
+		read_current(entry);
+		next();
+		return shared_ptr<BoundEntry>(new BoundEntry(entry));
+	}
+	return shared_ptr<BoundEntry>();
+}
+
+
+// @brief checks the Number syntax. If it is valid, it returns the number as int, if not it returns 0. 
+// @return shared_ptr<int>
+shared_ptr<int> Parser::parse_number() {
+	if (check_number()) {
+		string snumber;
+		read_current(snumber);
+		next();
+		istringstream n(snumber);
+		int result;
+		n >> result;
+		return shared_ptr<int>(new int(result));
+	}
+	return shared_ptr<int>();
 }

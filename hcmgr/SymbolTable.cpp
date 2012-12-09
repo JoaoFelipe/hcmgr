@@ -50,7 +50,7 @@ shared_ptr<SymbolTableEntry> SymbolTable::find(const string & value) const {
 // @param output - ostream
 void SymbolTable::print(ostream & output) const {
 	for (vector<shared_ptr<SymbolTableEntry>>::const_iterator i = _entries.begin(); i != _entries.end(); ++i) {
-		output << (*i)->type() << ": " << (*i)->text() << endl;
+		output << (*i)->printable_text() << endl;
 	}
 }
 
@@ -88,3 +88,17 @@ void SymbolTable::unifications(ostream & output) const {
 		}
 	}
 }
+
+// @brief instantiate the SymbolTable and returns an instance of it
+shared_ptr<SymbolTable> SymbolTable::instance() {
+	if (!_instance) {
+		_instance = shared_ptr<SymbolTable>(new SymbolTable());
+	}
+	return _instance;
+}
+
+void SymbolTable::erase() {
+	_entries = vector<shared_ptr<SymbolTableEntry>>();
+}
+
+shared_ptr<SymbolTable> SymbolTable::_instance = shared_ptr<SymbolTable>();

@@ -27,6 +27,10 @@ public:
 // @return shared_ptr<SymbolTableEntry> 
 	virtual shared_ptr<SymbolTableEntry> get_constant_value() const = 0;
 
+// @brief Returns printable text of the SymbolTableEntry name and values
+// @return string 	
+	virtual string printable_text() const;
+
 // @brief Get the value of the Symbol
 // @return int
 	virtual int value() const = 0;

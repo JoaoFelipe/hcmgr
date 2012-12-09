@@ -40,6 +40,10 @@ public:
 // @return string 		
 	virtual string text() const = 0;
 
+// @brief Returns printable text of the SymbolTableEntry name and values
+// @return string 		
+	virtual string printable_text() const;
+
 // @brief Returns true if a SymbolTableEntry is a Predicate
 // @return bool 
 	virtual bool is_predicate() const;

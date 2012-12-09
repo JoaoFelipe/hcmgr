@@ -25,6 +25,10 @@ namespace UnitTestHcMgr
 	TEST_CLASS(PredicateEntryTest)
 	{
 	public:
+		TEST_METHOD_INITIALIZE(Setup) 
+		{
+			SymbolTable::instance()->erase();
+		}
 		
 		TEST_METHOD(CreatePredicateEntry)
 		{
@@ -287,11 +291,10 @@ namespace UnitTestHcMgr
 
 		TEST_METHOD(SubstitutePredicateEntry)
 		{
-			SymbolTable table;
 			SubstitutionList subst;
 			Parser parser(string("(bin X)"));
 			shared_ptr<Predicate> predicate = parser.parse_predicate();
-			predicate->fill_symbol_table(table);
+			predicate->fill_symbol_table();
 
 			shared_ptr<PredicateEntry> entry = dynamic_pointer_cast<PredicateEntry>(predicate->predicate_entry());
 			

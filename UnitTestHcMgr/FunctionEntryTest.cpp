@@ -26,6 +26,10 @@ namespace UnitTestHcMgr
 	TEST_CLASS(FunctionEntryTest)
 	{
 	public:
+		TEST_METHOD_INITIALIZE(Setup) 
+		{
+			SymbolTable::instance()->erase();
+		}
 		
 		TEST_METHOD(CreateFunctionEntry)
 		{
@@ -243,9 +247,8 @@ namespace UnitTestHcMgr
 		TEST_METHOD(IsValidFunctionEntry_fail)
 		{
 			Parser parser("[/ 1 0]");
-			SymbolTable table;
 			shared_ptr<Symbol> func = parser.parse_function();
-			shared_ptr<SymbolTableEntry> entry = func->convertToSymbolTableEntry(table);
+			shared_ptr<SymbolTableEntry> entry = func->convertToSymbolTableEntry();
 
 			Assert::IsFalse(entry->is_valid());
 		}
@@ -253,9 +256,8 @@ namespace UnitTestHcMgr
 		TEST_METHOD(IsValidFunctionEntry_pass)
 		{
 			Parser parser("[/ 1 1]");
-			SymbolTable table;
 			shared_ptr<Symbol> func = parser.parse_function();
-			shared_ptr<SymbolTableEntry> entry = func->convertToSymbolTableEntry(table);
+			shared_ptr<SymbolTableEntry> entry = func->convertToSymbolTableEntry();
 
 			Assert::IsTrue(entry->is_valid());
 		}

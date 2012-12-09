@@ -22,6 +22,10 @@ namespace UnitTestHcMgr
 	TEST_CLASS(BoundEntryTest)
 	{
 	public:
+		TEST_METHOD_INITIALIZE(Setup) 
+		{
+			SymbolTable::instance()->erase();
+		}
 		
 		TEST_METHOD(CreateBoundEntry)
 		{

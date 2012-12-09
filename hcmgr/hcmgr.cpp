@@ -8,8 +8,17 @@
 #include "stdafx.h"
 #include "const.h"
 #include "hcprocess.h"
+#include "hcset.h"
+#include "hcevaluate.h"
+#include "HornClause.h"
+#include "SymbolTable.h"
 #include <string>
 #include <iostream>
+#include <algorithm>
+#include <vector>
+#include <sstream>
+#include <iostream>
+#include <memory>
 
 using namespace std;
 
@@ -18,16 +27,32 @@ using namespace std;
 // @param argv - array of arguments
 void help_message(int argc, char * argv[]) {
 	cout << "Usage information:" << endl;
-	cout << argv[PROGRAM_NAME] << " process <filename>" << endl;
+	cout << argv[PROGRAM_NAME] << " [process <filename>]" << endl;
 	cout << "    <filename> is the file with input horn clauses" << endl;
+}
+
+// @brief prints out a help message that tells how to use the interpreter functions
+void help_message_inside() {
+	cout << "Use one of the following commands:"<< endl;
+	cout << "  process <filename> -- loads a file of Horn clauses into the program" << endl;
+	cout << "  evaluate <predicate> -- resolves the predicate given in the command" << endl;
+	cout << "  randomize <variable> [<max>] -- generates a randomized value for a bound variable" << endl;
+	cout << "  set <variable> <value> -- sets a bound variable to the given value" << endl;
+	cout << "  print -- prints out the contents of the symbol table including" << endl;
+	cout << "  help -- shows this help message" << endl;
+	
+
 }
 
 // @brief verifies if the program arguments are valid
 // @param argc - number of arguments
 // @param argv - array of arguments
 // @param filename - empty string that will be assigned to the second argument.
-// @return int indicating SUCCESS or ARGUMENT_ERROR
+// @return int indicating SUCCESS or ARGUMENT_ERROR or ZERO_PARAM
 int check_arguments(int argc, char * argv[], string & filename) {	
+	if (argc == ZERO_PARAM) {
+		return ZERO_PARAM;
+	}
 	if(argc != TWO_PARAM || string(argv[OPERATION]) != "process"){
 		return ARGUMENT_ERROR;
 	}
@@ -50,14 +75,81 @@ int main(int argc, char * argv[])
 		return ARGUMENT_ERROR;
 	}
 
-	check = process(filename);
-	if (check == OPEN_FILE_ERROR) {
-		cout << "Unable to open file "<< filename << endl;
-		return OPEN_FILE_ERROR;
-	} else if (check == INVALID_FILE_ERROR) {
-		cout << "No valid horn clauses were found in the file." << endl;
-		return INVALID_FILE_ERROR;
+	shared_ptr<SymbolTable> symbol_table = SymbolTable::instance();
+	vector<shared_ptr<HornClause>> deductive_database;
+
+	cout << "HCMGR Interpreter" << endl;
+	
+	if (check == SUCCESS) {
+		symbol_table->erase();
+		deductive_database = vector<shared_ptr<HornClause>>();
+		cout << "Processing file " << filename << endl;				
+		check = process(filename, deductive_database, cout);
+		if (check == OPEN_FILE_ERROR) {
+			cout << "Unable to open file "<< filename << endl;
+		} else if (check == INVALID_FILE_ERROR) {
+			cout << "No valid horn clauses were found in the file." << endl;
+		}
 	}
+	cout << "Type 'help'" << endl;
+	bool executing = true;
+	string line;
+	while (executing) {
+		cout << "> ";
+		getline(cin, line);
+		
+		istringstream is(line);
+		string upper;
+		is >> upper;
+
+		transform(upper.begin(), upper.end(), upper.begin(), ::toupper);
+		if (upper == "EXIT") {
+			executing = false;
+			continue;
+		}
+		string param; getline(is, param);
+		if (param.size() >= 2 && param.at(0) == ' ') {
+			param = param.substr(1);
+		}
+		
+		if (upper == "PROCESS") {
+			cout << "Erasing deductive database" << endl;		
+			symbol_table->erase();
+			deductive_database = vector<shared_ptr<HornClause>>();
+			cout << "Processing file " << param << endl;				
+			check = process(param, deductive_database, cout);
+			if (check == OPEN_FILE_ERROR) {
+				cout << "Unable to open file "<< param << endl;
+			} else if (check == INVALID_FILE_ERROR) {
+				cout << "No valid horn clauses were found in the file." << endl;
+			}
+		}
+		
+		if (upper == "EVALUATE") {
+			evaluate(param, deductive_database, cout);
+		}
+
+		if (upper == "RANDOMIZE") {
+		//	set_variable(param, symbol_table, cout);
+		}
+
+		if (upper == "SET") {
+			set_variable(param, cout);
+		}
+
+		if (upper == "PRINT") {
+			symbol_table->print(cout);
+		}
+
+		if (upper == "HELP") {
+			help_message_inside();
+		}
+
+		
+	}
+
+
+	
 
 	return SUCCESS;
 }

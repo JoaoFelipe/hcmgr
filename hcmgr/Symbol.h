@@ -40,7 +40,7 @@ public:
 // @brief Converts the Symbol to a SymbolTableEntry
 // @param SymbolTable
 // @return shared_ptr<SymbolTableEntry>
-	virtual shared_ptr<SymbolTableEntry> convertToSymbolTableEntry(SymbolTable & table) const = 0;
+	virtual shared_ptr<SymbolTableEntry> convertToSymbolTableEntry() const = 0;
 
 // @brief Get a list of SymbolTableEntry that can be added in the table
 // @return  vector<shared_ptr<SymbolTableEntry>>

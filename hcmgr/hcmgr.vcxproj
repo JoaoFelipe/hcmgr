@@ -84,6 +84,7 @@
     <ClInclude Include="FunctionSymbol.h" />
     <ClInclude Include="hcevaluate.h" />
     <ClInclude Include="hcprocess.h" />
+    <ClInclude Include="hcset.h" />
     <ClInclude Include="Head.h" />
     <ClInclude Include="HornClause.h" />
     <ClInclude Include="Name.h" />
@@ -115,6 +116,7 @@
     <ClCompile Include="hcevaluate.cpp" />
     <ClCompile Include="hcmgr.cpp" />
     <ClCompile Include="hcprocess.cpp" />
+    <ClCompile Include="hcset.cpp" />
     <ClCompile Include="Head.cpp" />
     <ClCompile Include="HornClause.cpp" />
     <ClCompile Include="Name.cpp" />

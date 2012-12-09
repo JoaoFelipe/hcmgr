@@ -17,7 +17,7 @@ using namespace std;
 const int SUCCESS = 0;
 
 // Constant of error when the command-line parameters are bad-formed
-const int ARGUMENT_ERROR = 1;
+const int ARGUMENT_ERROR =5;
 
 // Constant of error when the file cannot be open correctly
 const int OPEN_FILE_ERROR = 2;
@@ -55,6 +55,9 @@ const string RIGHTBRACKET = string("]");
 
 // Constant for program name argument position
 const int PROGRAM_NAME = 0;
+
+// Constant for program receiving zero arguments (not considering the program name)
+const int ZERO_PARAM = 1;
 
 // Constant for program receiving two arguments (not considering the program name)
 const int TWO_PARAM = 3;

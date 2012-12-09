@@ -19,8 +19,9 @@ using namespace std;
 
 class SymbolTable {
 public:
-// @brief SymbolTable class default Constructor 
-	SymbolTable();
+
+// @brief instantiate the SymbolTable and returns an instance of it
+	static shared_ptr<SymbolTable> instance();
 
 // @brief Add an entry to the SymbolTable 
 // @param entry - references to a SymbolTableEntry
@@ -43,9 +44,19 @@ public:
 // @brief Prints the SymbolTable status after unifications (substitutions)
 // @param output - ostream
 	void SymbolTable::unifications(ostream & output=cout) const;
+
+// @brief Erases the SymbolTable
+	void SymbolTable::erase();
 private:
+
+	
 // Vector of the SymbolTable entries
 	vector<shared_ptr<SymbolTableEntry>> _entries;
+
+	static shared_ptr<SymbolTable> _instance;
+// @brief SymbolTable class default Constructor 
+	SymbolTable();
+
 };
 
 #endif

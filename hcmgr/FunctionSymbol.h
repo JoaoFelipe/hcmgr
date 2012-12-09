@@ -75,9 +75,8 @@ public:
 	virtual void print(ostream & = cout) const; 
 
 // @brief Converts the Symbol to a SymbolTableEntry
-// @param SymbolTable
 // @return shared_ptr<SymbolTableEntry>
-	virtual shared_ptr<SymbolTableEntry> convertToSymbolTableEntry(SymbolTable & table) const;
+	virtual shared_ptr<SymbolTableEntry> convertToSymbolTableEntry() const;
 
 // @brief Get a list of SymbolTableEntry that can be added in the table
 // @return vector<shared_ptr<SymbolTableEntry>>

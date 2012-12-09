@@ -31,6 +31,10 @@ namespace UnitTestHcMgr
 	TEST_CLASS(ParserTest)
 	{
 	public:
+		TEST_METHOD_INITIALIZE(Setup) 
+		{
+			SymbolTable::instance()->erase();
+		}
 
 		TEST_METHOD(EofParser)
 		{
@@ -434,6 +438,42 @@ namespace UnitTestHcMgr
 		{
 			Parser parser("(abs 1)");
 			Assert::IsTrue(parser.parse_goal());
+		}
+
+		TEST_METHOD(ParseBoundEntry_Pass)
+		{
+			Parser parser("a");
+			Assert::IsTrue(parser.parse_bound_entry());
+		}
+
+		TEST_METHOD(ParseBoundEntry_Fail)
+		{
+			Parser parser("A");
+			Assert::IsFalse(parser.parse_bound_entry());
+		}
+
+		TEST_METHOD(ParseBoundEntry_Fail_number)
+		{
+			Parser parser("1");
+			Assert::IsFalse(parser.parse_bound_entry());
+		}
+
+		TEST_METHOD(ParseNumber_Fail)
+		{
+			Parser parser("a");
+			Assert::IsFalse(parser.parse_number());
+		}
+
+		TEST_METHOD(ParseNumber_Pass)
+		{
+			Parser parser("1");
+			Assert::IsTrue(parser.parse_number());
+		}
+
+		TEST_METHOD(ParseNumber_Pass_CheckNumber)
+		{
+			Parser parser("1");
+			Assert::AreEqual(1, *parser.parse_number());
 		}
 	};
 }

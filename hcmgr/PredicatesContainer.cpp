@@ -50,9 +50,9 @@ void PredicatesContainer::print(ostream & output) const {
 
 // @brief Fills out a Symbol Table with tokens from the predicates and their symbols (variables and constants)
 // @param table - SymbolTable 
-void PredicatesContainer::fill_symbol_table(SymbolTable & table) {
+void PredicatesContainer::fill_symbol_table() {
 	for (vector<Predicate>::iterator i = _predicates.begin(); i != _predicates.end(); ++i) {
-		i->fill_symbol_table(table);
+		i->fill_symbol_table();
 	}
 }
 

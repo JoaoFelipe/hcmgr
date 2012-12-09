@@ -121,12 +121,12 @@ void HornClause::print(ostream & output) const {
 
 // @brief Fills out a Symbol Table with tokens from the Horn Clause Head and Body
 // @param table - SymbolTable 
-void HornClause::fill_symbol_table(SymbolTable & table){
+void HornClause::fill_symbol_table(){
 	if (_head) {
-		_head->fill_symbol_table(table);
+		_head->fill_symbol_table();
 	}
 	if (_body) {
-		_body->fill_symbol_table(table);
+		_body->fill_symbol_table();
 	}
 }
 
@@ -169,6 +169,7 @@ bool HornClause::is_valid() {
 }
 
 shared_ptr<HornClause> HornClause::unify(HornClause & other) {
+	shared_ptr<SymbolTable> table = SymbolTable::instance();
 	if (!other.is_valid()) {
 		return shared_ptr<HornClause>();
 	}

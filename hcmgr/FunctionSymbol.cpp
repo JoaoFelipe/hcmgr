@@ -92,11 +92,11 @@ void FunctionSymbol::print(ostream & output) const {
 // @brief Converts the Symbol to a SymbolTableEntry
 // @param SymbolTable
 // @return shared_ptr<SymbolTableEntry>
-shared_ptr<SymbolTableEntry> FunctionSymbol::convertToSymbolTableEntry(SymbolTable & table) const {
+shared_ptr<SymbolTableEntry> FunctionSymbol::convertToSymbolTableEntry() const {	
 	TermSymbol temp_term1(_term1);
 	TermSymbol temp_term2(_term2);
-	shared_ptr<SymbolValueEntry> term1 = dynamic_pointer_cast<SymbolValueEntry>(temp_term1.convertToSymbolTableEntry(table));
-	shared_ptr<SymbolValueEntry> term2 = dynamic_pointer_cast<SymbolValueEntry>(temp_term2.convertToSymbolTableEntry(table));
+	shared_ptr<SymbolValueEntry> term1 = dynamic_pointer_cast<SymbolValueEntry>(temp_term1.convertToSymbolTableEntry());
+	shared_ptr<SymbolValueEntry> term2 = dynamic_pointer_cast<SymbolValueEntry>(temp_term2.convertToSymbolTableEntry());
 	return shared_ptr<SymbolTableEntry>(new FunctionEntry(_operation, term1, term2));
 }
 

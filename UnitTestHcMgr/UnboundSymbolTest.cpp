@@ -18,6 +18,10 @@ namespace UnitTestHcMgr
 	TEST_CLASS(UnboundSymbolTest)
 	{
 	public:
+		TEST_METHOD_INITIALIZE(Setup) 
+		{
+			SymbolTable::instance()->erase();
+		}
 		
 		TEST_METHOD(CreateUnboundSymbol)
 		{
@@ -64,9 +68,8 @@ namespace UnitTestHcMgr
 		TEST_METHOD(ConvertToSymbolTableEntryUnboundSymbol)
 		{
 			UnboundSymbol symbol(string("A"));
-			SymbolTable table;
 			UnboundEntry expected("A");
-			shared_ptr<UnboundEntry> result = dynamic_pointer_cast<UnboundEntry>(symbol.convertToSymbolTableEntry(table));
+			shared_ptr<UnboundEntry> result = dynamic_pointer_cast<UnboundEntry>(symbol.convertToSymbolTableEntry());
 			Assert::AreEqual(expected.text(), result->text());
 		}
 

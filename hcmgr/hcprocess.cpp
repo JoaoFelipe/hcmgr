@@ -17,16 +17,16 @@
 #include <string>
 #include <iostream>
 #include <cctype>
+#include "Name.h"
+
 
 using namespace std;
 
 // @brief Manipulates the file to parse the Horn Clauses line by line
 // @param filename
 // @return int - 0 = SUCCESS
-int process(string & filename) {
-	SymbolTable table;
-	Parser parser;
-	vector<shared_ptr<HornClause>> horn_clauses;
+int process(string & filename, vector<shared_ptr<HornClause>> & horn_clauses, ostream & output) {
+	Parser parser;	
 	if (parser.open(filename)) {
 		int i = 0;
 		while (!parser.eof()) {
@@ -38,20 +38,12 @@ int process(string & filename) {
 			} else {
 				// Fill the symbol table by the Horn Clause
 				++i;
-				hc->fill_symbol_table(table);
+				hc->fill_symbol_table();
 				horn_clauses.push_back(hc);
-				hc->print();
-				cout << endl;
 			}
 		}
-		// If found some horn clauses
-		if (i != 0) { 
-
-			//table.print_predicates();
-			table.print();
-			cout << endl;
-		//	table.unifications();
-		} else {
+		// If not found some horn clauses
+		if (i == 0) { 
 			return INVALID_FILE_ERROR;
 		}
 	} else{

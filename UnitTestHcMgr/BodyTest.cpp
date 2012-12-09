@@ -28,6 +28,10 @@ namespace UnitTestHcMgr
 	TEST_CLASS(BodyTest)
 	{
 	public:
+		TEST_METHOD_INITIALIZE(Setup) 
+		{
+			SymbolTable::instance()->erase();
+		}
 		
 		TEST_METHOD(CreateBody)
 		{

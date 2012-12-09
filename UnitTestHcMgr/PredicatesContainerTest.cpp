@@ -28,6 +28,10 @@ namespace UnitTestHcMgr
 	TEST_CLASS(PredicatesContainerTest)
 	{
 	public:
+		TEST_METHOD_INITIALIZE(Setup) 
+		{
+			SymbolTable::instance()->erase();
+		}
 		
 		TEST_METHOD(PredicatesContainerBody)
 		{
@@ -171,17 +175,17 @@ namespace UnitTestHcMgr
 
 			PredicatesContainer container(predicates);
 
-			SymbolTable table;
+			shared_ptr<SymbolTable> table = SymbolTable::instance();
 
-			container.fill_symbol_table(table);
+			container.fill_symbol_table();
 
-			Assert::IsNotNull(table.find("Predicate:abs 1 A").get());
-			Assert::IsNotNull(table.find("Constant:1").get());
-			Assert::IsNull(table.find("Unbound:A").get());
+			Assert::IsNotNull(table->find("Predicate:abs 1 A").get());
+			Assert::IsNotNull(table->find("Constant:1").get());
+			Assert::IsNull(table->find("Unbound:A").get());
 
-			Assert::IsNotNull(table.find("Predicate:sum 2 B").get());
-			Assert::IsNotNull(table.find("Constant:2").get());
-			Assert::IsNull(table.find("Unbound:B").get());
+			Assert::IsNotNull(table->find("Predicate:sum 2 B").get());
+			Assert::IsNotNull(table->find("Constant:2").get());
+			Assert::IsNull(table->find("Unbound:B").get());
 		}
 
 

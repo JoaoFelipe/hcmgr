@@ -49,7 +49,7 @@ public:
 
 // @brief Fills out a Symbol Table with tokens from the predicates and their symbols (variables and constants)
 // @param table - SymbolTable 
-	void fill_symbol_table(SymbolTable & table);
+	void fill_symbol_table();
 
 
 	bool is_valid();

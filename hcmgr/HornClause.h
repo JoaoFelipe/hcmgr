@@ -76,7 +76,7 @@ public:
 
 // @brief Fills out a Symbol Table with tokens from the Horn Clause Head and Body
 // @param table - SymbolTable 
-	void fill_symbol_table(SymbolTable & table);
+	void fill_symbol_table();
 
 	vector<Predicate> body_predicates();
 
@@ -112,8 +112,7 @@ struct Substitute {
 
 	shared_ptr<Predicate> transform(Predicate predicate) {
 		shared_ptr<Predicate> result = dynamic_pointer_cast<PredicateEntry>(predicate.predicate_entry())->substitute(subst);
-		SymbolTable table;
-		result->fill_symbol_table(table);
+		result->fill_symbol_table();
 		return result;
 	}
 

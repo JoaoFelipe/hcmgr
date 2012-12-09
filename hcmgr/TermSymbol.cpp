@@ -65,8 +65,9 @@ void TermSymbol::print(ostream & output) const {
 // @brief Converts the Symbol to a SymbolTableEntry
 // @param SymbolTable
 // @return SymbolTableEntry
-shared_ptr<SymbolTableEntry> TermSymbol::convertToSymbolTableEntry(SymbolTable & table) const {
-	shared_ptr<SymbolTableEntry> sym = table.find(this->text());
+shared_ptr<SymbolTableEntry> TermSymbol::convertToSymbolTableEntry() const {
+	shared_ptr<SymbolTable> table = SymbolTable::instance();
+	shared_ptr<SymbolTableEntry> sym = table->find(this->text());
 	if (!sym) {
 		return this->getRealSymbolTableEntry()[0];
 	}

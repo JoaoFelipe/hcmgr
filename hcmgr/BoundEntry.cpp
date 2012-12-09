@@ -10,7 +10,7 @@
 #include "stdafx.h"
 #include "BoundEntry.h"
 #include "ConstantEntry.h"
-
+#include "SymbolTable.h"
 
 // @brief  BoundEntry class Constructor using a label string reference as parameter 
 // @param l - reference to string value as label	
@@ -55,13 +55,24 @@ string BoundEntry::text() const {
 // @brief Get the value of the Symbol
 // @return int
 int BoundEntry::value() const {
-	return _value;
+	shared_ptr<BoundEntry> b = dynamic_pointer_cast<BoundEntry>(SymbolTable::instance()->find("Bound:" + text()));
+
+	if (!b) {
+		return _value;
+	}
+	return b->value();
+	
 }
 
 // @brief Set the value of the Bound
 // @param int
 void BoundEntry::value(int value) {
+	shared_ptr<BoundEntry> b = dynamic_pointer_cast<BoundEntry>(SymbolTable::instance()->find("Bound:" + text()));
 	_value = value;
+	if (&*b != this) {
+		b->value(value);
+	}
+	
 }
 
 

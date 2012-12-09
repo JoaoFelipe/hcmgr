@@ -31,6 +31,10 @@ namespace UnitTestHcMgr
 	TEST_CLASS(PredicateTest)
 	{
 	public:
+		TEST_METHOD_INITIALIZE(Setup) 
+		{
+			SymbolTable::instance()->erase();
+		}
 		
 		TEST_METHOD(CreatePredicate)
 		{
@@ -151,15 +155,15 @@ namespace UnitTestHcMgr
 			v.push_back(shared_ptr<Symbol>(new TermSymbol(string("a"))));
 			Predicate predicate(Name(string("abs")), v);
 
-			SymbolTable table;
+			shared_ptr<SymbolTable> table = SymbolTable::instance();
 			
-			Assert::IsNull(table.find("Predicate:abs a A a").get());
+			Assert::IsNull(table->find("Predicate:abs a A a").get());
 
-			predicate.fill_symbol_table(table);
+			predicate.fill_symbol_table();
 
-			Assert::IsNotNull(table.find("Predicate:abs a A a").get());
-			Assert::IsNotNull(table.find("Bound:a").get());
-			Assert::IsNull(table.find("Unbound:A").get());
+			Assert::IsNotNull(table->find("Predicate:abs a A a").get());
+			Assert::IsNotNull(table->find("Bound:a").get());
+			Assert::IsNull(table->find("Unbound:A").get());
 		}
 
 		
