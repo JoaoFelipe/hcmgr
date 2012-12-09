@@ -10,6 +10,7 @@
 #include "hcprocess.h"
 #include "hcset.h"
 #include "hcevaluate.h"
+#include "hcrandomize.h"
 #include "HornClause.h"
 #include "SymbolTable.h"
 #include <string>
@@ -19,6 +20,9 @@
 #include <sstream>
 #include <iostream>
 #include <memory>
+#include <ctime>    // For time()
+#include <cstdlib>  // For srand() and rand()
+
 
 using namespace std;
 
@@ -65,6 +69,7 @@ int check_arguments(int argc, char * argv[], string & filename) {
 // @return int indicating SUCCESS
 int main(int argc, char * argv[])
 {
+	srand(unsigned(time(0)));   // Initialize random number generator.
 	string filename;
 
 	int check = check_arguments(argc, argv, filename);
@@ -131,7 +136,7 @@ int main(int argc, char * argv[])
 		}
 
 		if (upper == "RANDOMIZE") {
-		//	set_variable(param, symbol_table, cout);
+			randomize_variable(param, cout);
 		}
 
 		if (upper == "SET") {
