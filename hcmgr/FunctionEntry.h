@@ -24,7 +24,7 @@ public:
 
 // @brief FunctionEntry class Constructor using thre label string reference as parameter 
 // @param operation - reference to string 
-// @param term1, term2 - pointers to SymbolTableEntry 
+// @param term1, term2 - shared pointers to SymbolTableEntry 
 	FunctionEntry(const string & operation, shared_ptr<SymbolValueEntry> term1, shared_ptr<SymbolValueEntry> term2);
 
 // @brief FunctionEntry class Copy Constructor 

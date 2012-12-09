@@ -2,7 +2,7 @@
 	ConstantEntry.cpp
 	Class name: ConstantEntry 
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Implementation of the class ConstantEntry to represent a numeric symbol (constant) in the SymbolTable
 
 */

@@ -3,7 +3,7 @@
 	FunctionEntry.cpp
 	Class name: FunctionEntry
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Implementation of the FunctionEntry to represent Variables in the SymbolTable
 */
 
@@ -16,7 +16,8 @@
 #include <iostream>
 
 // @brief  FunctionEntry class Constructor using a label string reference as parameter 
-// @param l - reference to string value as label	
+// @param operation - reference to string 
+// @param term1, term2 - shared pointers to SymbolTableEntry 	
 FunctionEntry::FunctionEntry(const string & operation, shared_ptr<SymbolValueEntry> term1, shared_ptr<SymbolValueEntry> term2)
 	: _operation(operation), _term1(term1), _term2(term2) {}
 
@@ -25,7 +26,7 @@ FunctionEntry::FunctionEntry(const string & operation, shared_ptr<SymbolValueEnt
 FunctionEntry::FunctionEntry(const FunctionEntry & other)
 	: _operation(other._operation), _term1(other._term1), _term2(other._term2) {}
 
-// @brief Returns the clone of the UnboundEntry
+// @brief Returns the clone of the FunctionEntry
 // @return shared_ptr<SymbolTableEntry>
 shared_ptr<SymbolTableEntry> FunctionEntry::clone() const {
 	return shared_ptr<SymbolTableEntry>(new FunctionEntry(*this));
@@ -44,9 +45,9 @@ shared_ptr<SymbolTableEntry> FunctionEntry::get_constant_value() const {
 	}
 }
 
-// @brief Compares the current UnboundEntry to another UnboundEntry 
-// @param other - references to another UnboundEntry
-// @return bool - returns true if they hava same label
+// @brief Compares the current FunctionEntry to another FunctionEntry 
+// @param other - references to another FunctionEntry
+// @return bool - returns true if they have same label
 bool FunctionEntry::operator==(const FunctionEntry & other) const {
 	return (_operation == other._operation) && 
 			(_term1 == other._term1) &&
@@ -77,7 +78,8 @@ bool FunctionEntry::is_function() const {
 	return true;
 }
 
-// @brief Returns the modified symbols with the substitutions after the unification 
+// @brief Returns the modified symbols with the substitutions after the unification
+// @param substitution_list
 // @return string - symbols after substitutions 		
 string FunctionEntry::unification(SubstitutionList & substitution_list) const {
 	try {
@@ -92,6 +94,8 @@ string FunctionEntry::unification(SubstitutionList & substitution_list) const {
 	}
 }
 
+// @brief Checks if the FunctionEntry is valid. It is false when there is a division by zero operation.
+// @return bool
 bool FunctionEntry::is_valid() const {
 	try {
 		this->value();

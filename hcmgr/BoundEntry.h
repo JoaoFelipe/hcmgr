@@ -3,7 +3,7 @@
 	BoundEntry.h
 	Class name: BoundEntry
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Declaration of the BoundEntry to represent Variables in the SymbolTable
 */
 
@@ -57,7 +57,6 @@ public:
 // @brief Set the value of the Bound
 // @param int
 	void value(int value);
-
 
 // @brief Returns true if the entry is bound
 // @return bool
