@@ -101,4 +101,15 @@ void SymbolTable::erase() {
 	_entries = vector<shared_ptr<SymbolTableEntry>>();
 }
 
+
+// @brief Backup current entries
+void SymbolTable::backup() {
+	_back_state = _entries;
+}
+
+// @brief Restore current entries
+void SymbolTable::restore() {
+	_entries = _back_state;
+}
+
 shared_ptr<SymbolTable> SymbolTable::_instance = shared_ptr<SymbolTable>();

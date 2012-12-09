@@ -47,11 +47,22 @@ public:
 
 // @brief Erases the SymbolTable
 	void SymbolTable::erase();
+
+// @brief Backup current entries
+	void SymbolTable::backup();
+
+// @brief Restore current entries
+	void SymbolTable::restore();
+
+
 private:
 
 	
 // Vector of the SymbolTable entries
 	vector<shared_ptr<SymbolTableEntry>> _entries;
+
+	vector<shared_ptr<SymbolTableEntry>> _back_state;
+
 
 	static shared_ptr<SymbolTable> _instance;
 // @brief SymbolTable class default Constructor 

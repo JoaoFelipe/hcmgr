@@ -39,9 +39,8 @@ void help_message_inside() {
 	cout << "  randomize <variable> [<max>] -- generates a randomized value for a bound variable" << endl;
 	cout << "  set <variable> <value> -- sets a bound variable to the given value" << endl;
 	cout << "  print -- prints out the contents of the symbol table including" << endl;
+	cout << "  db -- prints out the processed horn clauses from the deductive database" << endl;
 	cout << "  help -- shows this help message" << endl;
-	
-
 }
 
 // @brief verifies if the program arguments are valid
@@ -126,7 +125,9 @@ int main(int argc, char * argv[])
 		}
 		
 		if (upper == "EVALUATE") {
+			SymbolTable::instance()->backup();
 			evaluate(param, deductive_database, cout);
+			SymbolTable::instance()->restore();
 		}
 
 		if (upper == "RANDOMIZE") {
@@ -139,6 +140,13 @@ int main(int argc, char * argv[])
 
 		if (upper == "PRINT") {
 			symbol_table->print(cout);
+		}
+
+		if (upper == "DB") {
+			for (auto hc : deductive_database) {
+				hc->print(cout);
+				cout << endl;
+			}
 		}
 
 		if (upper == "HELP") {

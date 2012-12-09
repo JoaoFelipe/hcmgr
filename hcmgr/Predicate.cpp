@@ -95,11 +95,12 @@ void Predicate::fill_symbol_table() {
 		entries.push_back(symbol_entry);
 	}
 	shared_ptr<SymbolTableEntry> predicate_entry = shared_ptr<SymbolTableEntry>(new PredicateEntry(_name.value(), entries));
-	if (!table->add(predicate_entry)) {
-		cout << "The predicate ";
-		this->print();
-		cout << " was found in the symbol table. Skipping..." << endl << endl;
-	}
+	table->add(predicate_entry);
+	//if (!table->add(predicate_entry)) {
+	//	cout << "The predicate ";
+	//	this->print();
+	//	cout << " was found in the symbol table. Skipping..." << endl << endl;
+	//}
 	string temp = predicate_entry->type() + ":";
 	temp += predicate_entry->text();
 	_predicateEntry = table->find(temp);
