@@ -60,7 +60,7 @@ int BoundEntry::value() const {
 	if (!b) {
 		return _value;
 	}
-	return b->value();
+	return b->_value;
 	
 }
 
@@ -69,8 +69,8 @@ int BoundEntry::value() const {
 void BoundEntry::value(int value) {
 	shared_ptr<BoundEntry> b = dynamic_pointer_cast<BoundEntry>(SymbolTable::instance()->find("Bound:" + text()));
 	_value = value;
-	if (&*b != this) {
-		b->value(value);
+	if (b) {
+		b->_value = value;
 	}
 	
 }
