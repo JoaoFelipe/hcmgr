@@ -180,7 +180,7 @@ bool HornClause::is_valid() {
 // @brief Unifies two Horn Clauses
 // @param other - reference to a HornClause
 // @return shared_ptr<HornClause> - unification resultshared_ptr<HornClause> HornClause::unify(HornClause & other) {
-shared_ptr<HornClause> unify(HornClause & other){
+shared_ptr<HornClause> HornClause::unify(HornClause & other){
 	shared_ptr<SymbolTable> table = SymbolTable::instance();
 	if (!other.is_valid()) {
 		return shared_ptr<HornClause>();
