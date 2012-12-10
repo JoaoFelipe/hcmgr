@@ -2,7 +2,7 @@
 	Parser.h
 	Class name: Parser 
 	Written by: Amanda Silva and João Pimentel
-	For:		CSE 425 Lab 2 - Question 4 - Part 1
+	For:		CSE 425 Lab 3
 	Purpose:    Declaration of the class Parser
 */
 
@@ -102,47 +102,47 @@ public:
 // @return bool
 	bool check_term();
 
-// @brief checks the Horn Clause syntax. If it is valid, it returns the Horn Clause, if not it returns 0. 
+// @brief checks the Horn Clause syntax. 
 // @return shared_ptr<HornClause>
 	shared_ptr<HornClause> parse_horn_clause();
 
-// @brief checks the Head syntax. If it is valid, it returns the Head, if not it returns 0. 
+// @brief checks the Head syntax. 
 // @return shared_ptr<Head>
 	shared_ptr<Head> parse_head();
 
-// @brief checks the Predicate syntax. If it is valid, it returns the Predicate, if not it returns 0. 
+// @brief checks the Predicate syntax. 
 // @return shared_ptr<Predicate>
 	shared_ptr<Predicate> parse_predicate();
 
-// @brief checks the Name syntax. If it is valid, it returns the Name, if not it returns 0. 
+// @brief checks the Name syntax. 
 // @return shared_ptr<Name>
 	shared_ptr<Name> parse_name();
 
-// @brief checks the Symbol syntax list. If it is valid, it returns the list if Symbols, if not it returns 0. 
+// @brief checks the Symbol syntax list. 
 // @return shared_ptr<vector<shared_ptr<Symbol>>>
 	shared_ptr<vector<shared_ptr<Symbol>>> Parser::parse_symbols();
 
-// @brief checks the Symbol syntax. If it is valid, it returns the Symbol, if not it returns 0. 
+// @brief checks the Symbol syntax.  
 // @return shared_ptr<Symbol>
 	shared_ptr<Symbol> parse_symbol();
 
-// @brief checks the Function syntax. If it is valid, it returns the Symbol, if not it returns 0. 
+// @brief checks the Function syntax. 
 // @return shared_ptr<Symbol>
 	shared_ptr<Symbol> parse_function(); 
 
-// @brief checks the Body syntax. If it is valid, it returns the Body, if not it returns 0. 
+// @brief checks the Body syntax. 
 // @return shared_ptr<Body>
 	shared_ptr<Body> parse_body();
 
-// @brief checks the Predicate syntax. If it is valid, it returns the goal hornclause, if not it returns 0. 
+// @brief checks the Predicate syntax. 
 // @return shared_ptr<HornClause>
 	shared_ptr<HornClause> parse_goal();
 
-// @brief checks the Bound syntax. If it is valid, it returns the BoundEntry, if not it returns 0. 
+// @brief checks the Bound syntax. 
 // @return shared_ptr<BoundEntry>
 	shared_ptr<BoundEntry> parse_bound_entry();
 
-// @brief checks the Number syntax. If it is valid, it returns the number as int, if not it returns 0. 
+// @brief checks the Number syntax. 
 // @return shared_ptr<int>
 	shared_ptr<int> parse_number();
 

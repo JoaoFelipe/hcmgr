@@ -2,7 +2,7 @@
 	Parser.cpp
 	Class name: Parser 
 	Written by: Amanda Silva and João Pimentel
-	For:		CSE 425 Lab 2 - Question 4 - Part 1
+	For:		CSE 425 Lab 3
 	Purpose:    Implementation of the class Parser
 */
 
@@ -222,8 +222,8 @@ bool Parser::check_term() {
 	return check_bound() || check_number();
 }
 
-// @brief checks the Horn Clause syntax. If it is valid, it returns the Horn Clause, if not it returns 0. 
-// @return HornClause * or NONE if there is a syntax error
+// @brief checks the Horn Clause syntax.  
+// @return shared_ptr<HornClause>
 shared_ptr<HornClause> Parser::parse_horn_clause() {
 	if (!check_left_parenthesis()) {
 		return shared_ptr<HornClause>();
@@ -254,8 +254,8 @@ shared_ptr<HornClause> Parser::parse_horn_clause() {
 	return result;	
 }
 
-// @brief checks the Head syntax. If it is valid, it returns the Head, if not it returns 0. 
-// @return shared_ptr<Head> or NONE if there is a syntax error
+// @brief checks the Head syntax.  
+// @return shared_ptr<Head> 
 shared_ptr<Head> Parser::parse_head() {
 	shared_ptr<Predicate> predicate = parse_predicate();
 	if (!predicate) {
@@ -265,8 +265,8 @@ shared_ptr<Head> Parser::parse_head() {
 	return result;
 }
 
-// @brief checks the Predicate syntax. If it is valid, it returns the Predicate, if not it returns 0. 
-// @return shared_ptr<Predicate> or NONE if there is a syntax error
+// @brief checks the Predicate syntax.  
+// @return shared_ptr<Predicate>
 shared_ptr<Predicate> Parser::parse_predicate() {
 	if (!check_left_parenthesis()) {
 		return shared_ptr<Predicate>();
@@ -293,8 +293,8 @@ shared_ptr<Predicate> Parser::parse_predicate() {
 	return result;
 }
 
-// @brief checks the Name syntax. If it is valid, it returns the Name, if not it returns 0. 
-// @return shared_ptr<Name> or NONE if there is a syntax error
+// @brief checks the Name syntax.
+// @return shared_ptr<Name> 
 shared_ptr<Name> Parser::parse_name() {
 	if (!check_label()) {
 		return shared_ptr<Name>();
@@ -305,8 +305,8 @@ shared_ptr<Name> Parser::parse_name() {
 	return shared_ptr<Name>(new Name(name));
 }
 
-// @brief checks the Symbol syntax list. If it is valid, it returns the list if Symbols, if not it returns 0. 
-// @return vector<Symbol> * or NONE if there is a syntax error
+// @brief checks the Symbol syntax list.
+// @return shared_ptr<vector<Symbol>> 
 shared_ptr<vector<shared_ptr<Symbol>>> Parser::parse_symbols() {
 	shared_ptr<vector<shared_ptr<Symbol>>> result = shared_ptr<vector<shared_ptr<Symbol>>>(new vector<shared_ptr<Symbol>>());
 
@@ -343,7 +343,7 @@ shared_ptr<Symbol> Parser::parse_symbol() {
 	return parse_function();
 }
 
-// @brief checks the Function syntax. If it is valid, it returns the Symbol, if not it returns 0. 
+// @brief checks the Function syntax.
 // @return shared_ptr<Symbol> 
 shared_ptr<Symbol> Parser::parse_function() {
 	if (!check_left_bracket()) {
@@ -382,8 +382,8 @@ shared_ptr<Symbol> Parser::parse_function() {
 
 }
 
-// @brief checks the Body syntax. If it is valid, it returns the Body, if not it returns 0. 
-// @return shared_ptr<Body> or NONE if there is a syntax error
+// @brief checks the Body syntax.  
+// @return shared_ptr<Body>
 shared_ptr<Body> Parser::parse_body() {
 	if (!check_left_parenthesis()) {
 		return shared_ptr<Body>();
@@ -412,7 +412,7 @@ shared_ptr<Body> Parser::parse_body() {
 }
 
 
-// @brief checks the Predicate syntax. If it is valid, it returns the goal hornclause, if not it returns 0. 
+// @brief checks the Predicate syntax. 
 // @return shared_ptr<HornClause>
 shared_ptr<HornClause> Parser::parse_goal() {
 	shared_ptr<Predicate> predicate = parse_predicate();
@@ -428,7 +428,7 @@ shared_ptr<HornClause> Parser::parse_goal() {
 }
 
 
-// @brief checks the Bound syntax. If it is valid, it returns the BoundEntry, if not it returns 0. 
+// @brief checks the Bound syntax. 
 // @return shared_ptr<BoundEntry>
 shared_ptr<BoundEntry> Parser::parse_bound_entry() {
 	if (check_bound()) {
@@ -441,7 +441,7 @@ shared_ptr<BoundEntry> Parser::parse_bound_entry() {
 }
 
 
-// @brief checks the Number syntax. If it is valid, it returns the number as int, if not it returns 0. 
+// @brief checks the Number syntax. 
 // @return shared_ptr<int>
 shared_ptr<int> Parser::parse_number() {
 	if (check_number()) {
