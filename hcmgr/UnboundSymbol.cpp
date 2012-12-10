@@ -26,7 +26,7 @@ UnboundSymbol::UnboundSymbol(const string& v): _value(v) {}
 UnboundSymbol::UnboundSymbol(const UnboundSymbol& s): _value(s._value) {}
 
 // @brief Returns a clone of the Symbol
-// @return Symbol * 
+// @return shared_ptr<Symbol>
 shared_ptr<Symbol> UnboundSymbol::clone() const {
 	return shared_ptr<Symbol>(new UnboundSymbol(*this));
 }
@@ -58,14 +58,13 @@ void UnboundSymbol::print(ostream & output) const {
 }
 
 // @brief Converts the Symbol to a SymbolTableEntry
-// @param SymbolTable
-// @return SymbolTableEntry
+// @return shared_ptr<SymbolTableEntry>
 shared_ptr<SymbolTableEntry> UnboundSymbol::convertToSymbolTableEntry() const {
 	return shared_ptr<SymbolTableEntry>(new UnboundEntry(_value));
 }
 
 // @brief Get a list of SymbolTableEntry that can be added in the table
-// @return SymbolTableEntry
+// @return vector<shared_ptr<SymbolTableEntry>>
 vector<shared_ptr<SymbolTableEntry>> UnboundSymbol::getRealSymbolTableEntry() const {
 	return vector<shared_ptr<SymbolTableEntry>>();
 }
