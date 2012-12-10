@@ -2,7 +2,7 @@
 	Predicate.cpp
 	Class name: Predicate 
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Implementation of the Predicate for the grammar
 				predicate -> LEFTPAREN name {symbol} RIGHTPAREN
 */
@@ -79,7 +79,6 @@ bool Predicate::can_unify(const Predicate & other) const {
 
 
 // @brief Fills out a Symbol Table with tokens from the Predicate 
-// @param table - SymbolTable 
 void Predicate::fill_symbol_table() {
 	shared_ptr<SymbolTable> table = SymbolTable::instance();
 	vector<shared_ptr<SymbolTableEntry>> entries;
@@ -106,11 +105,15 @@ void Predicate::fill_symbol_table() {
 	_predicateEntry = table->find(temp);
 }
 
+// @brief Returns the Predicate Entry in a SymbolTableEntry format
+// @return shared_ptr<SymbolTableEntry>
 shared_ptr<SymbolTableEntry> Predicate::predicate_entry() {
 	this->fill_symbol_table();
 	return _predicateEntry;
 }
 
+// @brief Verifies if Predicate is valid
+// @return bool
 bool Predicate::is_valid() {
 	if (!_predicateEntry) {
 		fill_symbol_table();

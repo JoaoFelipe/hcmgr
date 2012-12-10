@@ -50,7 +50,6 @@ public:
 
 // @brief Getter method for the Predicate vector of Symbols
 // @return vector<Symbol> - Predicate vector of Symbols	
-
 	vector<shared_ptr<Symbol>> symbols() const;
 
 // @brief Prints the Predicate according to the grammar syntax
@@ -63,11 +62,14 @@ public:
 	bool Predicate::can_unify(const Predicate & other) const;
 
 // @brief Fills out a Symbol Table with tokens from the Predicate 
-// @param table - SymbolTable 
 	void fill_symbol_table();
 
+// @brief Returns the Predicate Entry in a SymbolTableEntry format
+// @return shared_ptr<SymbolTableEntry>
 	shared_ptr<SymbolTableEntry> predicate_entry();
 
+// @brief Verifies if Predicate is valid
+// @return bool
 	bool is_valid();
 };
 

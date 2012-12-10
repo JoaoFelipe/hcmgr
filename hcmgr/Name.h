@@ -2,7 +2,7 @@
 	Name.h
 	Class name: Name 
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Declaration of the Name for the grammar
 			    name -> LABEL
 */
