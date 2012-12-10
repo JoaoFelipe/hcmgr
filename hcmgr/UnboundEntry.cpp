@@ -1,4 +1,3 @@
-
 /**
 	UnboundEntry.cpp
 	Class name: UnboundEntry
@@ -19,7 +18,7 @@ UnboundEntry::UnboundEntry(const string & l): _label(l) {}
 UnboundEntry::UnboundEntry(const UnboundEntry & other): _label(other._label) {}
 
 // @brief Returns the clone of the UnboundEntry
-// @return SymbolTableEntry
+// @return shared_ptr<SymbolTableEntry>
 shared_ptr<SymbolTableEntry> UnboundEntry::clone() const {
 	return shared_ptr<SymbolTableEntry>(new UnboundEntry(*this));
 }
