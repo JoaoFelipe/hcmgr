@@ -108,30 +108,40 @@ public:
 	shared_ptr<HornClause> unify(HornClause & other);
 };
 
-// @brief Struct to matches predicate to substitution list
-// @return shared_ptr<HornClause> - unification result
+// @brief Struct to match a predicate to elements of a substitution list
 struct Matches {
 	Predicate predicate_base;
 	SubstitutionList subst;
-
+	
+// @brief Struct constructor to the Match struct
+// @param p - Predicate	Base
+// @param s - SubstitutionList
 	Matches(Predicate p, SubstitutionList s): predicate_base(p), subst(s) {}
-
+	
+// @brief Operator to match a predicate to elements of a substitution list
+// @param p - Predicate	
     bool operator()(Predicate predicate) {
 		return predicate_base.predicate_entry()->matches(predicate.predicate_entry(), subst);
     }
 };
 
+// @brief Struct to replace tokens in the substitution list
 struct Substitute {
 	SubstitutionList subst;
-
 	Substitute(SubstitutionList s): subst(s) {}
 
+// @brief Transforms the predicate to a predicate after the replacement
+// @param predicate
+// @return shared_ptr<Predicate>
 	shared_ptr<Predicate> transform(Predicate predicate) {
 		shared_ptr<Predicate> result = dynamic_pointer_cast<PredicateEntry>(predicate.predicate_entry())->substitute(subst);
 		result->fill_symbol_table();
 		return result;
 	}
-
+	
+// @brief Operator to execute the substitution returning a transformed predicate
+// @param predicate
+// @return Predicate
     Predicate operator()(Predicate predicate) {
 		return *transform(predicate);
     }
