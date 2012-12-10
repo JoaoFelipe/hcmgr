@@ -1,9 +1,8 @@
-
 /**
 	UnboundEntry.h
 	Class name: UnboundEntry
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Declaration of the UnboundEntry to represent Variables in the SymbolTable
 */
 
@@ -30,7 +29,7 @@ public:
 	UnboundEntry(const UnboundEntry & other);
 
 // @brief Returns the clone of the UnboundEntry
-// @return SymbolTableEntry
+// @return shared_ptr<SymbolTableEntry>
 	virtual shared_ptr<SymbolTableEntry> clone() const;
 
 // @brief Compares the current UnboundEntry to another UnboundEntry 

@@ -3,7 +3,7 @@
 	Class name: TermSymbol 
 	Written by: Amanda Silva and João Pimentel
 	For:	    CSE 425 Lab 3
-	Purpose:    Implementation of the UNBOUND
+	Purpose:    Implementation of the TermSymbol
 */
 
 #include "stdafx.h"
@@ -26,7 +26,7 @@ TermSymbol::TermSymbol(const string& v): _value(v) {}
 TermSymbol::TermSymbol(const TermSymbol& s): _value(s._value) {}
 
 // @brief Returns a clone of the Symbol
-// @return Symbol * 
+// @return shared_ptr<Symbol>
 shared_ptr<Symbol> TermSymbol::clone() const {
 	return shared_ptr<Symbol>(new TermSymbol(*this));
 }
@@ -63,8 +63,7 @@ void TermSymbol::print(ostream & output) const {
 }
 
 // @brief Converts the Symbol to a SymbolTableEntry
-// @param SymbolTable
-// @return SymbolTableEntry
+// @return shared_ptr<SymbolTableEntry> 
 shared_ptr<SymbolTableEntry> TermSymbol::convertToSymbolTableEntry() const {
 	shared_ptr<SymbolTable> table = SymbolTable::instance();
 	shared_ptr<SymbolTableEntry> sym = table->find(this->text());
@@ -75,7 +74,7 @@ shared_ptr<SymbolTableEntry> TermSymbol::convertToSymbolTableEntry() const {
 }
 
 // @brief Get a list of SymbolTableEntry that can be added in the table
-// @return SymbolTableEntry
+// @return vector<shared_ptr<SymbolTableEntry>>
 vector<shared_ptr<SymbolTableEntry>> TermSymbol::getRealSymbolTableEntry() const {
 	vector<shared_ptr<SymbolTableEntry>> result;
 	if (check_string(_value, is_number)) {
