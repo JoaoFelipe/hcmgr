@@ -2,7 +2,7 @@
 	SymbolEntry.h
 	Class name: SymbolEntry 
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Declaration of the SymbolEntry to represent a Symbol in the SymbolTable
 */
 #ifndef SYMBOL_ENTRY_H

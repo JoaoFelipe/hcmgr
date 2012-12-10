@@ -2,7 +2,7 @@
 	SymbolValueEntry.h
 	Class name: SymbolValueEntry 
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Declaration of the SymbolValueEntry to represent Bound, Function and Constant
 */
 #ifndef SYMBOL_VALUE_ENTRY_H

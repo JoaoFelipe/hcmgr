@@ -3,7 +3,7 @@
 	SymbolTableEntry.h
 	Class name: SymbolTableEntry
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Declaration of the SymbolTableEntry as superclass of the tokens representations in the SymbolTable
 */
 
@@ -76,6 +76,8 @@ public:
 // @return string - entries after substitutions 		
 	virtual string unification(SubstitutionList & substitution_list) const = 0;
 
+// @brief Check if it is a valid symbol. May fail for function symbol
+// @return bool	
 	virtual bool is_valid() const;
 };
 

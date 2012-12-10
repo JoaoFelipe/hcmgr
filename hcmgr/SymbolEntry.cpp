@@ -2,7 +2,7 @@
 	SymbolEntry.cpp
 	Class name: SymbolEntry 
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Implementation of the SymbolEntry to represent a Symbol in the SymbolTable
 */
 

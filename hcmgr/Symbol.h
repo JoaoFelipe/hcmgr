@@ -2,9 +2,9 @@
 	Symbol.h
 	Class name: Symbol 
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Declaration of the Symbol  for the grammar
-				symbol -> LABEL | NUMBER
+				symbol -> UNBOUND | term | function 
 */
 
 #ifndef SYMBOL_H

@@ -3,7 +3,7 @@
 	SymbolTableEntry.cpp
 	Class name: SymbolTableEntry
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Implementation of the SymbolTableEntry as superclass of the tokens representations in the SymbolTable
 */
 
@@ -76,7 +76,8 @@ bool SymbolTableEntry::is_evaluable() const {
 	return false;
 }
 
-
+// @brief Check if it is a valid symbol. May fail for function symbol
+// @return bool	
 bool SymbolTableEntry::is_valid() const {
 	return true;
 }

@@ -2,7 +2,7 @@
 	SymbolTable.cpp
 	Class name: SymbolTable 
 	Written by: Amanda Silva and João Pimentel
-	For:	    CSE 425 Lab 2
+	For:	    CSE 425 Lab 3
 	Purpose:    Implementation of the SymbolTable to manage the entries
 */
 
@@ -36,7 +36,7 @@ bool SymbolTable::add(shared_ptr<SymbolTableEntry> entry) {
 
 // @brief Seaches if a value exists in the entries 
 // @param value - string value for the entry
-// @return SymbolTableEntry - returns the SymbolTableEntry for the value, or NONE if not found
+// @return shared_ptr<SymbolTableEntry> - returns the SymbolTableEntry for the value, or NONE if not found
 shared_ptr<SymbolTableEntry> SymbolTable::find(const string & value) const {
 	for (vector<shared_ptr<SymbolTableEntry>>::const_iterator i = _entries.begin(); i != _entries.end(); ++i) {
 		if ((*i)->equals(value)) {
@@ -97,10 +97,10 @@ shared_ptr<SymbolTable> SymbolTable::instance() {
 	return _instance;
 }
 
+// @brief Erases the SymbolTable
 void SymbolTable::erase() {
 	_entries = vector<shared_ptr<SymbolTableEntry>>();
 }
-
 
 // @brief Backup current entries
 void SymbolTable::backup() {
@@ -112,4 +112,5 @@ void SymbolTable::restore() {
 	_entries = _back_state;
 }
 
+// Set initial singleton value as null
 shared_ptr<SymbolTable> SymbolTable::_instance = shared_ptr<SymbolTable>();
