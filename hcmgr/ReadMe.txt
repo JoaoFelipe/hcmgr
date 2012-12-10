@@ -3,40 +3,60 @@ Amanda Priscilla Araujo da Silva
 Joao Felipe Nicolaci Pimentel
 
 :File Structure
-hcmgr.cpp: contains the definition of function main
-hcprocess.h: contains the declaration of the function that process the input file 
-hcprocess.cpp: contains the definition of this function.
-string_utils.h: contains the declarations of functions that are used to check if a string follows defined criteria.
-string_utils.cpp: contains the definitions of this functions.
-const.h: contains the declarations of the constants used in the program
-Parser.h: contains the declaration of the Parser class
-Parser.cpp: contains the definitions of the Parser methods
-HornClause.h: contains the declaration of the HornClause class
-HornClause.cpp: contains the definitions of the HornClause methods
-Head.h: contains the declaration of the Head class
-Head.cpp: contains the definitions of the Head methods
 Body.h: contains the declaration of the Body class
 Body.cpp: contains the definitions of the Body methods
-Predicate.h: contains the declaration of the Predicate class
-Predicate.cpp: contains the definitions of the Predicate methods
+BoundEntry.h: contains the declaration of the BoundEntry class
+BoundEntry.cpp: contains the definitions of the BoundEntry methods
+const.h: contains the declarations of the constants used in the program
+ConstantEntry.h: contains the declaration of the ConstantEntry class
+ConstantEntry.cpp: contains the definitions of the ConstantEntry methods
+FunctionEntry.h: contains the declaration of the FunctionEntry class
+FunctionEntry.cpp: contains the definitions of the FunctionEntry methods
+FunctionSymbol.h: contains the declaration of the FunctionSymbol class
+FunctionSymbol.cpp: contains the definitions of the FunctionSymbol methods
+hcevaluate.h: contains the declarations of functions to evaluate the Predicate
+hcevaluate.cpp: contains the definition of these functions
+hcmgr.cpp: contains the definition of function main
+hcprocess.h: contains the declaration of the function that process the input file 
+hcprocess.cpp: contains the definition of this function
+hcrandomize.h: contains the declarations of functions to randomize a variable
+hcrandomize.cpp: contains the definition of these functions
+hcset.h: contains the declarations of functions to set a variable
+hcset.cpp: contains the definition of these functions
+Head.h: contains the declaration of the Head class
+Head.cpp: contains the definitions of the Head methods
+HornClause.h: contains the declaration of the HornClause class
+HornClause.cpp: contains the definitions of the HornClause methods
 Name.h: contains the declaration of the Name class
 Name.cpp: contains the definitions of the Name methods
+operations_utils.h contains auxiliar functions for operations
+Parser.h: contains the declaration of the Parser class
+Parser.cpp: contains the definitions of the Parser methods
+Predicate.h: contains the declaration of the Predicate class
+Predicate.cpp: contains the definitions of the Predicate methods
+PredicateEntry.h: contains the declaration of the PredicateEntry class
+PredicateEntry.cpp: contains the definitions of the PredicateEntry methods
+PredicatesContainer.h: contains the declaration of the PredicatesContainer class
+PredicatesContainer.cpp: contains the definitions of the PredicatesContainer methods
+string_utils.h: contains the declarations of functions that are used to check if a string follows defined criteria.
+string_utils.cpp: contains the definitions of this functions.
+SubstitutionList.h: contains the declaration of the SubstitutionList class
+SubstitutionList.cpp: contains the definitions of the SubstitutionList methods
 Symbol.h: contains the declaration of the Symbol class
-Symbol.cpp: contains the definitions of the Symbol methods
+SymbolEntry.h: contains the declaration of the SymbolEntry class
+SymbolEntry.cpp: contains the definitions of the SymbolEntry methods
 SymbolTable.h: contains the declaration of the SymbolTable class
 SymbolTable.cpp: contains the definitions of the SymbolTable methods
 SymbolTableEntry.h: contains the declaration of the SymbolTableEntry class
 SymbolTableEntry.cpp: contains the definitions of the SymbolTableEntry methods
-SymbolEntry.h: contains the declaration of the SymbolEntry class
-SymbolEntry.cpp: contains the definitions of the SymbolEntry methods
-ConstantEntry.h: contains the declaration of the ConstantEntry class
-ConstantEntry.cpp: contains the definitions of the ConstantEntry methods
-BoundEntry.h: contains the declaration of the BoundEntry class
-BoundEntry.cpp: contains the definitions of the BoundEntry methods
-PredicateEntry.h: contains the declaration of the PredicateEntry class
-PredicateEntry.cpp: contains the definitions of the PredicateEntry methods
-SubstitutionList.h: contains the declaration of the SubstitutionList class
-SubstitutionList.cpp: contains the definitions of the SubstitutionList methods
+SymbolValueEntry.h: contains the declaration of the SymbolTableEntry class
+SymbolValueEntry.cpp: contains the definitions of the SymbolTableEntry methods
+TermSymbol.h: contains the declaration of the TermSymbol class
+TermSymbol.cpp: contains the definitions of the TermSymbol methods
+UnboundEntry.h: contains the declaration of the UnboundEntry class
+UnboundEntry.cpp: contains the definitions of the UnboundEntry methods
+UnboundSymbol.h: contains the declaration of the UnboundSymbol class
+UnboundSymbol.cpp: contains the definitions of the UnboundSymbol methods
 
 
 :Predicate Evaluation
